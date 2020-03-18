@@ -1,0 +1,5 @@
+$dokka.format:html
+$dokka.linkExtension:html
+
+eu.nets.mia
+eu.nets.mia.data

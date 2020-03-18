@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="10dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/profileFirstNameLabel"
+        style="@style/ProfileConfirmationValueLabel" />
+
+    <TextView
+        android:id="@+id/profileLastNameLabel"
+        style="@style/ProfileConfirmationValueLabel" />
+
+    <TextView
+        android:id="@+id/profilePrefixLabel"
+        style="@style/ProfileConfirmationValueLabel" />
+
+    <TextView
+        android:id="@+id/profileMobileNumberLabel"
+        style="@style/ProfileConfirmationValueLabel" />
+
+    <TextView
+        android:id="@+id/profileAddressLabel"
+        style="@style/ProfileConfirmationValueLabel" />
+
+    <TextView
+        android:id="@+id/profilePostalCodeLabel"
+        style="@style/ProfileConfirmationValueLabel" />
+
+    <TextView
+        android:id="@+id/profileEmailLabel"
+        style="@style/ProfileConfirmationValueLabel" />
+
+    <TextView
+        android:id="@+id/profileCityLabel"
+        style="@style/ProfileConfirmationValueLabel" />
+
+    <TextView
+        android:id="@+id/profileCountryLabel"
+        style="@style/ProfileConfirmationValueLabel" />
+
+</LinearLayout>
