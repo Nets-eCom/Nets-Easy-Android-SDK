@@ -1,10 +1,9 @@
 package eu.nets.miasample.network
 
+import eu.nets.miasample.network.request.ChargeRequest
 import eu.nets.miasample.network.request.PaymentActionRequest
 import eu.nets.miasample.network.request.RegisterPaymentRequest
-import eu.nets.miasample.network.response.ChargePaymentResponse
-import eu.nets.miasample.network.response.GetPaymentResponse
-import eu.nets.miasample.network.response.RegisterPaymentResponse
+import eu.nets.miasample.network.response.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -49,5 +48,27 @@ interface APIService {
     @GET("v1/payments/{PAYMENT_ID}")
     fun getPayment(
             @Path("PAYMENT_ID") paymentId: String
-    ): Call<GetPaymentResponse>
+    ): Call<PaymentResponse>
+
+    @GET("v1/payments/{PAYMENT_ID}")
+    fun fetchSubscriptionPayment(
+            @Path("PAYMENT_ID") paymentId: String
+    ): Call<SubscriptionRegistrationResponse>
+
+    @POST("v1/payments")
+    fun createSubscription(
+            @Body body: RegisterPaymentRequest
+    ): Call<RegisterPaymentResponse>
+
+    @POST("v1/subscriptions/{SUBSCRIPTIONID}/charges")
+    fun chargeSubscription(
+            @Path("SUBSCRIPTIONID") subscriptionId: String,
+            @Body body: ChargeRequest
+    ): Call<ChargePaymentResponse>
+
+    @GET("v1/subscriptions/{SUBSCRIPTIONID}")
+    fun fetchSubscriptionDetails(
+            @Path("SUBSCRIPTIONID") subscriptionId: String
+    ): Call<SubscriptionDetailsResponse>
+
 }

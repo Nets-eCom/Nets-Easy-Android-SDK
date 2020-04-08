@@ -217,6 +217,14 @@ class MainActivity : AppCompatActivity(), MainActivityView {
             }
         }
 
+        btnSubscribe.setOnClickListener {
+            openSubscriptionsView(true)
+        }
+
+        subscriptionView.setOnClickListener {
+            openSubscriptionsView(false)
+        }
+
         //init drawer menu
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)

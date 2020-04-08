@@ -1,6 +1,12 @@
 package eu.nets.miasample.utils
 
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import eu.nets.miasample.model.CountryNameCode
+import eu.nets.miasample.network.response.SubscriptionDetailsResponse
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * *****Copyright (c) 2020 Nets Denmark A/S*****
@@ -44,7 +50,7 @@ class Utilities {
             val countryNameCode5 = CountryNameCode("Albania", "ALB")
             countryCodeList.add(countryNameCode5)
 
-            val countryNameCode6 = CountryNameCode("Albania", "AND")
+            val countryNameCode6 = CountryNameCode("Andorra", "AND")
             countryCodeList.add(countryNameCode6)
 
             val countryNameCode7 = CountryNameCode("Armenia", "ARM")
@@ -182,6 +188,50 @@ class Utilities {
             return countryCodeList
         }
 
+        /**
+         * Returns Subscription end date
+         * Date returned by this method is kept as the current date plus 3 years.
+         */
+        fun createSuibscriptionEndDate(): String? {
+            val df = SimpleDateFormat("yyyy-MM-dd")
+            val c = Calendar.getInstance()
+            c.add(Calendar.YEAR, 3)
+            val future = c.time
+            val dateInISOFormat = df.format(future)
+            return dateInISOFormat
+        }
+
+        fun isStringNullorEmpty(stringToCheck: String?): Boolean {
+            if (stringToCheck == null || stringToCheck.isEmpty()) {
+                return true
+            }
+            return false
+        }
+
+        /**
+         * Saving the Subscription list in the SharedPreference
+         */
+        fun saveSubscriptionDetails(response: SubscriptionDetailsResponse?) {
+            try {
+                val subscriptionDetailsList: MutableList<SubscriptionDetailsResponse>
+
+                var subscriptionDetails = SharedPrefs.getInstance().subscriptionData
+                if (isStringNullorEmpty(subscriptionDetails)) {
+                    subscriptionDetailsList = mutableListOf();
+                } else {
+                    val modalType = object : TypeToken<List<SubscriptionDetailsResponse>>() {}.type
+                    subscriptionDetailsList = Gson().fromJson<MutableList<SubscriptionDetailsResponse>>(subscriptionDetails, modalType)
+                }
+                if (response != null) {
+                    subscriptionDetailsList.add(0, response)
+                    subscriptionDetails = Gson().toJson(subscriptionDetailsList)
+                    SharedPrefs.getInstance().subscriptionData = subscriptionDetails
+                }
+            } catch (e: Exception) {
+            }
+        }
+
     }
+
 
 }

@@ -8,7 +8,7 @@
     tools:context=".activity.MainActivity">
 
     <!-- Layout to contain contents of main body of screen (drawer will slide over this) -->
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:id="@+id/rootView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -45,11 +45,10 @@
             android:id="@+id/amountLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/btnBuy"
             android:layout_below="@+id/checkoutProduct"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="30dp"
             android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="10dp"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -64,18 +63,18 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginEnd="50dp"
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginEnd="50dp"
                 android:background="@android:color/darker_gray" />
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="50dp"
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginEnd="50dp"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal">
 
@@ -107,18 +106,37 @@
 
         </LinearLayout>
 
-
-        <Button
-            android:id="@+id/btnBuy"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="40dp"
             android:layout_marginStart="40dp"
-            android:background="@color/colorYellow"
-            android:text="@string/buy"
-            android:textColor="@android:color/white" />
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/btnBuy"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:background="@color/colorYellow"
+                android:text="@string/buy"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/btnSubscribe"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorPrimaryDark"
+                android:text="@string/subscribe"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+
 
         <RelativeLayout
             android:id="@+id/progressView"
@@ -163,9 +181,9 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
             android:background="@android:color/black" />
 
         <TextView
@@ -181,9 +199,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
             android:orientation="horizontal">
 
             <TextView
@@ -206,8 +224,8 @@
             android:id="@+id/layoutCharge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:orientation="horizontal">
 
             <TextView
@@ -229,9 +247,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
             android:orientation="horizontal">
 
             <TextView
@@ -257,9 +275,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
             android:orientation="horizontal">
 
             <TextView
@@ -284,9 +302,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
             android:orientation="horizontal">
 
             <TextView
@@ -300,13 +318,31 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/subscriptionView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
-            android:gravity="center_vertical"
+            android:layout_marginEnd="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"    
+                android:text="@string/show_subscriptions"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center_vertical"
             android:orientation="vertical">
 
             <TextView
@@ -320,8 +356,8 @@
                 android:id="@+id/integrationTypeSpinner"
                 style="@android:style/Widget.DeviceDefault.Light.Spinner"
                 android:layout_width="match_parent"
-                android:layout_marginTop="5dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:padding="2dp" />
 
         </LinearLayout>
@@ -329,11 +365,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
             android:gravity="center_vertical"
-            android:layout_gravity="center_vertical"
             android:orientation="vertical">
 
             <TextView
@@ -347,8 +383,8 @@
                 android:id="@+id/consumerDataSpinner"
                 style="@android:style/Widget.DeviceDefault.Light.Spinner"
                 android:layout_width="match_parent"
-                android:layout_marginTop="5dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:padding="2dp" />
 
         </LinearLayout>
@@ -363,9 +399,9 @@
                 android:id="@+id/fieldVersion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
                 android:textColor="@android:color/black"
                 android:textSize="14sp" />
 

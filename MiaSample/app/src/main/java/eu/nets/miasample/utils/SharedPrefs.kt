@@ -54,6 +54,12 @@ class SharedPrefs {
     private val cityKey = "CITY"
     private val countryCodeKey = "COUNTRY_CODE"
     private val consumerDataKey = "CONSUMER_DATA"
+    private val testSubscriptionDetailsKey = "TEST_SUBSCRIPTION_DETAILS"
+    private val productionSubscriptionDetailsKey = "PRODUCTION_SUBSCRIPTION_DETAILS"
+
+    val subscriptionDataKey: String get() {
+        return if (testMode) testSubscriptionDetailsKey else productionSubscriptionDetailsKey
+    }
 
     var currency: String
         get() {
@@ -163,5 +169,15 @@ class SharedPrefs {
         set(value) {
             sharedPrefs.edit().putString(consumerDataKey, value).apply()
         }
+
+    var subscriptionData: String
+        get() {
+            return sharedPrefs.getString(subscriptionDataKey, emptyString)
+        }
+        set(value) {
+            sharedPrefs.edit().putString(subscriptionDataKey, value).apply()
+        }
+
+
 
 }

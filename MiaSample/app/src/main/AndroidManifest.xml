@@ -24,6 +24,7 @@
         </activity>
         <activity
             android:name=".activity.InputKeysActivity" />
+        <activity android:name=".activity.SubscriptionActivity" />
     </application>
 
 </manifest>

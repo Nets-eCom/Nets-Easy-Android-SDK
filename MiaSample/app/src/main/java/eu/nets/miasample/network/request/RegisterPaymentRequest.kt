@@ -28,6 +28,16 @@ class RegisterPaymentRequest {
     @Expose
     @SerializedName("checkout")
     var checkout: Checkout? = null
+    @Expose
+    @SerializedName("subscription")
+    var subscription: Subscription? = null
+    @Expose
+    @SerializedName("merchantNumber")
+    var merchantNumber: String? = null
+    @Expose
+    @SerializedName("notifications")
+    var notifications: String? = null
+
 }
 
 class Order {
@@ -171,4 +181,14 @@ class PrivatePerson {
     @Expose
     @SerializedName("lastName")
     var lastName: String? = null
+}
+
+
+class Subscription {
+    @Expose
+    @SerializedName("endDate")
+    var endDate: String? = null
+    @Expose
+    @SerializedName("interval")
+    var interval: Long? = null
 }

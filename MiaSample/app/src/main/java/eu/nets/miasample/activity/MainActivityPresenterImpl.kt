@@ -11,15 +11,12 @@ import eu.nets.miasample.activity.MainActivity.Companion.CONSUMER_DATA_NO_SHIPPI
 import eu.nets.miasample.network.APIManager
 import eu.nets.miasample.network.callback.HttpResponse
 import eu.nets.miasample.network.request.*
-import eu.nets.miasample.network.response.ChargePaymentResponse
-import eu.nets.miasample.network.response.GetPaymentResponse
-import eu.nets.miasample.network.response.HttpError
-import eu.nets.miasample.network.response.RegisterPaymentResponse
 import eu.nets.miasample.utils.SampleHtmlProvider
 import eu.nets.miasample.utils.SampleLocalHost
 import eu.nets.miasample.utils.SharedPrefs
 import java.util.*
 import kotlin.collections.ArrayList
+import eu.nets.miasample.network.response.*
 
 
 /**
@@ -123,9 +120,10 @@ class MainActivityPresenterImpl(private var mView: MainActivityView?) : MainActi
     override fun getPayment() {
         //call get payment and based on the payment status call api or show popup
         mView?.showLoader(true)
+
         APIManager.getInstance().getPayment(mPaymentId
-                ?: "", object : HttpResponse<GetPaymentResponse>() {
-            override fun onSuccess(response: GetPaymentResponse?) {
+                ?: "", object : HttpResponse<PaymentResponse>() {
+            override fun onSuccess(response: PaymentResponse?) {
                 //determine the payment status
                 when {
                     response?.payment?.paymentReserved() == true -> //the amount was reserverd - proceed with charge or cancel
@@ -138,7 +136,7 @@ class MainActivityPresenterImpl(private var mView: MainActivityView?) : MainActi
                         //the payment was canceled using the option inside the payment page
                         mView?.showAlert(getContext().getString(R.string.canceled_title), getContext().getString(R.string.transaction_canceled))
                     }
-                    response?.payment?.paymentCharged() == true ->{
+                    response?.payment?.paymentCharged() == true -> {
                         mView?.showLoader(false)
                         //the payment was already charged
                         mView?.showAlert(getContext().getString(R.string.success_title), getContext().getString(R.string.success_message))
@@ -221,6 +219,7 @@ class MainActivityPresenterImpl(private var mView: MainActivityView?) : MainActi
     private fun getContext(): Context {
         return mView as Context
     }
+
 
     /**
      * Build object to be sent in the /payment API body
@@ -313,6 +312,7 @@ class MainActivityPresenterImpl(private var mView: MainActivityView?) : MainActi
 
         return registerPaymentRequest
     }
+
 
     /**
      * Builds the object to be send in the /charges API body

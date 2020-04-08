@@ -28,6 +28,9 @@ class ChargePaymentResponse {
     @SerializedName("chargeId")
     var chargeId: String? = null
     @Expose
+    @SerializedName("paymentId")
+    var paymentId: String? = null
+    @Expose
     @SerializedName("invoice")
     var invoice: Invoice? = null
 }
