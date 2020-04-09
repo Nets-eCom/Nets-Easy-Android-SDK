@@ -21,56 +21,64 @@ package eu.nets.miasample.activity
  */
 interface MainActivityView {
 
-    /**
+   /*
      * Initialize the views and listeners
      */
     fun initListeners()
-
     /**
      * Validates the inputted amount
      */
     fun validateAmount(): Boolean
+/*
 
-    /**
+    */
+/**
      * Launches the SDK with the paymentId and checkoutUrl
      *
      * @param paymentId the paymentId received in registerPayment API call
      * @param checkoutUrl the checkout page url sent in the register payment API call
      * @param returnUrl the return url of success case when Integration Type is Easy Hosted Checkout
+     * @param isSubscription Checks if the call is for subscription
      */
-    fun launchEasySDK(paymentId: String?, checkoutUrl: String?, returnUrl : String?)
 
-    /**
+    fun launchEasySDK(paymentId: String?, checkoutUrl: String?, returnUrl: String?)
+
+/**
      * Show/hide progress view based on the boolean flag
      *
      * @param show boolean flag to show loader or to hide it
      */
+
     fun showLoader(show: Boolean)
 
-    /**
+/**
      * Retrieve the currency from the input field
      *
      * @return amount of the order
      */
+
     fun getAmount(): Long
 
-    /**
+/**
      * Retrieve the selected currency by the user
      *
      * @return currency code
      */
+
     fun getCurrency(): String
 
-    /**
+/**
      * Show an alert dialog with a custom title and message
      *
      * @param title the alert dialog title
      * @param message the alert dialog message
      */
+
     fun showAlert(title: String, message: String)
 
     /**
      * Show an alert dialog with a custom title and message for profile data screen
      */
     fun showProfileDataValidationDialog()
+
 }

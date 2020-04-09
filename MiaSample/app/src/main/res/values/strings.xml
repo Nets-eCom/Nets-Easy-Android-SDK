@@ -53,7 +53,29 @@
     <string name="update_profile_details">Please update the following details in the Profile page in the Settings</string>
     <string name="asterisk">*</string>
     <string name="add_valid_email_address">Please add valid email address</string>
-    <string name="sample_Prefix">+358</string>
+    <string name="sample_Prefix">+47</string>
     <string name="address_hint">Address</string>
     <string name="valid_postal_code">Please enter valid postal code</string>
+
+    <string name="subscribe">Subscribe</string>
+    <string name="show_subscriptions">Show Subscriptions</string>
+    <string name="subscriptions">Subscriptions</string>
+    <string name="charge">Charge</string>
+    <string name="add">Add</string>
+    <string name="add_subscription">Add Subscription</string>
+    <string name="charge_subscription">Charge subscription</string>
+    <string name="charge_disabled">Charging Disabled</string>
+    <string name="charge_successful">Charge Successful</string>
+    <string name="subscription_created">New Subscription Created</string>
+    <string name="no_subscription_error">There are no subscriptions</string>
+    <string name="enable_charge">Charging can be enabled in Settings when activating developer mode</string>
+
+    <string name="create_subscription_alert">Order amount %1$.2f %2$s will be charged!\n\n(The subscription will be created with charge interval of 0, therefore chargeable anytime using the payment method added when creating the subscription)</string>
+    <string name="charge_subscription_alert">Order Amount: %1$.2f %2$s</string>
+    <string name="subscription_created_alert">Subscription ID:\n%1$s</string>
+    <string name="charge_successful_details">Charge ID:\n%1$s\nPayment ID:\n%2$s</string>
+
+    <string name="hint_mobile_number">912 34 567</string>
+
+
 </resources>

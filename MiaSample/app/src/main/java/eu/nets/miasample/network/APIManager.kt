@@ -4,14 +4,14 @@ import eu.nets.miasample.BuildConfig
 import eu.nets.miasample.network.callback.HttpResponse
 import eu.nets.miasample.network.interceptor.HeaderInterceptor
 import eu.nets.miasample.network.interceptor.LoggerInterceptor
+import eu.nets.miasample.network.request.ChargeRequest
 import eu.nets.miasample.network.request.PaymentActionRequest
 import eu.nets.miasample.network.request.RegisterPaymentRequest
-import eu.nets.miasample.network.response.ChargePaymentResponse
-import eu.nets.miasample.network.response.GetPaymentResponse
-import eu.nets.miasample.network.response.RegisterPaymentResponse
+import eu.nets.miasample.network.response.*
 import eu.nets.miasample.utils.KeysProvider
 import eu.nets.miasample.utils.SharedPrefs
 import okhttp3.OkHttpClient
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -76,15 +76,34 @@ class APIManager private constructor(
         val call: Call<ChargePaymentResponse> = easyAPIService.chargePayment(paymentId, request)
         call.enqueue(response)
     }
-
     fun cancelPayment(paymentId: String, request: PaymentActionRequest, response: HttpResponse<String>) {
         val call: Call<String> = easyAPIService.cancelPayment(paymentId, request)
         call.enqueue(response)
     }
 
-    fun getPayment(paymentId: String, response: HttpResponse<GetPaymentResponse>) {
-        val call: Call<GetPaymentResponse> = easyAPIService.getPayment(paymentId)
+    fun getPayment(paymentId: String, response: HttpResponse<PaymentResponse>) {
+        val call: Call<PaymentResponse> = easyAPIService.getPayment(paymentId)
         call.enqueue(response)
     }
+    fun getSubscriptionPayment(paymentId: String, response: HttpResponse<SubscriptionRegistrationResponse>) {
+        val call: Call<SubscriptionRegistrationResponse> = easyAPIService.fetchSubscriptionPayment(paymentId)
+        call.enqueue(response)
+    }
+
+    fun createSubscription(request: RegisterPaymentRequest, response: HttpResponse<RegisterPaymentResponse>) {
+        val call: Call<RegisterPaymentResponse> = easyAPIService.createSubscription(request)
+        call.enqueue(response)
+    }
+
+    fun chargeSubscription(subscriptionId: String, request: ChargeRequest, response: HttpResponse<ChargePaymentResponse>) {
+        val call: Call<ChargePaymentResponse> = easyAPIService.chargeSubscription(subscriptionId, request)
+        call.enqueue(response)
+    }
+
+    fun fetchSubscriptionDetails(subscriptionId: String, response: HttpResponse<SubscriptionDetailsResponse>) {
+        val call: Call<SubscriptionDetailsResponse> = easyAPIService.fetchSubscriptionDetails(subscriptionId)
+        call.enqueue(response)
+    }
+
 
 }

@@ -144,7 +144,6 @@
                 android:id="@+id/firstName"
                 style="@style/InputKeysEditText"
                 android:imeOptions="actionNext"
-                android:hint="@string/first_name"
                 android:inputType="text" />
 
             <TextView
@@ -156,7 +155,6 @@
                 style="@style/InputKeysEditText"
                 android:imeOptions="actionNext"
                 android:inputType="text"
-                android:hint="@string/last_name"
                 android:nextFocusDown="@id/email" />
 
             <TextView
@@ -168,7 +166,6 @@
                 style="@style/InputKeysEditText"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
-                android:hint="@string/email"
                 android:nextFocusDown="@id/phonePrefix" />
 
             <LinearLayout
@@ -219,7 +216,7 @@
                         android:imeOptions="actionNext"
                         android:inputType="phone"
                         android:maxLength="12"
-                        android:hint="@string/mobile_number"
+                        android:hint="@string/hint_mobile_number"
                         android:nextFocusDown="@id/addressLineOne" />
 
                 </LinearLayout>
@@ -235,7 +232,6 @@
                 style="@style/InputKeysEditText"
                 android:imeOptions="actionNext"
                 android:inputType="text"
-                android:hint="@string/address_hint"
                 android:nextFocusDown="@id/addressLineTwo" />
 
             <TextView
@@ -247,7 +243,6 @@
                 style="@style/InputKeysEditText"
                 android:imeOptions="actionNext"
                 android:inputType="text"
-                android:hint="@string/address_hint"
                 android:nextFocusDown="@id/postalCode" />
 
             <TextView
@@ -260,7 +255,6 @@
                 android:imeOptions="actionNext"
                 android:inputType="text"
                 android:maxLength="8"
-                android:hint="@string/postal_code"
                 android:nextFocusDown="@id/city" />
 
             <TextView
@@ -272,7 +266,6 @@
                 style="@style/InputKeysEditText"
                 android:imeOptions="actionNext"
                 android:inputType="text"
-                android:hint="@string/city"
                 android:nextFocusDown="@id/countrySpinner" />
 
             <TextView
