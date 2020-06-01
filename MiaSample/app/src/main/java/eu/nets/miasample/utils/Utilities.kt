@@ -192,7 +192,7 @@ class Utilities {
          * Returns Subscription end date
          * Date returned by this method is kept as the current date plus 3 years.
          */
-        fun createSuibscriptionEndDate(): String? {
+        fun createSubscriptionEndDate(): String? {
             val df = SimpleDateFormat("yyyy-MM-dd")
             val c = Calendar.getInstance()
             c.add(Calendar.YEAR, 3)

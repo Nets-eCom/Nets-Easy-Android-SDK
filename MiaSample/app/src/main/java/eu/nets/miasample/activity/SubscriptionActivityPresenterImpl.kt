@@ -212,7 +212,7 @@ class SubscriptionActivityPresenterImpl(private var mView: SubscriptionActivityV
         var notifications: String? = null
 
         val subscription = Subscription()
-        subscription.endDate = Utilities.createSuibscriptionEndDate()/*"2023-03-10T14:43:27+02:00"*/
+        subscription.endDate = Utilities.createSubscriptionEndDate()/*"2023-03-10T14:43:27+02:00"*/
         subscription.interval = 0
         registerPaymentRequest.subscription = subscription
 

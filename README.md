@@ -1,4 +1,4 @@
-# Easy - Android SDK v1.1.0
+# Easy - Android SDK v1.2.0
 ----
 ![Logo](readme-files/NetsLogo.jpg)
 
@@ -18,7 +18,7 @@ MiA Easy Android SDK is a library which facilitates the Embedded DIBS Easy Check
 ----
 In your `build.gradle` application level file, add:
 ```gradle
-implementation('eu.nets.mia:mia-sdk:1.1.0') { transitive = true;}
+implementation('eu.nets.mia:mia-sdk:1.2.0') { transitive = true;}
 ```
     
 **Note:** the library is available through both `jcenter()` and `mavenCentral()` repositories.
