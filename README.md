@@ -7,7 +7,7 @@ MiA Easy Android SDK is a library which facilitates the Embedded DIBS Easy Check
 + **Nets Easy** technical documentation can be found [here](https://tech.dibspayment.com/easy)
 + **Nets Easy API documentation** can be found [here](http://tech.dibspayment.com/easy/api)
 + **Nets Easy checkout guide (Re-direct)** can be found [here](https://tech.dibspayment.com/node4555edit/checkout-introduction)
-+ **Easy - Android SDK** can also be found [here](https://github.com/Nets-mobile-acceptance/Easy-Android-SDK)
++ **Easy - iOS SDK** can also be found [here](https://github.com/DIBS-Payment-Services/Easy-iOS-SDK)
 
 
 | ![](readme-files/pay_with_saved_card.gif) |  
