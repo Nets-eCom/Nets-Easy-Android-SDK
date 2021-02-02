@@ -1,4 +1,4 @@
-# Easy - Android SDK v1.2.0
+# Easy - Android SDK v1.2.1
 ----
 ![Logo](readme-files/NetsLogo.jpg)
 
@@ -18,7 +18,7 @@ MiA Easy Android SDK is a library which facilitates the Embedded DIBS Easy Check
 ----
 In your `build.gradle` application level file, add:
 ```gradle
-implementation('eu.nets.mia:mia-sdk:1.2.0') { transitive = true;}
+implementation('eu.nets.mia:mia-sdk:1.2.1') { transitive = true;}
 ```
     
 **Note:** the library is available through both `jcenter()` and `mavenCentral()` repositories.
@@ -90,6 +90,21 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
+```
+
+**IMPORTANT**: While making the API call for creating a payment or subscription, make sure you add **"commercePlatformTag" : "AndroidSDK"** in the request header. This is critical to identify the platform from which the payment is initiated.
+```kotlin
+private fun addHeader(request: Request): Request {
+        val builder = request.newBuilder().method(request.method(), request.body())
+
+        builder.addHeader("Content-Type", "application/json")
+        builder.addHeader("Authorization", APIManager.secretKey)
+        /**
+         * @param commercePlatformTag This is critical to identify the platform from which the payment is initiated
+         */
+        builder.addHeader("commercePlatformTag", "AndroidSDK")
+        return builder.build()
+    }	
 ```
 
 # Contact

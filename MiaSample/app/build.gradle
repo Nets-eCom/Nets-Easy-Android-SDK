@@ -13,7 +13,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "eu.nets.mia.sample"
-        minSdkVersion 22
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode Integer.parseInt(VERSION_CODE)
         versionName VERSION_NAME
@@ -60,7 +60,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'org.nanohttpd:nanohttpd:2.3.1'
 
-	implementation('eu.nets.mia:mia-sdk:1.2.0@aar') { transitive = true; changing=true; }
+	implementation('eu.nets.mia:mia-sdk:1.2.1@aar') { transitive = true; changing=true; }
 }
 
 apply plugin: 'com.google.gms.google-services'

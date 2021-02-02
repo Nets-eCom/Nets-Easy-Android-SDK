@@ -75,7 +75,7 @@ dependencies {
     implementation 'com.facebook.react:react-native:+'  // From node_modules
 
     // Mia SDK
-	implementation 'eu.nets.mia:mia-sdk:1.2.0'
+	implementation 'eu.nets.mia:mia-sdk:1.2.1'
 }
 
 def configureReactNativePom(def pom) {

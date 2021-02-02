@@ -62,10 +62,13 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         const val CURRENCY_SEK = "SEK"
         const val CURRENCY_DKK = "DKK"
         const val CURRENCY_NOK = "NOK"
+        const val CURRENCY_EUR = "EUR"
+
         //end
         //integration types
         const val EASY_HOSTED_PAYMENT_WINDOW = "HostedPaymentPage"
         const val MERCHANT_HOSTED_PAYMENT_WINDOW = "EmbeddedCheckout"
+
         //end
         //easy hosted payment window helper constants
         const val RETURN_URL = "http://localhost/redirect.php"
@@ -74,6 +77,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         const val CONSUMER_DATA_NONE = "None"
         const val CONSUMER_DATA_MERCHANT_INJECTED = "Injected by merchant"
         const val CONSUMER_DATA_NO_SHIPPING_ADDR = "No shipping address"
+
         //end
         val SCREEN_SELECTED = "screen_selected"
         val SCREEN_PROFILE = "screen_profile"
@@ -157,7 +161,8 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         val currencies: List<String> = ArrayList<String>(Arrays.asList(
                 CURRENCY_SEK,
                 CURRENCY_DKK,
-                CURRENCY_NOK
+                CURRENCY_NOK,
+                CURRENCY_EUR
         ))
         val spinnerAdapter = CurrencyAdapter(this, android.R.layout.simple_spinner_item, currencies)
 

@@ -7,10 +7,10 @@
 <li><strong>Nets Easy technical documentation</strong> can be found <a href="https://tech.dibspayment.com/easy">here.</a></li>	
 <li><strong>Nets Easy API documentation</strong> can be found <a href="http://tech.dibspayment.com/easy/api">here.</a></li>	
 <li><strong>Nets Easy checkout guide (Re-direct) </strong>can be found <a href="https://tech.dibspayment.com/node4555edit/checkout-introduction">here.</a></li>	
-<li><strong>Easy - Android SDK</strong> can be found <a href="https://github.com/Nets-mobile-acceptance/Easy-Android-SDK">here.</a></li>	
+<li><strong>Easy - iOS SDK</strong> can be found <a href="https://github.com/DIBS-Payment-Services/Easy-iOS-SDK">here.</a></li>	
 <br>
 Requirements:<br>
-Minimum compatible <strong>Android API</strong> version is  <strong>22 - Android 5.1 Lollipop</strong>.
+Minimum compatible <strong>Android API</strong> version is  <strong>21 - Android 5.0 Lollipop</strong>.
 
 <h1><a id="Table_of_contents_6"></a>Table of contents:</h1>
 <hr>
@@ -76,7 +76,7 @@ The checkout offers everything through one integration – get access to payment
 <li>Please add the following line in your application's <code>build.gradle</code> file.</li>
 </ul>
 <pre><code class="language-gradle"><span class="hljs-keyword">dependencies</span> {
-	implementation(<span class="hljs-string">'eu.nets.mia:mia-sdk:1.2.0'</span>) { transitive = <span class="hljs-keyword">true</span>;}
+	implementation(<span class="hljs-string">'eu.nets.mia:mia-sdk:1.2.1'</span>) { transitive = <span class="hljs-keyword">true</span>;}
 </code></pre>
 <h1><a id="getting-started"></a>Getting started</h1>
 <hr>
@@ -305,7 +305,25 @@ Apart from the standard checkout, <strong>EASY</strong> supports prefilling the 
     "reservedAmount": 0
   }
 </code></pre>
-<p><strong>Important:</strong> Once a purchase is completed, the customer must receive a confirmation of the order and a receipt in the form of an on-screen-display and e-mail. Meaning that after you call <a href="https://tech.dibspayment.com/easy/api/rest/charge-payment">Charge Payment</a>, you already have the payment information retrieved at previous step,  and display it to the user.</p>
+<p><strong>Important:</strong> 
+<ul>
+<li>Once a purchase is completed, the customer must receive a confirmation of the order and a receipt in the form of an on-screen-display and e-mail. Meaning that after you call <a href="https://tech.dibspayment.com/easy/api/rest/charge-payment">Charge Payment</a>, you already have the payment information retrieved at previous step,  and display it to the user.</p></li>
+
+<li>While making the API call for creating a payment, make sure you add`<strong>"commercePlatformTag" : "AndroidSDK"</strong>`in the request header. This is critical to identify the platform from which the payment is initiated.</p> 
+
+<pre><code class="language-kotlin"> <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">addHeader</span><span class="hljs-params">(request: <span class="hljs-typename">Request): Request</span> {</span>
+      <span class="hljs-variable"><span class="hljs-keyword">val</span> builder</span> = request.newBuilder().method(request.method(), request.body())
+		builder.addHeader("Content-Type", "application/json")
+		builder.addHeader("Authorization", APIManager.secretKey)
+		/**
+		 * @param commercePlatformTag This is critical to identify the platform from which the payment is initiated
+		 */
+		builder.addHeader("commercePlatformTag", "AndroidSDK")
+		<span class="hljs-keyword">return</span> builder.build()
+    }
+</code></pre></li>
+</ul>
+
 
 <h1><a id="subscriptions"></a>Subscriptions <a href="https://tech.dibspayment.com/easy/integration/recurring">(Recurring API)</a></h1>
 <hr>
@@ -422,6 +440,21 @@ For recurring payments chargeable at any given time (with no regular interval), 
 	
 </code></pre>
 
+<p><strong>Important:</strong>  While making the API call for creating a subscription , make sure you add `<strong>"commercePlatformTag" : "AndroidSDK"</strong>` in the request header. This is critical to identify the platform from which the payment is initiated.</p> 
+
+<pre><code class="language-kotlin"> <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">addHeader</span><span class="hljs-params">(request: <span class="hljs-typename">Request): Request</span> {</span>
+      <span class="hljs-variable"><span class="hljs-keyword">val</span> builder</span> = request.newBuilder().method(request.method(), request.body())
+		builder.addHeader("Content-Type", "application/json")
+		builder.addHeader("Authorization", APIManager.secretKey)
+		/**
+		 * @param commercePlatformTag This is critical to identify the platform from which the payment is initiated
+		 */
+		builder.addHeader("commercePlatformTag", "AndroidSDK")
+		<span class="hljs-keyword">return</span> builder.build()
+    }
+</code></pre>
+
+
 <p>After creating a subscription, merchant is responsible for storing and managing the subscription.</p>
 
 <p>(Note that the MiaSample app stores subscriptions in the device for demo purposes but we recommend your app backend for storage)</p>
@@ -491,6 +524,12 @@ For recurring payments chargeable at any given time (with no regular interval), 
 <ul>
 <li>Added Xamarin.Android and Xamarin.iOS wrappers for SDK integration.</li>
 <li>Added a shared React Native wrapper for both iOS and Android SDK integration.</li>
+</ul>
+
+<h4><a id="v121_Released_TBD_267"></a>v1.2.1 Released: 25-Jan-2021</h4>
+<h4><a id="Release_notes_268"></a>Release notes:</h4>
+<ul>
+<li>Support of Android API version extended to API 21 and above.</li>
 </ul>
 
 <h4><a id="notes_266"></a>Note:</h4>

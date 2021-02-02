@@ -43,7 +43,10 @@ class HeaderInterceptor : Interceptor {
 
         builder.addHeader("Content-Type", "application/json")
         builder.addHeader("Authorization", APIManager.secretKey)
-
+        /**
+         * @param commercePlatformTag This is critical to identify the platform from which the payment is initiated
+         */
+        builder.addHeader("commercePlatformTag", "AndroidSDK")
         return builder.build()
     }
 
