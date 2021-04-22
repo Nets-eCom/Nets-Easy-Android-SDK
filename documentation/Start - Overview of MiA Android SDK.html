@@ -76,7 +76,7 @@ The checkout offers everything through one integration – get access to payment
 <li>Please add the following line in your application's <code>build.gradle</code> file.</li>
 </ul>
 <pre><code class="language-gradle"><span class="hljs-keyword">dependencies</span> {
-	implementation(<span class="hljs-string">'eu.nets.mia:mia-sdk:1.2.1'</span>) { transitive = <span class="hljs-keyword">true</span>;}
+	implementation(<span class="hljs-string">'eu.nets.mia:mia-sdk:1.3.0'</span>) { transitive = <span class="hljs-keyword">true</span>;}
 </code></pre>
 <h1><a id="getting-started"></a>Getting started</h1>
 <hr>
@@ -258,7 +258,7 @@ Apart from the standard checkout, <strong>EASY</strong> supports prefilling the 
 </ol>
 
 <p><strong>Important:</strong> Make sure the <code>returnUrl</code> is the same one you are sending in the API call to retrieve the paymentId. Without this, the SDK cannot detect when the payment has completed in order to deliver a result back to your application.</p>
-<pre><code class="language-kotlin"> MiASDK.getInstance().startSDK(this, MiAPaymentInfo(paymentId, checkoutUrl, returnUrl))
+<pre><code class="language-kotlin"> MiASDK.getInstance().startSDK(this, MiAPaymentInfo(paymentId, checkoutUrl, returnUrl, cancelUrl))
 </code></pre>
 <ol start="2">
 <li><strong>EmbeddedCheckout <font color="red">(not recommended)</font>:</strong></li>
@@ -527,9 +527,16 @@ For recurring payments chargeable at any given time (with no regular interval), 
 </ul>
 
 <h4><a id="v121_Released_TBD_267"></a>v1.2.1 Released: 25-Jan-2021</h4>
-<h4><a id="Release_notes_268"></a>Release notes:</h4>
+<h4><a id="Release_notes_269"></a>Release notes:</h4>
 <ul>
 <li>Support of Android API version extended to API 21 and above.</li>
+</ul>
+
+<h4><a id="v122_Released_TBD_268"></a>v1.2.2 Released: 20-Apr-2021</h4>
+<h4><a id="Release_notes_270"></a>Release notes:</h4>
+<ul>
+<li>Added support for cancel URL in SDK API, allowing users to close the Easy checkout (using the “Go back” button) and come back to the app or target URL. Just like returnURL, cancelURL it is a string to specify in the register payment API.</li>
+<li>Added Xamarin and ReactNative wrappers for SDK integration</li>
 </ul>
 
 <h4><a id="notes_266"></a>Note:</h4>

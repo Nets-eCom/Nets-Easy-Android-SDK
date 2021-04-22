@@ -64,11 +64,11 @@ class SubscriptionActivityPresenterImpl(private var mView: SubscriptionActivityV
                 when (SharedPrefs.getInstance().integrationType) {
                     MainActivity.MERCHANT_HOSTED_PAYMENT_WINDOW -> {
                         //is merchant hosted payment window - do not send return url
-                        mView?.launchEasySDK(mPaymentId, mCheckoutUrl, null)
+                        mView?.launchEasySDK(mPaymentId, mCheckoutUrl, null, MainActivity.CANCEL_URL)
                     }
                     MainActivity.EASY_HOSTED_PAYMENT_WINDOW -> {
                         //is easy hosted payment window - send the return url
-                        mView?.launchEasySDK(mPaymentId, response?.hostedPaymentPageUrl, MainActivity.RETURN_URL)
+                        mView?.launchEasySDK(mPaymentId, response?.hostedPaymentPageUrl, MainActivity.RETURN_URL, MainActivity.CANCEL_URL)
                     }
                     else -> {
                         //to be continued on future integration types
@@ -79,8 +79,10 @@ class SubscriptionActivityPresenterImpl(private var mView: SubscriptionActivityV
             override fun onError(code: Int, error: HttpError) {
                 mView?.showLoader(false)
                 if (error.errors == null) {
-                    mView?.showAlert("${error.code ?: code}: ${error.source
-                            ?: getContext().getString(R.string.error_title)}",
+                    mView?.showAlert("${error.code ?: code}: ${
+                        error.source
+                                ?: getContext().getString(R.string.error_title)
+                    }",
                             error.message ?: getContext().getString(R.string.error_message))
                 } else {
                     mView?.showAlert(getContext().getString(R.string.error_title), error.parseErrors())
@@ -131,8 +133,10 @@ class SubscriptionActivityPresenterImpl(private var mView: SubscriptionActivityV
             override fun onError(code: Int, error: HttpError) {
                 mView?.showLoader(false)
                 if (error.errors == null) {
-                    mView?.showAlert("${error.code ?: code}: ${error.source
-                            ?: getContext().getString(R.string.error_title)}",
+                    mView?.showAlert("${error.code ?: code}: ${
+                        error.source
+                                ?: getContext().getString(R.string.error_title)
+                    }",
                             error.message ?: getContext().getString(R.string.error_message))
                 } else {
                     mView?.showAlert(getContext().getString(R.string.error_message), error.parseErrors())
@@ -156,8 +160,10 @@ class SubscriptionActivityPresenterImpl(private var mView: SubscriptionActivityV
             override fun onError(code: Int, error: HttpError) {
                 mView?.showLoader(false)
                 if (error.errors == null) {
-                    mView?.showAlert("${error.code ?: code}: ${error.source
-                            ?: getContext().getString(R.string.error_title)}",
+                    mView?.showAlert("${error.code ?: code}: ${
+                        error.source
+                                ?: getContext().getString(R.string.error_title)
+                    }",
                             error.message ?: getContext().getString(R.string.error_message))
                 } else {
                     mView?.showAlert(getContext().getString(R.string.error_message), error.parseErrors())
@@ -253,6 +259,7 @@ class SubscriptionActivityPresenterImpl(private var mView: SubscriptionActivityV
                  */
                 checkout.integrationType = MainActivity.INTEGRATION_TYPE_PARAM
                 checkout.returnURL = MainActivity.RETURN_URL
+                checkout.cancelUrl = MainActivity.CANCEL_URL
             }
             else -> {//to be continued for future integration types
             }

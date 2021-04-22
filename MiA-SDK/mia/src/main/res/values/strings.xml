@@ -1,0 +1,7 @@
+<resources>
+
+    <string name="mia_error_title">Error</string>
+    <string name="mia_bank_id_error_open">Cannot switch or find BankID application. Please open and authenticate with BankID application manually.</string>
+    <string name="mia_alert_ok_action">OK</string>
+
+</resources>

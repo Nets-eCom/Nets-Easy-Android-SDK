@@ -1,0 +1,237 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>BaseWebViewPresenter - mia</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">mia</a>&nbsp;/&nbsp;<a href="../index.html">eu.nets.mia.webview.base</a>&nbsp;/&nbsp;<a href="./index.html">BaseWebViewPresenter</a><br/>
+<br/>
+<h1>BaseWebViewPresenter</h1>
+<code><span class="keyword">interface </span><span class="identifier">BaseWebViewPresenter</span></code>
+<p>Copyright (c) 2020 Nets Denmark A/S*****</p>
+<p>NETS DENMARK A/S, ("NETS"), FOR AND ON BEHALF OF ITSELF AND ITS SUBSIDIARIES AND AFFILIATES UNDER COMMON CONTROL,
+IS WILLING TO LICENSE THE SOFTWARE TO YOU ONLY UPON THE CONDITION THAT YOU ACCEPT ALL OF THE TERMS CONTAINED
+IN THIS LICENSE AGREEMENT.
+BY USING THE SOFTWARE YOU ACKNOWLEDGE THAT YOU HAVE READ THE TERMS AND AGREE TO THEM.
+IF YOU ARE AGREEING TO THESE TERMS ON BEHALF OF A COMPANY OR OTHER LEGAL ENTITY,
+YOU REPRESENT THAT YOU HAVE THE LEGAL AUTHORITY TO BIND THE LEGAL ENTITY TO THESE TERMS. IF YOU DO NOT HAVE SUCH AUTHORITY,
+OR IF YOU DO NOT WISH TO BE BOUND BY THE TERMS, YOU MUST NOT USE THE SOFTWARE ON THIS SITE OR ANY OTHER MEDIA ON WHICH THE SOFTWARE IS CONTAINED.</p>
+<p>Software is copyrighted. Title to Software and all associated intellectual property rights is retained by NETS and/or its licensors.
+Unless enforcement is prohibited by applicable law, you may not modify, decompile, or reverse engineer Software.</p>
+<p>No right, title or interest in or to any trademark, service mark, logo or trade name of NETS or its licensors is granted under this Agreement.</p>
+<p>Permission is hereby granted, to any person obtaining a copy of this software and associated documentation files (the Software"),
+to deal in the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+<p>Software may only be used for commercial or production purpose together with
+Easy services (as per https://tech.dibspayment.com/easy) provided from NETS, its subsidiaries or affiliates under common control.</p>
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="apply-web-view-settings.html">applyWebViewSettings</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">applyWebViewSettings</span><span class="symbol">(</span><span class="identifier" id="eu.nets.mia.webview.base.BaseWebViewPresenter$applyWebViewSettings(android.webkit.WebView)/webView">webView</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/webkit/WebView.html"><span class="identifier">WebView</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/webkit/WebView.html"><span class="identifier">WebView</span></a><span class="symbol">?</span></code>
+<p>Apply required settings to the given WebView</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="configure-web-view.html">configureWebView</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">configureWebView</span><span class="symbol">(</span><span class="identifier" id="eu.nets.mia.webview.base.BaseWebViewPresenter$configureWebView(android.webkit.WebView)/webView">webView</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/webkit/WebView.html"><span class="identifier">WebView</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Configure the useful settings for the WebView</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="create-child-web-view.html">createChildWebView</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">createChildWebView</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/webkit/WebView.html"><span class="identifier">WebView</span></a><span class="symbol">?</span></code>
+<p>Creates a new WebView called "Child" to be loaded on top of the parent (pop-up)
+It will have same functionalities as the parent, except the detection of the payment status.
+Usually, this child will only show pages like: Help, Terms&Conditions, etc.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="enable-back-navigation.html">enableBackNavigation</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">enableBackNavigation</span><span class="symbol">(</span><span class="identifier" id="eu.nets.mia.webview.base.BaseWebViewPresenter$enableBackNavigation(kotlin.Boolean)/enable">enable</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Mark Back button as enabled or disabled</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="enable-forward-navigation.html">enableForwardNavigation</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">enableForwardNavigation</span><span class="symbol">(</span><span class="identifier" id="eu.nets.mia.webview.base.BaseWebViewPresenter$enableForwardNavigation(kotlin.Boolean)/enable">enable</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Mark Forward button as enabled or disabled</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-latest-web-view.html">getLatestWebView</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getLatestWebView</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/webkit/WebView.html"><span class="identifier">WebView</span></a><span class="symbol">?</span></code>
+<p>Returns the latest loaded WebView (the visible one)</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="handle-nav-bar-action-icon.html">handleNavBarActionIcon</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">handleNavBarActionIcon</span><span class="symbol">(</span><span class="identifier" id="eu.nets.mia.webview.base.BaseWebViewPresenter$handleNavBarActionIcon(kotlin.Int)/resId">resId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Update the icon on the action button in the navigation bar (For parent WebView it will be Close,
+and for child WebView it will be Dismiss)</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="handle-page-finished.html">handlePageFinished</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">handlePageFinished</span><span class="symbol">(</span><span class="identifier" id="eu.nets.mia.webview.base.BaseWebViewPresenter$handlePageFinished(kotlin.String)/url">url</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Handles the case of Canceled or Not Authenticated user cases</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="handle-should-override-url-loading.html">handleShouldOverrideUrlLoading</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">handleShouldOverrideUrlLoading</span><span class="symbol">(</span><span class="identifier" id="eu.nets.mia.webview.base.BaseWebViewPresenter$handleShouldOverrideUrlLoading(kotlin.String)/url">url</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>In case of Easy Host Payment window integration type, do the following:</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="notify-navigation-enabled.html">notifyNavigationEnabled</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">notifyNavigationEnabled</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Send callbacks to activity to enable/disable both navigation arrows in the same time</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-back-pressed.html">onBackPressed</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onBackPressed</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Handles hardware back button interactions</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-create.html">onCreate</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onCreate</span><span class="symbol">(</span><span class="identifier" id="eu.nets.mia.webview.base.BaseWebViewPresenter$onCreate(android.os.Bundle)/savedInstanceState">savedInstanceState</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Initialize the view and make startup configurations</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-navigate-back.html">onNavigateBack</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onNavigateBack</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Navigate to previous loaded page in the visible WebView</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-navigate-forward.html">onNavigateForward</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onNavigateForward</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Navigate to next loaded page in the visible WebView</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-pause.html">onPause</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onPause</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Stop the JavaScript functions</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-resume.html">onResume</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onResume</span><span class="symbol">(</span><span class="identifier" id="eu.nets.mia.webview.base.BaseWebViewPresenter$onResume(eu.nets.mia.webview.base.BaseWebView)/baseWebView">baseWebView</span><span class="symbol">:</span>&nbsp;<a href="../-base-web-view/index.html"><span class="identifier">BaseWebView</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Update locally the recreated view instance and resume the WebView JavaScript functions</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-stop.html">onStop</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onStop</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Remove the cached instance of the view</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="pause-timers.html">pauseTimers</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">pauseTimers</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Pauses the JavaScript functions in WebView that are running periodically</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="remove-latest-web-view.html">removeLatestWebView</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">removeLatestWebView</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Removed the visible WebView from UI and from local stack</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="resume-timers.html">resumeTimers</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">resumeTimers</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Resumes the JavaScript functions in WebView that are running periodically</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-base-web-view-presenter-impl/index.html">BaseWebViewPresenterImpl</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">BaseWebViewPresenterImpl</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">BaseWebViewPresenter</span></a><span class="symbol">, </span><a href="../../eu.nets.mia.utils/-j-s-payment-callback/index.html"><span class="identifier">JSPaymentCallback</span></a></code>
+<p>Copyright (c) 2020 Nets Denmark A/S*****</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

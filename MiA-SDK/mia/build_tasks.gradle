@@ -1,0 +1,68 @@
+/**
+ * Customize output aar filename
+ */
+task updateBuildOutputFileName {
+    android.libraryVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "${getOutputFileName(variant.buildType.name)}"
+        }
+    }
+}
+
+/**
+ * Filter build variants that are not needed
+ */
+task filterBuildVariant {
+    def buildTypeArray = getBuildType()
+
+    android.variantFilter { variant ->
+        if (!buildTypeArray.contains(variant.buildType.name)) {
+            variant.setIgnore(true)
+        }
+    }
+}
+
+/**
+ * Task that filters the build types,
+ * runs the clean task, runs the tests, build the SDK aar file,
+ * creates the pom file for both release and debug.
+ *
+ * The task does not create the documentation.
+ *
+ * Example on how to call the task :
+ * - to build both release and debug build
+ *          gradlew buildSDK
+ * - to specify the build type
+ *          gradlew buildSDK -PbuildType="debug"
+ *          gradlew buildSDK -PbuildType="release"
+ * - to specify the repo type ("snapshot", "release"). Default value is "snapshot"
+ *          gradlew buildSDK -PrepoType="snapshot"
+ *
+ * The .aar files can be find at {pathToTheProject}\\mia\\build\\outputs\\aar
+ * The test results can find at {pathToTheProject}\\mia\\build\\reports
+ * The pom files can find at {pathToTheProject}\\mia\\build\\poms
+ *
+ */
+task buildSDK {
+    dependsOn 'clean'
+    dependsOn 'updateBuildOutputFileName'
+    dependsOn 'filterBuildVariant'
+    dependsOn 'check'
+    dependsOn 'assemble'
+
+    tasks.findByName('updateBuildOutputFileName').mustRunAfter 'clean'
+    tasks.findByName('filterBuildVariant').mustRunAfter 'updateBuildOutputFileName'
+    tasks.findByName('check').mustRunAfter 'filterBuildVariant'
+    tasks.findByName('assemble').mustRunAfter 'check'
+
+    doLast {
+        def buildTypeArray = getBuildType()
+        for (buildType in buildTypeArray) {
+            pom {
+                version = getSDKVersion()
+                groupId = GROUP_ID
+                artifactId = getArtifactId(buildType)
+            }.withXml {}.writeTo("$buildDir/poms/${getPomFileName(buildType)}")
+        }
+    }
+}

@@ -1,0 +1,79 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        //plugin for POM file
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
+        //plugin for kotlin documentation
+        classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:0.9.17"
+        //plugin for test coverage report
+        classpath 'com.dicedmelon.gradle:jacoco-android:0.1.2'
+        //plant uml diagrams generator
+        classpath 'be.jlr-home.gradle:plantumlPlugin:0.1.+'
+        //bintray plugin
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
+    }
+}
+apply plugin: 'com.android.library'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'org.jetbrains.dokka-android'
+
+apply plugin: 'com.github.dcendents.android-maven'
+
+
+
+//helper gradle tasks
+apply from: 'coverage_report.gradle'
+
+apply from: 'util_closures.gradle'
+apply from: 'build_tasks.gradle'
+apply from: 'dokka_kotlin.gradle'
+
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode Integer.parseInt(VERSION_CODE)
+        versionName VERSION_NAME
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+	buildConfigField "String", "TECHNICAL_VERSION_INFO_HASH", "\"b2934af\""
+	buildConfigField "String", "TECHNICAL_VERSION_INFO_ID", "\"423\""
+	buildConfigField "String", "TECHNICAL_VERSION_INFO_BRANCH", "\"master\""
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    testOptions {
+        //in order to not mock the Log class from android
+        unitTests.returnDefaultValues = true
+    }
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    testImplementation 'org.mockito:mockito-core:2.6.2'
+}

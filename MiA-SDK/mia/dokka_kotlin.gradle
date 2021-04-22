@@ -1,0 +1,77 @@
+task generateDiagrams() {
+    doLast {
+        javaexec {
+            main = "-jar";
+            args = [
+                    "../plantuml.jar",
+                    "src/main/documentation/img"
+            ]
+        }
+    }
+}
+
+dokka {
+    outputFormat = 'html'
+    outputDirectory = "$buildDir/javadoc"
+
+    skipEmptyPackages = true
+
+    if (!shouldIncludeSDKSourceCode()) {
+        //if SDK source code is not included in the release, don't generate documentation for internal code
+        for (def pkg : ["eu.nets.mia.utils", "eu.nets.mia.webview"]) {
+            packageOptions {
+                prefix = pkg
+                reportUndocumented = false
+                suppress = true
+            }
+        }
+    }
+}
+
+task clearDocumentationFolder(type: Delete) {
+    delete "build/javadoc"
+}
+
+task copyOverviewFiles(type: Copy) {
+    from("src/main/documentation") {
+        exclude '**/*.txt'
+        exclude '**/*.md'
+        exclude 'readme-files'
+    }
+    into "build/javadoc/mia"
+}
+
+task modifyOverviewDocumentationSDKVersion{
+    def standaloneOverviewFilePath = DOCUMENTATION_OVERVIEW
+    def standaloneOverviewFile = file(standaloneOverviewFilePath)
+    def standaloneOverviewLines = standaloneOverviewFile.readLines()
+    def newStandaloneOverviewLines = new ArrayList()
+    standaloneOverviewLines.each { line ->
+        if (line.contains("implementation(")) {
+            newStandaloneOverviewLines.add("\timplementation(<span class=\"hljs-string\">'$GROUP_ID:$ARTIFACT:$VERSION_NAME'</span>) { transitive = <span class=\"hljs-keyword\">true</span>;}")
+        } else {
+            newStandaloneOverviewLines.add(line)
+        }
+    }
+    PrintWriter standaloneOverviewWriter = new PrintWriter(standaloneOverviewFile)
+    newStandaloneOverviewLines.each { line ->
+        standaloneOverviewWriter.println(line)
+    }
+
+    standaloneOverviewWriter.close()
+}
+
+task generateDocumentation() {
+    dependsOn 'clearDocumentationFolder'
+    dependsOn 'modifyOverviewDocumentationSDKVersion'
+    dependsOn 'generateDiagrams'
+    dependsOn 'dokka'
+    dependsOn 'copyOverviewFiles'
+    dependsOn 'jacocoCoverageReport'
+
+    tasks.findByName('modifyOverviewDocumentationSDKVersion').mustRunAfter('clearDocumentationFolder')
+    tasks.findByName('generateDiagrams').mustRunAfter('modifyOverviewDocumentationSDKVersion')
+    tasks.findByName('dokka').mustRunAfter('generateDiagrams')
+    tasks.findByName('copyOverviewFiles').mustRunAfter('dokka')
+    tasks.findByName('jacocoCoverageReport').mustRunAfter 'copyOverviewFiles'
+}

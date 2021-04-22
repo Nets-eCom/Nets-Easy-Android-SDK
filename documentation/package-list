@@ -3,3 +3,6 @@ $dokka.linkExtension:html
 
 eu.nets.mia
 eu.nets.mia.data
+eu.nets.mia.utils
+eu.nets.mia.webview
+eu.nets.mia.webview.base

@@ -1,0 +1,351 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MiAActivity - mia</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">mia</a>&nbsp;/&nbsp;<a href="../index.html">eu.nets.mia.webview</a>&nbsp;/&nbsp;<a href="./index.html">MiAActivity</a><br/>
+<br/>
+<h1>MiAActivity</h1>
+<code><span class="keyword">class </span><span class="identifier">MiAActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../eu.nets.mia.webview.base/-base-web-view-activity/index.html"><span class="identifier">BaseWebViewActivity</span></a><span class="symbol">, </span><a href="../-mi-a-activity-view/index.html"><span class="identifier">MiAActivityView</span></a></code>
+<p>Copyright (c) 2020 Nets Denmark A/S*****</p>
+<p>NETS DENMARK A/S, ("NETS"), FOR AND ON BEHALF OF ITSELF AND ITS SUBSIDIARIES AND AFFILIATES UNDER COMMON CONTROL,
+IS WILLING TO LICENSE THE SOFTWARE TO YOU ONLY UPON THE CONDITION THAT YOU ACCEPT ALL OF THE TERMS CONTAINED
+IN THIS LICENSE AGREEMENT.
+BY USING THE SOFTWARE YOU ACKNOWLEDGE THAT YOU HAVE READ THE TERMS AND AGREE TO THEM.
+IF YOU ARE AGREEING TO THESE TERMS ON BEHALF OF A COMPANY OR OTHER LEGAL ENTITY,
+YOU REPRESENT THAT YOU HAVE THE LEGAL AUTHORITY TO BIND THE LEGAL ENTITY TO THESE TERMS. IF YOU DO NOT HAVE SUCH AUTHORITY,
+OR IF YOU DO NOT WISH TO BE BOUND BY THE TERMS, YOU MUST NOT USE THE SOFTWARE ON THIS SITE OR ANY OTHER MEDIA ON WHICH THE SOFTWARE IS CONTAINED.</p>
+<p>Software is copyrighted. Title to Software and all associated intellectual property rights is retained by NETS and/or its licensors.
+Unless enforcement is prohibited by applicable law, you may not modify, decompile, or reverse engineer Software.</p>
+<p>No right, title or interest in or to any trademark, service mark, logo or trade name of NETS or its licensors is granted under this Agreement.</p>
+<p>Permission is hereby granted, to any person obtaining a copy of this software and associated documentation files (the Software"),
+to deal in the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+<p>Software may only be used for commercial or production purpose together with
+Easy services (as per https://tech.dibspayment.com/easy) provided from NETS, its subsidiaries or affiliates under common control.</p>
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-alert-callback/index.html">AlertCallback</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AlertCallback</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">MiAActivity</span><span class="symbol">(</span><span class="symbol">)</span></code>
+<p>Copyright (c) 2020 Nets Denmark A/S*****</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="get-cancel-url.html">getCancelUrl</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getCancelUrl</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span></code>
+<p>Returns the cancel URL received from the merchant app</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-checkout-url.html">getCheckoutUrl</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getCheckoutUrl</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span></code>
+<p>Returns the checkout URL received from the merchant app</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-payment-id.html">getPaymentId</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getPaymentId</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span></code>
+<p>Returns the paymentId received from the merchant app</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-return-url.html">getReturnUrl</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getReturnUrl</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span></code>
+<p>Returns the return URL received from the merchant app</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="init-data.html">initData</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">initData</span><span class="symbol">(</span><span class="identifier" id="eu.nets.mia.webview.MiAActivity$initData(android.os.Bundle)/bundle">bundle</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Initialize the data received from the merchant app</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="load-web-view-data.html">loadWebViewData</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">loadWebViewData</span><span class="symbol">(</span><span class="identifier" id="eu.nets.mia.webview.MiAActivity$loadWebViewData(kotlin.String, kotlin.String)/paymentId">paymentId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="eu.nets.mia.webview.MiAActivity$loadWebViewData(kotlin.String, kotlin.String)/checkoutUrl">checkoutUrl</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Validates again the paymentId and checkoutUrl</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-create.html">onCreate</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onCreate</span><span class="symbol">(</span><span class="identifier" id="eu.nets.mia.webview.MiAActivity$onCreate(android.os.Bundle)/savedInstanceState">savedInstanceState</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-process-canceled.html">onProcessCanceled</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onProcessCanceled</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>BaseWebViewActivity callback
+Notifies this activity that the payment was canceled
+Handle here the way the result gets delivered to the application</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-process-finished-success.html">onProcessFinishedSuccess</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onProcessFinishedSuccess</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>BaseWebViewActivity callback
+Notifies this activity that the payment has finished with success
+Handle here the way the result gets delivered to the application</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-resume.html">onResume</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onResume</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Activity onResume()
+Call presenter onResume to store new state of view</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-save-instance-state.html">onSaveInstanceState</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onSaveInstanceState</span><span class="symbol">(</span><span class="identifier" id="eu.nets.mia.webview.MiAActivity$onSaveInstanceState(android.os.Bundle, android.os.PersistableBundle)/outState">outState</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="eu.nets.mia.webview.MiAActivity$onSaveInstanceState(android.os.Bundle, android.os.PersistableBundle)/outPersistentState">outPersistentState</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/PersistableBundle.html"><span class="identifier">PersistableBundle</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Store the variables in activity state so it can be retrieved later</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-stop.html">onStop</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onStop</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Activity onStop()
+Call presenter onStop to clear the state of view</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="open-bank-id-app.html">openBankIdApp</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">openBankIdApp</span><span class="symbol">(</span><span class="identifier" id="eu.nets.mia.webview.MiAActivity$openBankIdApp(kotlin.String)/deepLink">deepLink</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Case when customer's credit card supports BankId</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="show-loader.html">showLoader</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">showLoader</span><span class="symbol">(</span><span class="identifier" id="eu.nets.mia.webview.MiAActivity$showLoader(kotlin.Boolean)/show">show</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Hide/show the ProgressView based on the flag</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../eu.nets.mia.webview.base/-base-web-view-activity/enable-back-navigation.html">enableBackNavigation</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">enableBackNavigation</span><span class="symbol">(</span><span class="identifier" id="eu.nets.mia.webview.base.BaseWebViewActivity$enableBackNavigation(kotlin.Boolean)/enable">enable</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Enable/disable the back button navigation</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../eu.nets.mia.webview.base/-base-web-view-activity/enable-forward-navigation.html">enableForwardNavigation</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">enableForwardNavigation</span><span class="symbol">(</span><span class="identifier" id="eu.nets.mia.webview.base.BaseWebViewActivity$enableForwardNavigation(kotlin.Boolean)/enable">enable</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Enable/disable the forward button navigation</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../eu.nets.mia.webview.base/-base-web-view-activity/get-cancel-u-r-l.html">getCancelURL</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getCancelURL</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span></code>
+<p>Returns the cancel URL received from the merchant app</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../eu.nets.mia.webview.base/-base-web-view-activity/get-checkout-page.html">getCheckoutPage</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getCheckoutPage</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Returns the checkout URL provided by merchant app</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../eu.nets.mia.webview.base/-base-web-view-activity/get-payment-identifier.html">getPaymentIdentifier</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getPaymentIdentifier</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Returns the payment identifier provided by merchant app</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../eu.nets.mia.webview.base/-base-web-view-activity/get-redirect-url.html">getRedirectUrl</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getRedirectUrl</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span></code>
+<p>Returns the return URL received from the merchant app</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../eu.nets.mia.webview.base/-base-web-view-activity/get-root-frame.html">getRootFrame</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getRootFrame</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/widget/FrameLayout.html"><span class="identifier">FrameLayout</span></a></code>
+<p>Get the root view of the WebView to load multiple WebViews as child pop-ups</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../eu.nets.mia.webview.base/-base-web-view-activity/handle-nav-bar-action-text.html">handleNavBarActionText</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">handleNavBarActionText</span><span class="symbol">(</span><span class="identifier" id="eu.nets.mia.webview.base.BaseWebViewActivity$handleNavBarActionText(kotlin.Int)/resId">resId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Update the icon on the action button in the navigation bar (For parent WebView it will be Close,
+and for child WebView it will be Dismiss)</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../eu.nets.mia.webview.base/-base-web-view-activity/init.html">init</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">init</span><span class="symbol">(</span><span class="identifier" id="eu.nets.mia.webview.base.BaseWebViewActivity$init(android.os.Bundle)/bundle">bundle</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Initialize the UI listeners and setup the WebView configuration</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../eu.nets.mia.webview.base/-base-web-view-activity/load-url.html">loadUrl</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">loadUrl</span><span class="symbol">(</span><span class="identifier" id="eu.nets.mia.webview.base.BaseWebViewActivity$loadUrl(kotlin.String, kotlin.String)/url">url</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="eu.nets.mia.webview.base.BaseWebViewActivity$loadUrl(kotlin.String, kotlin.String)/paymentId">paymentId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Load the received URL in the parent WebView</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../eu.nets.mia.webview.base/-base-web-view-activity/on-back-pressed.html">onBackPressed</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onBackPressed</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Activity onBackPressed()
+Check if there are opened WebView pop-ups to be closed. If not, navigate back</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../eu.nets.mia.webview.base/-base-web-view-activity/on-pause.html">onPause</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onPause</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Activity onPause()
+Call presenter onPause to pause the WebView timers</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../eu.nets.mia.webview.base/-base-web-view-activity/send-cancel-result.html">sendCancelResult</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">sendCancelResult</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Close the current activity and deliver canceled result to application</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../eu.nets.mia.webview.base/-base-web-view-activity/send-o-k-result.html">sendOKResult</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">sendOKResult</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Close the current activity and deliver success result to application</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../eu.nets.mia.webview.base/-base-web-view-activity/show-progress-view.html">showProgressView</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">showProgressView</span><span class="symbol">(</span><span class="identifier" id="eu.nets.mia.webview.base.BaseWebViewActivity$showProgressView(kotlin.Boolean)/show">show</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Show/hide the loader based on WebView callbacks</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-b-u-n-d-l-e_-p-a-y-m-e-n-t_-i-n-f-o.html">BUNDLE_PAYMENT_INFO</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">BUNDLE_PAYMENT_INFO</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

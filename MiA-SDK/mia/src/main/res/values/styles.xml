@@ -1,0 +1,11 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="ActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/miaColorPrimary</item>
+        <item name="colorPrimaryDark">@color/miaColorPrimaryDark</item>
+        <item name="colorAccent">@color/miaColorAccent</item>
+    </style>
+
+</resources>

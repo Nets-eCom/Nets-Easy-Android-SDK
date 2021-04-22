@@ -1,0 +1,99 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MiAActivityView - mia</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">mia</a>&nbsp;/&nbsp;<a href="../index.html">eu.nets.mia.webview</a>&nbsp;/&nbsp;<a href="./index.html">MiAActivityView</a><br/>
+<br/>
+<h1>MiAActivityView</h1>
+<code><span class="keyword">interface </span><span class="identifier">MiAActivityView</span></code>
+<p>Copyright (c) 2020 Nets Denmark A/S*****</p>
+<p>NETS DENMARK A/S, ("NETS"), FOR AND ON BEHALF OF ITSELF AND ITS SUBSIDIARIES AND AFFILIATES UNDER COMMON CONTROL,
+IS WILLING TO LICENSE THE SOFTWARE TO YOU ONLY UPON THE CONDITION THAT YOU ACCEPT ALL OF THE TERMS CONTAINED
+IN THIS LICENSE AGREEMENT.
+BY USING THE SOFTWARE YOU ACKNOWLEDGE THAT YOU HAVE READ THE TERMS AND AGREE TO THEM.
+IF YOU ARE AGREEING TO THESE TERMS ON BEHALF OF A COMPANY OR OTHER LEGAL ENTITY,
+YOU REPRESENT THAT YOU HAVE THE LEGAL AUTHORITY TO BIND THE LEGAL ENTITY TO THESE TERMS. IF YOU DO NOT HAVE SUCH AUTHORITY,
+OR IF YOU DO NOT WISH TO BE BOUND BY THE TERMS, YOU MUST NOT USE THE SOFTWARE ON THIS SITE OR ANY OTHER MEDIA ON WHICH THE SOFTWARE IS CONTAINED.</p>
+<p>Software is copyrighted. Title to Software and all associated intellectual property rights is retained by NETS and/or its licensors.
+Unless enforcement is prohibited by applicable law, you may not modify, decompile, or reverse engineer Software.</p>
+<p>No right, title or interest in or to any trademark, service mark, logo or trade name of NETS or its licensors is granted under this Agreement.</p>
+<p>Permission is hereby granted, to any person obtaining a copy of this software and associated documentation files (the Software"),
+to deal in the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+<p>Software may only be used for commercial or production purpose together with
+Easy services (as per https://tech.dibspayment.com/easy) provided from NETS, its subsidiaries or affiliates under common control.</p>
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="get-checkout-url.html">getCheckoutUrl</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getCheckoutUrl</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span></code>
+<p>Returns the checkout URL received from the merchant app</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-payment-id.html">getPaymentId</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getPaymentId</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span></code>
+<p>Returns the paymentId received from the merchant app</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="init-data.html">initData</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">initData</span><span class="symbol">(</span><span class="identifier" id="eu.nets.mia.webview.MiAActivityView$initData(android.os.Bundle)/bundle">bundle</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Initialize the data received from the merchant app</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="load-web-view-data.html">loadWebViewData</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">loadWebViewData</span><span class="symbol">(</span><span class="identifier" id="eu.nets.mia.webview.MiAActivityView$loadWebViewData(kotlin.String, kotlin.String)/paymentId">paymentId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="eu.nets.mia.webview.MiAActivityView$loadWebViewData(kotlin.String, kotlin.String)/checkoutUrl">checkoutUrl</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Validates again the paymentId and checkoutUrl</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="show-loader.html">showLoader</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">showLoader</span><span class="symbol">(</span><span class="identifier" id="eu.nets.mia.webview.MiAActivityView$showLoader(kotlin.Boolean)/show">show</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Hide/show the ProgressView based on the flag</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-mi-a-activity/index.html">MiAActivity</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">MiAActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../eu.nets.mia.webview.base/-base-web-view-activity/index.html"><span class="identifier">BaseWebViewActivity</span></a><span class="symbol">, </span><a href="./index.html"><span class="identifier">MiAActivityView</span></a></code>
+<p>Copyright (c) 2020 Nets Denmark A/S*****</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

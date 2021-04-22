@@ -111,7 +111,7 @@ namespace MiASampleXamarin
                 _paymentId = response.paymentId;
                 _hostedPaymentPageUrl = response.hostedPaymentPageUrl;
                 //start SDK
-                MiASDK.Instance.StartSDK(this, new MiAPaymentInfo(response.paymentId, response.hostedPaymentPageUrl, APIService.returnURL));
+                MiASDK.Instance.StartSDK(this, new MiAPaymentInfo(response.paymentId, response.hostedPaymentPageUrl, APIService.returnURL, APIService.cancelURL));
             }
             else
             {
@@ -122,68 +122,13 @@ namespace MiASampleXamarin
 
         private String GetRegisterPaymentBody()
         {
-            return "{" +
-                        "	\"checkout\": {" +
-                        "		\"charge\": false," +
-                        "		\"consumerType\": {" +
-                        "			\"default\": \"B2C\"," +
-                        "			\"supportedTypes\": [\"B2B\", \"B2C\"]" +
-                        "		}," +
-                        "		\"termsUrl\": \"http://localhost:6500\"," +
-                        "		\"returnURL\": \"http://localhost/redirect.php\"," +
-                        "		\"integrationType\": \"HostedPaymentPage\"" +
-                        "	}," +
-                        "	\"order\": {" +
-                        "		\"amount\": 1000," +
-                        "		\"currency\": \"SEK\"," +
-                        "		\"items\": [{" +
-                        "			\"grossTotalAmount\": 1000," +
-                        "			\"name\": \"Lightning Cable\"," +
-                        "			\"quantity\": 1," +
-                        "			\"reference\": \"MiASDK-Xamarin-Android\"," +
-                        "			\"taxAmount\": 0," +
-                        "			\"taxRate\": 0," +
-                        "			\"unit\": \"pcs\"" +
-                        "		}]," +
-                        "		\"reference\": \"MiASDK-Xamarin-Android\"" +
-                        "	}" +
-                        "}";
+            return "{\"checkout\":{\"cancelUrl\":\"" + APIService.cancelURL + "\",\"charge\":false,\"consumerType\":{\"default\":\"B2C\",\"supportedTypes\":[\"B2B\",\"B2C\"]},\"integrationType\":\"HostedPaymentPage\",\"merchantHandlesConsumerData\":false,\"returnURL\":\"http://localhost/redirect.php\",\"termsUrl\":\"http://localhost:6500\"},\"order\":{\"amount\":1000,\"currency\":\"SEK\",\"items\":[{\"grossTotalAmount\":1000,\"name\":\"Lightning Cable\",\"quantity\":1,\"reference\":\"MiASDK-Android\",\"taxAmount\":0,\"taxRate\":0,\"unit\":\"pcs\"}],\"reference\":\"MiASDK-Android\"}}";
 
         }
 
         private String GetSubscriptionRequest()
         {
-            return "{\"checkout\":{" +
-                        "\"charge\":true," +
-                        "\"consumerType\":{" +
-                                "\"default\":\"B2C\"," +
-                                "\"supportedTypes\":[\"B2B\",\"B2C\"]" +
-                                "}," +
-                        "\"integrationType\":\"HostedPaymentPage\"," +
-                        "\"merchantHandlesConsumerData\":false," +
-                        "\"returnURL\":\"http://localhost/redirect.php\"," +
-                        "\"termsUrl\":\"http://localhost:6500\"" +
-                        "}," +
-                     "\"order\":{" +
-                            "\"amount\":1000," +
-                            "\"currency\":\"SEK\"," +
-                            "\"items\":[{" +
-                                    "\"grossTotalAmount\":1000," +
-                                    "\"name\":\"Lightning Cable\"," +
-                                    "\"quantity\":1," +
-                                    "\"reference\":\"MiASDK-Android\"," +
-                                    "\"taxAmount\":0," +
-                                    "\"taxRate\":0," +
-                                    "\"unit\":\"pcs\"" +
-                                    "}]," +
-                            "\"reference\":\"MiASDK-Android\"" +
-                         "}," +
-                      "\"subscription\":{" +
-                            "\"endDate\":\"" 
-                            + CreateSubscriptionEndDate() 
-                            + "\",\"interval\":0" +
-                          "}" +
-                     "}";
+            return "{\"checkout\":{\"cancelUrl\":\"" + APIService.cancelURL + "\",\"charge\":true,\"consumerType\":{\"default\":\"B2C\",\"supportedTypes\":[\"B2B\",\"B2C\"]},\"integrationType\":\"HostedPaymentPage\",\"merchantHandlesConsumerData\":false,\"returnURL\":\"http://localhost/redirect.php\",\"termsUrl\":\"http://localhost:6500\"},\"order\":{\"amount\":1000,\"currency\":\"SEK\",\"items\":[{\"grossTotalAmount\":1000,\"name\":\"Lightning Cable\",\"quantity\":1,\"reference\":\"MiASDK-Android\",\"taxAmount\":0,\"taxRate\":0,\"unit\":\"pcs\"}],\"reference\":\"MiASDK-Android\"},\"subscription\":{\"endDate\":\"2024-04-01\",\"interval\":0}}";
         }
 
         /**

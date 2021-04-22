@@ -1,0 +1,44 @@
+ext.getRepoType = {
+    project.hasProperty(REPO_TYPE_PARAMETER) ? project.property(REPO_TYPE_PARAMETER) : DEFAULT_REPO_TYPE_RELEASE
+}
+
+ext.getBuildType = {
+    def repoType = getRepoType()
+    def buildTypeArray
+    if (project.hasProperty(BUILD_TYPE_PARAMETER)) {
+        buildTypeArray = new String[1]
+        buildTypeArray[0] = project.property(BUILD_TYPE_PARAMETER)
+    } else {
+        if (repoType == REPO_TYPE_SNAPSHOT) {
+            buildTypeArray = [BUILD_TYPE_DEBUG, BUILD_TYPE_RELEASE]
+        } else {
+            buildTypeArray = [BUILD_TYPE_RELEASE]
+        }
+    }
+    buildTypeArray
+}
+
+ext.getSDKVersion = {
+    def repoType = getRepoType()
+    VERSION_NAME + (repoType == REPO_TYPE_SNAPSHOT ? SNAPSHOT_POSTFIX : "")
+}
+
+ext.getArtifactId = { buildType ->
+    buildType == BUILD_TYPE_RELEASE ? ARTIFACT : "$ARTIFACT-$buildType"
+}
+
+ext.getOutputFileName = { buildType ->
+    "${getArtifactId(buildType)}-${getSDKVersion()}.aar"
+}
+
+ext.getPomFileName = { buildType ->
+    "pom-${buildType}.xml"
+}
+
+/**
+ * Returns if the SDK Source code should be included into release package.
+ */
+ext.shouldIncludeSDKSourceCode = {
+    def includeSDKSourceCode = project.hasProperty(INCLUDE_SDK_SOURCE_CODE_PARAMETER) ? project.property(INCLUDE_SDK_SOURCE_CODE_PARAMETER) : INCLUDE_SDK_SOURCE_CODE_NO
+    includeSDKSourceCode == INCLUDE_SDK_SOURCE_CODE_YES
+}

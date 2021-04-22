@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="miaColorPrimary">#2a86c3</color>
+    <color name="miaColorPrimaryDark">#2372a6</color>
+    <color name="miaColorAccent">#2a86c3</color>
+
+    <color name="miaColorSpinnerBackground">#b9e2e1e1</color>
+</resources>

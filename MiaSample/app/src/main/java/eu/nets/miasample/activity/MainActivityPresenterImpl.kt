@@ -5,18 +5,22 @@ import android.util.Patterns
 import android.view.View
 import android.widget.TextView
 import eu.nets.miasample.R
+import eu.nets.miasample.activity.MainActivity.Companion.CANCEL_URL
 import eu.nets.miasample.activity.MainActivity.Companion.CONSUMER_DATA_MERCHANT_INJECTED
 import eu.nets.miasample.activity.MainActivity.Companion.CONSUMER_DATA_NONE
 import eu.nets.miasample.activity.MainActivity.Companion.CONSUMER_DATA_NO_SHIPPING_ADDR
 import eu.nets.miasample.network.APIManager
 import eu.nets.miasample.network.callback.HttpResponse
 import eu.nets.miasample.network.request.*
+import eu.nets.miasample.network.response.ChargePaymentResponse
+import eu.nets.miasample.network.response.HttpError
+import eu.nets.miasample.network.response.PaymentResponse
+import eu.nets.miasample.network.response.RegisterPaymentResponse
 import eu.nets.miasample.utils.SampleHtmlProvider
 import eu.nets.miasample.utils.SampleLocalHost
 import eu.nets.miasample.utils.SharedPrefs
 import java.util.*
 import kotlin.collections.ArrayList
-import eu.nets.miasample.network.response.*
 
 
 /**
@@ -89,11 +93,11 @@ class MainActivityPresenterImpl(private var mView: MainActivityView?) : MainActi
                 when (SharedPrefs.getInstance().integrationType) {
                     MainActivity.MERCHANT_HOSTED_PAYMENT_WINDOW -> {
                         //is merchant hosted payment window - do not send return url
-                        mView?.launchEasySDK(mPaymentId, mCheckoutUrl, null)
+                        mView?.launchEasySDK(mPaymentId, mCheckoutUrl, null, MainActivity.CANCEL_URL)
                     }
                     MainActivity.EASY_HOSTED_PAYMENT_WINDOW -> {
                         //is easy hosted payment window - send the return url
-                        mView?.launchEasySDK(mPaymentId, response?.hostedPaymentPageUrl, MainActivity.RETURN_URL)
+                        mView?.launchEasySDK(mPaymentId, response?.hostedPaymentPageUrl, MainActivity.RETURN_URL, MainActivity.CANCEL_URL)
                     }
                     else -> {
                         //to be continued on future integration types
@@ -104,8 +108,10 @@ class MainActivityPresenterImpl(private var mView: MainActivityView?) : MainActi
             override fun onError(code: Int, error: HttpError) {
                 mView?.showLoader(false)
                 if (error.errors == null) {
-                    mView?.showAlert("${error.code ?: code}: ${error.source
-                            ?: getContext().getString(R.string.error_title)}",
+                    mView?.showAlert("${error.code ?: code}: ${
+                        error.source
+                                ?: getContext().getString(R.string.error_title)
+                    }",
                             error.message ?: getContext().getString(R.string.error_message))
                 } else {
                     mView?.showAlert(getContext().getString(R.string.error_title), error.parseErrors())
@@ -168,8 +174,10 @@ class MainActivityPresenterImpl(private var mView: MainActivityView?) : MainActi
             override fun onError(code: Int, error: HttpError) {
                 mView?.showLoader(false)
                 if (error.errors == null) {
-                    mView?.showAlert("${error.code ?: code}: ${error.source
-                            ?: getContext().getString(R.string.error_title)}",
+                    mView?.showAlert("${error.code ?: code}: ${
+                        error.source
+                                ?: getContext().getString(R.string.error_title)
+                    }",
                             error.message ?: getContext().getString(R.string.error_message))
                 } else {
                     mView?.showAlert(getContext().getString(R.string.error_message), error.parseErrors())
@@ -197,8 +205,10 @@ class MainActivityPresenterImpl(private var mView: MainActivityView?) : MainActi
             override fun onError(code: Int, error: HttpError) {
                 mView?.showLoader(false)
                 if (error.errors == null) {
-                    mView?.showAlert("${error.code ?: code}: ${error.source
-                            ?: getContext().getString(R.string.error_title)}",
+                    mView?.showAlert("${error.code ?: code}: ${
+                        error.source
+                                ?: getContext().getString(R.string.error_title)
+                    }",
                             error.message ?: getContext().getString(R.string.error_message))
                 } else {
                     mView?.showAlert(getContext().getString(R.string.error_message), error.parseErrors())
@@ -273,6 +283,7 @@ class MainActivityPresenterImpl(private var mView: MainActivityView?) : MainActi
                  */
                 checkout.integrationType = MainActivity.INTEGRATION_TYPE_PARAM
                 checkout.returnURL = MainActivity.RETURN_URL
+                checkout.cancelUrl = MainActivity.CANCEL_URL
             }
             else -> {//to be continued for future integration types
             }

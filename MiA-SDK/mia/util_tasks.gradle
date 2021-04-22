@@ -1,0 +1,25 @@
+def PROPERTY_FILE_PATH_PARAMETER = "propFilePath"
+def PROPERTY_FILE_NAME_PARAMETER = "propFileName"
+
+task addVersionNameToFile {
+    doLast {
+        if (project.hasProperty(PROPERTY_FILE_PATH_PARAMETER) && project.hasProperty(PROPERTY_FILE_NAME_PARAMETER)) {
+            def path = project.property(PROPERTY_FILE_PATH_PARAMETER)
+            def filename = project.property(PROPERTY_FILE_NAME_PARAMETER)
+
+            File rootFolder = new File(path)
+            if (!rootFolder.exists()) {
+                rootFolder.mkdirs()
+            }
+
+            Properties props = new Properties()
+            File propsFile = new File(rootFolder, filename)
+            if (!propsFile.exists()) {
+                propsFile.createNewFile()
+            }
+            props.load(propsFile.newDataInputStream())
+            props.setProperty('sdkVersionName', VERSION_NAME)
+            props.store(propsFile.newWriter(), null)
+        }
+    }
+}
