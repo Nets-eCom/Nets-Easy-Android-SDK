@@ -66,11 +66,19 @@
 @property (strong, readonly, nonatomic) NSString *_Nullable returnURL;
 
 /**
+ Cancel URL, EASY will redirect to this URL if user cancels the transaction
+ */
+@property (strong, readonly, nonatomic) NSString *_Nullable cancelURL;
+
+
+/**
  @param paymentId Payment ID
  @param paymentURL Checkout URL which includes iFrame from EASY
  @param returnURL EASY will redirect to this URL after transaction
  */
 - (instancetype _Nonnull)initWithPaymentId:(NSString *_Nonnull)paymentId
                                 paymentURL:(NSString *_Nonnull)paymentURL
-                                 returnURL:(NSString * _Nullable)returnURL;
+                                 returnURL:(NSString * _Nullable)returnURL
+                                 cancelURL:(NSString * _Nullable)cancelURL;
+
 @end

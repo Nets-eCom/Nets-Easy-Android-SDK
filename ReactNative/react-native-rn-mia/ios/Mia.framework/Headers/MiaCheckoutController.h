@@ -54,7 +54,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (MiaCheckoutController *)makeWithPaymentID:(NSString *)paymentID
                                   paymentURL:(NSString *)paymentURL
-                                 redirectURL:(NSString *)redirectURL
+                                 redirectURL:(NSString * _Nullable)redirectURL
+                                   cancelURL:(NSString * _Nullable)cancelURL
                                      success:(void(^)(MiaCheckoutController *))success
                                 cancellation:(void(^)(MiaCheckoutController *))cancellation
                                      failure:(void(^)(MiaCheckoutController *, NSError *))failure;

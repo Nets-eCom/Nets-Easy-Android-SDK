@@ -44,10 +44,10 @@ public class RnMiaModule extends ReactContextBaseJavaModule implements ActivityE
      * @param cancellation cancellation invoked if user cancelled payment process (typically by dismissing the WebView)
      */
     @ReactMethod
-    public void checkoutWithPaymentID(String paymentId, String checkoutUrl, String returnUrl, final Callback completion, final Callback cancellation) {
+    public void checkoutWithPaymentID(String paymentId, String checkoutUrl, String returnUrl, String cancelUrl, final Callback completion, final Callback cancellation) {
         this.completion = completion;
         this.cancellation = cancellation;
-        MiASDK.Companion.getInstance().startSDK(getCurrentActivity(), new MiAPaymentInfo(paymentId, checkoutUrl, returnUrl));
+        MiASDK.Companion.getInstance().startSDK(getCurrentActivity(), new MiAPaymentInfo(paymentId, checkoutUrl, returnUrl, cancelUrl));
     }
 
     @Override

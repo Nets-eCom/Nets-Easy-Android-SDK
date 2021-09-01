@@ -23,6 +23,7 @@ RCT_EXPORT_MODULE()
 RCT_EXPORT_METHOD(checkoutWithPaymentID:(NSString *)paymentID
                   paymentURL:(NSString *)paymentURL
                   isEasyHostedWithRedirectURL:(NSString *)redirectURL
+                  cancelURL:(NSString *)cancelURL
                   completion:(RCTResponseSenderBlock)completion
                   cancellation:(RCTResponseSenderBlock)cancellation) {
 
@@ -50,6 +51,7 @@ RCT_EXPORT_METHOD(checkoutWithPaymentID:(NSString *)paymentID
     [[MiaSDK class]checkoutControllerForPaymentWithID:paymentID
                                            paymentURL:paymentURL
                           isEasyHostedWithRedirectURL:redirectURL
+                                            cancelURL:cancelURL
                                               success:successHandler
                                          cancellation:cancellationHandler
                                               failure:failureHandler];

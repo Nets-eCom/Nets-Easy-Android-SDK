@@ -34,7 +34,9 @@ In order to integrate this module in your project:
 
 * Add the module dependency using yarn/npm: `yarn add ./../react-native-rn-mia`
 
-This links the module in Android but more steps are required to complete the *iOS* integration.
+This links the module in Android and iOS automatically. 
+
+In iOS, the `Mia.xcframework` supported starting *MiaSDK 1.3* allows for auto-linking using Xcode 12.3 and above version. If an older version of the SDK is used (<MiaSDK 1.3 `Mia.framework`), the following steps are required to complete the *iOS* integration.
 
 * iOS manual steps: Open your application xcworkspace and add Mia.framework to the Libraries folder
 	- Right click on Libraries - Add Files to "Your project" and find Mia.framework in *react-native-rn-mia/ios* directory
@@ -55,7 +57,7 @@ See the [example](### Example - Create Payment with EASY) to create payment with
 ```js
 // This example presents Mia SDK's checkout WebView and handles 
 // the callbacks by presenting an alert accordingly
-RNMia.checkoutWithPaymentID(paymentID, paymentURL, redirectURL, 
+RNMia.checkoutWithPaymentID(paymentID, paymentURL, redirectURL, cancelURL
 (error) => {
    alertTitle = error ? "Error" : "Payment Successful"
    Alert.alert(alertTitle, error, [{text:"Ok"}])

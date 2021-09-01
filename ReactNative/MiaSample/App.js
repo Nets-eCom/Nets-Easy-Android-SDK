@@ -24,7 +24,7 @@ export default class App extends Component<Props> {
 
   presentMiaCheckout(paymentID, paymentURL) {
     
-    RNMia.checkoutWithPaymentID(paymentID, paymentURL, this.api.redirectURL, 
+    RNMia.checkoutWithPaymentID(paymentID, paymentURL, this.api.redirectURL, this.api.cancelURL,
     (error) => {
       alertTitle = error ? "Error" : "Payment Successful"
       Alert.alert(alertTitle, error["Error"], [{text:"Ok"}])

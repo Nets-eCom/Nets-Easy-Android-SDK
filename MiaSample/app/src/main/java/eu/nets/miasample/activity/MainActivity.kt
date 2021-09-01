@@ -9,6 +9,8 @@ import android.graphics.Typeface
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
+
 import android.support.v7.app.ActionBarDrawerToggle
 import android.text.Spannable
 import android.text.SpannableString
@@ -21,6 +23,7 @@ import eu.nets.mia.MiASDK
 import eu.nets.mia.data.MiAPaymentInfo
 import eu.nets.mia.data.MiAResult
 import eu.nets.mia.data.MiAResultCode
+import eu.nets.miasample.BuildConfig
 import eu.nets.miasample.R
 import eu.nets.miasample.adapter.CurrencyAdapter
 import eu.nets.miasample.adapter.IntegrationTypeAdapter
@@ -67,11 +70,10 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         //end
         //integration types
         const val EASY_HOSTED_PAYMENT_WINDOW = "HostedPaymentPage"
-        const val MERCHANT_HOSTED_PAYMENT_WINDOW = "EmbeddedCheckout"
 
         //end
         //easy hosted payment window helper constants
-        const val RETURN_URL = "http://localhost/redirect.php"
+        val RETURN_URL = String.format("%1\$s://miasdk", BuildConfig.APPLICATION_ID)
 
         // Cancellation URL passed to EASY and the SDK to indentify
         // user cancellation by using the "Go back" link rendered
@@ -79,7 +81,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         // Note: Pass the same `cancelURL` for
         // payment registration with Easy API and
         // when presenting Mia SDK following payment registration.
-        const val CANCEL_URL = "https://cancellation-identifier-url"
+        val CANCEL_URL = String.format("%1\$s://miasdk", BuildConfig.APPLICATION_ID)
         const val INTEGRATION_TYPE_PARAM = "HostedPaymentPage"
 
         const val CONSUMER_DATA_NONE = "None"
@@ -188,8 +190,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
 
         //integration type spinner
         val integrationTypes: List<String> = ArrayList<String>(Arrays.asList(
-                EASY_HOSTED_PAYMENT_WINDOW,
-                MERCHANT_HOSTED_PAYMENT_WINDOW
+                EASY_HOSTED_PAYMENT_WINDOW
         ))
         val integrationTypeAdapter = IntegrationTypeAdapter(this, android.R.layout.simple_spinner_item, integrationTypes)
 
@@ -331,6 +332,14 @@ class MainActivity : AppCompatActivity(), MainActivityView {
             //make flag true; activity will be launched after the drawer is closed
             launchInputActivity = true
         }
+    }
+
+    fun openSubscriptionsView(createSubscription: Boolean) {
+        val intent = Intent(this, SubscriptionActivity::class.java)
+        intent.putExtra("ChargeableAmount", getAmount())
+        intent.putExtra("ChargeableCurrency", getCurrency())
+        intent.putExtra("CreateSubscription", createSubscription)
+        startActivity(intent)
     }
 
     /**

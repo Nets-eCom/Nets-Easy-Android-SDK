@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,8 +18,8 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* MiaSampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* MiaSampleTests.m */; };
 		3B8B6F988CA6DBB0D6DBDA28 /* libPods-MiaSample-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 886B9DA332796F3A125BE218 /* libPods-MiaSample-tvOS.a */; };
-		A3F78AB1246D2863004C60B4 /* Mia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3F78AAF246D2855004C60B4 /* Mia.framework */; };
-		A3F78AB2246D2863004C60B4 /* Mia.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A3F78AAF246D2855004C60B4 /* Mia.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A3CA8A9B2626C85B00D04904 /* Mia.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3CA8A9A2626C85B00D04904 /* Mia.xcframework */; };
+		A3CA8A9C2626C85B00D04904 /* Mia.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A3CA8A9A2626C85B00D04904 /* Mia.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DCCCB899DF93008FB9FA540B /* libPods-MiaSample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BF948E0319D6D6D69ED552A /* libPods-MiaSample.a */; };
 		F8FA7646C7E3B1F6B5994DAF /* libPods-MiaSample-MiaSampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81474B64B3E751B88FDF504F /* libPods-MiaSample-MiaSampleTests.a */; };
 /* End PBXBuildFile section */
@@ -42,13 +42,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		A3F78AB3246D2863004C60B4 /* Embed Frameworks */ = {
+		A3CA8A9D2626C85B00D04904 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				A3F78AB2246D2863004C60B4 /* Mia.framework in Embed Frameworks */,
+				A3CA8A9C2626C85B00D04904 /* Mia.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -56,7 +56,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00E356EE1AD99517003FC87E /* MiaSampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MiaSampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* MiaSampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MiaSampleTests.m; sourceTree = "<group>"; };
@@ -77,7 +76,7 @@
 		61B30A23051442DD469FEF77 /* Pods-MiaSample-MiaSampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiaSample-MiaSampleTests.debug.xcconfig"; path = "Target Support Files/Pods-MiaSample-MiaSampleTests/Pods-MiaSample-MiaSampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81474B64B3E751B88FDF504F /* libPods-MiaSample-MiaSampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MiaSample-MiaSampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		886B9DA332796F3A125BE218 /* libPods-MiaSample-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MiaSample-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A3F78AAF246D2855004C60B4 /* Mia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mia.framework; sourceTree = "<group>"; };
+		A3CA8A9A2626C85B00D04904 /* Mia.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = Mia.xcframework; sourceTree = "<group>"; };
 		C5191875CFACE9839B040B4B /* libPods-MiaSample-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MiaSample-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4177C7431570F884D4F2DC1 /* Pods-MiaSample-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiaSample-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-MiaSample-tvOSTests/Pods-MiaSample-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		EB5910A8792E424EF4AEF01F /* Pods-MiaSample-MiaSampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiaSample-MiaSampleTests.release.xcconfig"; path = "Target Support Files/Pods-MiaSample-MiaSampleTests/Pods-MiaSample-MiaSampleTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -99,8 +98,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A3F78AB1246D2863004C60B4 /* Mia.framework in Frameworks */,
 				DCCCB899DF93008FB9FA540B /* libPods-MiaSample.a in Frameworks */,
+				A3CA8A9B2626C85B00D04904 /* Mia.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,7 +142,6 @@
 		13B07FAE1A68108700A75B9A /* MiaSample */ = {
 			isa = PBXGroup;
 			children = (
-				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -157,6 +155,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A3CA8A9A2626C85B00D04904 /* Mia.xcframework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				4BF948E0319D6D6D69ED552A /* libPods-MiaSample.a */,
@@ -167,19 +166,10 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
-			isa = PBXGroup;
-			children = (
-				A3F78AAF246D2855004C60B4 /* Mia.framework */,
-			);
-			name = Libraries;
-			sourceTree = "<group>";
-		};
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
 				13B07FAE1A68108700A75B9A /* MiaSample */,
-				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* MiaSampleTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
@@ -248,7 +238,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				A3F78AB3246D2863004C60B4 /* Embed Frameworks */,
+				A3CA8A9D2626C85B00D04904 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -610,7 +600,11 @@
 				);
 				INFOPLIST_FILE = MiaSampleTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -630,7 +624,11 @@
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = MiaSampleTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -659,7 +657,10 @@
 					"FB_SONARKIT_ENABLED=1",
 				);
 				INFOPLIST_FILE = MiaSample/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -685,7 +686,10 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = MiaSample/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -712,7 +716,10 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "MiaSample-tvOS/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -740,7 +747,10 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "MiaSample-tvOS/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -767,7 +777,11 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "MiaSample-tvOSTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -794,7 +808,11 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "MiaSample-tvOSTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -856,7 +874,10 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"$(inherited)",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
@@ -909,7 +930,10 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"$(inherited)",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",

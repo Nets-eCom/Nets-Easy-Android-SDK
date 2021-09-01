@@ -12,8 +12,25 @@ export default class EasyAPI {
 		//
 		// Note: Pass the same `redirectURL` for 
 		// payment registration with Easy API and
-		// Presenting Mia SDK following payment registration. 
-		this.redirectURL = "https://127.0.0.1/redirect.php";
+		// when presenting Mia SDK following payment registration. 
+		this.redirectURL = "https://127.0.0.1/redirect.php"
+
+        // Cancellation URL passed to EASY and the SDK to indentify 
+        // user cancellation by using the "Go back" link rendered 
+        // in the checkout webview. 
+        //
+		// Note: Pass the same `cancelURL` for 
+		// payment registration with Easy API and
+		// when presenting Mia SDK following payment registration. 
+		this.cancelURL = "https://cancellation-identifier-url"
+
+		// Cancellation URL passed to EASY and the SDK to indentify 
+        // user cancellation by using the "Go back" link rendered 
+        // in the checkout webview. 
+		// Note: Pass the same `cancelURL` for 
+		// payment registration with Easy API and
+		// when presenting Mia SDK following payment registration. 
+		this.cancelURL = "https://cancellation-identifier-url";
 
 		// Default currency 
 		this.currency = "SEK"
@@ -65,7 +82,9 @@ export default class EasyAPI {
 		return {
 		   "checkout": {
 		      "termsUrl": "http://localhost:8080/terms",
+			  "cancelURL": this.cancelURL,
 		      "returnURL": this.redirectURL,
+		      "cancelURL": this.cancelURL,
 		      "consumerType": {
 		         "supportedTypes": [
 		            "B2C",

@@ -44,7 +44,6 @@ import kotlin.collections.ArrayList
 class MainActivityPresenterImpl(private var mView: MainActivityView?) : MainActivityPresenter {
 
     private var mPaymentId: String? = null
-    private var mCheckoutUrl: String = SampleLocalHost.CHECKOUT_URL
     private var mTermsUrl: String = SampleLocalHost.TERMS_URL
 
     //main activity presenter interface
@@ -83,41 +82,49 @@ class MainActivityPresenterImpl(private var mView: MainActivityView?) : MainActi
      */
     override fun registerPayment() {
         mView?.showLoader(true)
-        APIManager.getInstance().registerPayment(getPaymentRequest(), object : HttpResponse<RegisterPaymentResponse>() {
-            override fun onSuccess(response: RegisterPaymentResponse?) {
-                mPaymentId = response?.paymentId
-                mView?.showLoader(false)
-                //start server first
-                SampleLocalHost.getInstance().startServer(SampleHtmlProvider.getCheckoutHtml(mPaymentId))
-                //launch sdk
-                when (SharedPrefs.getInstance().integrationType) {
-                    MainActivity.MERCHANT_HOSTED_PAYMENT_WINDOW -> {
-                        //is merchant hosted payment window - do not send return url
-                        mView?.launchEasySDK(mPaymentId, mCheckoutUrl, null, MainActivity.CANCEL_URL)
-                    }
-                    MainActivity.EASY_HOSTED_PAYMENT_WINDOW -> {
-                        //is easy hosted payment window - send the return url
-                        mView?.launchEasySDK(mPaymentId, response?.hostedPaymentPageUrl, MainActivity.RETURN_URL, MainActivity.CANCEL_URL)
-                    }
-                    else -> {
-                        //to be continued on future integration types
+        APIManager.getInstance()
+            .registerPayment(getPaymentRequest(), object : HttpResponse<RegisterPaymentResponse>() {
+                override fun onSuccess(response: RegisterPaymentResponse?) {
+                    mPaymentId = response?.paymentId
+                    mView?.showLoader(false)
+                    //start server first
+                    SampleLocalHost.getInstance()
+                        .startServer(SampleHtmlProvider.getCheckoutHtml(mPaymentId))
+                    //launch sdk
+                    when (SharedPrefs.getInstance().integrationType) {
+                        MainActivity.EASY_HOSTED_PAYMENT_WINDOW -> {
+                            //is easy hosted payment window - send the return url
+                            mView?.launchEasySDK(
+                                mPaymentId,
+                                response?.hostedPaymentPageUrl,
+                                MainActivity.RETURN_URL,
+                                CANCEL_URL
+                            )
+                        }
+                        else -> {
+                            //to be continued on future integration types
+                        }
                     }
                 }
-            }
 
-            override fun onError(code: Int, error: HttpError) {
-                mView?.showLoader(false)
-                if (error.errors == null) {
-                    mView?.showAlert("${error.code ?: code}: ${
-                        error.source
-                                ?: getContext().getString(R.string.error_title)
-                    }",
-                            error.message ?: getContext().getString(R.string.error_message))
-                } else {
-                    mView?.showAlert(getContext().getString(R.string.error_title), error.parseErrors())
+                override fun onError(code: Int, error: HttpError) {
+                    mView?.showLoader(false)
+                    if (error.errors == null) {
+                        mView?.showAlert(
+                            "${error.code ?: code}: ${
+                                error.source
+                                    ?: getContext().getString(R.string.error_title)
+                            }",
+                            error.message ?: getContext().getString(R.string.error_message)
+                        )
+                    } else {
+                        mView?.showAlert(
+                            getContext().getString(R.string.error_title),
+                            error.parseErrors()
+                        )
+                    }
                 }
-            }
-        })
+            })
     }
 
     /**
@@ -128,7 +135,7 @@ class MainActivityPresenterImpl(private var mView: MainActivityView?) : MainActi
         mView?.showLoader(true)
 
         APIManager.getInstance().getPayment(mPaymentId
-                ?: "", object : HttpResponse<PaymentResponse>() {
+            ?: "", object : HttpResponse<PaymentResponse>() {
             override fun onSuccess(response: PaymentResponse?) {
                 //determine the payment status
                 when {
@@ -140,12 +147,18 @@ class MainActivityPresenterImpl(private var mView: MainActivityView?) : MainActi
                     response?.payment?.paymentCancelled() == true -> {
                         mView?.showLoader(false)
                         //the payment was canceled using the option inside the payment page
-                        mView?.showAlert(getContext().getString(R.string.canceled_title), getContext().getString(R.string.transaction_canceled))
+                        mView?.showAlert(
+                            getContext().getString(R.string.canceled_title),
+                            getContext().getString(R.string.transaction_canceled)
+                        )
                     }
                     response?.payment?.paymentCharged() == true -> {
                         mView?.showLoader(false)
                         //the payment was already charged
-                        mView?.showAlert(getContext().getString(R.string.success_title), getContext().getString(R.string.success_message))
+                        mView?.showAlert(
+                            getContext().getString(R.string.success_title),
+                            getContext().getString(R.string.success_message)
+                        )
                     }
                     else -> mView?.showLoader(false)
                 }
@@ -163,24 +176,30 @@ class MainActivityPresenterImpl(private var mView: MainActivityView?) : MainActi
     override fun chargePayment() {
         val chargePaymentRequest = getOrderRequest()
         APIManager.getInstance().chargePayment(mPaymentId
-                ?: "", chargePaymentRequest, object : HttpResponse<ChargePaymentResponse>() {
+            ?: "", chargePaymentRequest, object : HttpResponse<ChargePaymentResponse>() {
             override fun onSuccess(response: ChargePaymentResponse?) {
                 mView?.showLoader(false)
                 mView?.showAlert(
-                        getContext().getString(R.string.success_title),
-                        "${getContext().getString(R.string.success_message)} (Authorization charged)")
+                    getContext().getString(R.string.success_title),
+                    "${getContext().getString(R.string.success_message)} (Authorization charged)"
+                )
             }
 
             override fun onError(code: Int, error: HttpError) {
                 mView?.showLoader(false)
                 if (error.errors == null) {
-                    mView?.showAlert("${error.code ?: code}: ${
-                        error.source
+                    mView?.showAlert(
+                        "${error.code ?: code}: ${
+                            error.source
                                 ?: getContext().getString(R.string.error_title)
-                    }",
-                            error.message ?: getContext().getString(R.string.error_message))
+                        }",
+                        error.message ?: getContext().getString(R.string.error_message)
+                    )
                 } else {
-                    mView?.showAlert(getContext().getString(R.string.error_message), error.parseErrors())
+                    mView?.showAlert(
+                        getContext().getString(R.string.error_message),
+                        error.parseErrors()
+                    )
                 }
             }
         })
@@ -194,24 +213,30 @@ class MainActivityPresenterImpl(private var mView: MainActivityView?) : MainActi
     override fun cancelPayment() {
         val cancelPaymentRequest = getOrderRequest()
         APIManager.getInstance().cancelPayment(mPaymentId
-                ?: "", cancelPaymentRequest, object : HttpResponse<String>() {
+            ?: "", cancelPaymentRequest, object : HttpResponse<String>() {
             override fun onSuccess(response: String?) {
                 mView?.showLoader(false)
                 mView?.showAlert(
-                        getContext().getString(R.string.success_title),
-                        "${getContext().getString(R.string.success_message)} (Authorization cancelled)")
+                    getContext().getString(R.string.success_title),
+                    "${getContext().getString(R.string.success_message)} (Authorization cancelled)"
+                )
             }
 
             override fun onError(code: Int, error: HttpError) {
                 mView?.showLoader(false)
                 if (error.errors == null) {
-                    mView?.showAlert("${error.code ?: code}: ${
-                        error.source
+                    mView?.showAlert(
+                        "${error.code ?: code}: ${
+                            error.source
                                 ?: getContext().getString(R.string.error_title)
-                    }",
-                            error.message ?: getContext().getString(R.string.error_message))
+                        }",
+                        error.message ?: getContext().getString(R.string.error_message)
+                    )
                 } else {
-                    mView?.showAlert(getContext().getString(R.string.error_message), error.parseErrors())
+                    mView?.showAlert(
+                        getContext().getString(R.string.error_message),
+                        error.parseErrors()
+                    )
                 }
             }
         })
@@ -264,19 +289,12 @@ class MainActivityPresenterImpl(private var mView: MainActivityView?) : MainActi
         registerPaymentRequest.order = order
 
         val consumerType = ConsumerType()
-        consumerType.supportedTypes = ArrayList(Arrays.asList(ConsumerTypeEnum.B2B, ConsumerTypeEnum.B2C))
+        consumerType.supportedTypes =
+            ArrayList(Arrays.asList(ConsumerTypeEnum.B2B, ConsumerTypeEnum.B2C))
         consumerType.default = ConsumerTypeEnum.B2C
 
         //build checkout object based on integration type
         when (SharedPrefs.getInstance().integrationType) {
-            MainActivity.MERCHANT_HOSTED_PAYMENT_WINDOW -> {
-                /**
-                 * Is Merchant Hosted Payment Window
-                 * Set here your checkout page URL
-                 */
-                checkout.url = mCheckoutUrl
-                checkout.integrationType = SharedPrefs.getInstance().integrationType
-            }
             MainActivity.EASY_HOSTED_PAYMENT_WINDOW -> {
                 /**
                  * Is Easy hosted payment window
@@ -361,15 +379,16 @@ class MainActivityPresenterImpl(private var mView: MainActivityView?) : MainActi
 
     fun validateProfileDataForMerchantInjected(): Boolean {
         if (isStringEmpty(SharedPrefs.getInstance().firstName)
-                || isStringEmpty(SharedPrefs.getInstance().lastName)
-                || isStringEmpty(SharedPrefs.getInstance().prefix)
-                || isStringEmpty(SharedPrefs.getInstance().phoneNumber)
-                || isStringEmpty(SharedPrefs.getInstance().addressLineOne)
-                || isStringEmpty(SharedPrefs.getInstance().postalCode)
-                || isStringEmpty(SharedPrefs.getInstance().city)
-                || isStringEmpty(SharedPrefs.getInstance().countryCode)
-                || isStringEmpty(SharedPrefs.getInstance().email)
-                || !Patterns.EMAIL_ADDRESS.matcher(SharedPrefs.getInstance().email).matches()) {
+            || isStringEmpty(SharedPrefs.getInstance().lastName)
+            || isStringEmpty(SharedPrefs.getInstance().prefix)
+            || isStringEmpty(SharedPrefs.getInstance().phoneNumber)
+            || isStringEmpty(SharedPrefs.getInstance().addressLineOne)
+            || isStringEmpty(SharedPrefs.getInstance().postalCode)
+            || isStringEmpty(SharedPrefs.getInstance().city)
+            || isStringEmpty(SharedPrefs.getInstance().countryCode)
+            || isStringEmpty(SharedPrefs.getInstance().email)
+            || !Patterns.EMAIL_ADDRESS.matcher(SharedPrefs.getInstance().email).matches()
+        ) {
             mView?.showProfileDataValidationDialog()
             return false
         }
@@ -392,8 +411,9 @@ class MainActivityPresenterImpl(private var mView: MainActivityView?) : MainActi
 
     fun validateProfileDataForNoShipping(): Boolean {
         if (isStringEmpty(SharedPrefs.getInstance().postalCode)
-                || isStringEmpty(SharedPrefs.getInstance().email)
-                || !Patterns.EMAIL_ADDRESS.matcher(SharedPrefs.getInstance().email).matches()) {
+            || isStringEmpty(SharedPrefs.getInstance().email)
+            || !Patterns.EMAIL_ADDRESS.matcher(SharedPrefs.getInstance().email).matches()
+        ) {
             mView?.showProfileDataValidationDialog()
             return false
         }

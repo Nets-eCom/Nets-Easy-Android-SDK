@@ -33,12 +33,13 @@ import kotlin.collections.ArrayList
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-class SubscriptionActivityPresenterImpl(private var mView: SubscriptionActivityView?) : SubscriptionActivityPresenter {
+class SubscriptionActivityPresenterImpl(private var mView: SubscriptionActivityView?) :
+    SubscriptionActivityPresenter {
 
     private var mPaymentId: String? = null
     private var mSubscriptionId: String? = null
-    private var mCheckoutUrl: String = SampleLocalHost.CHECKOUT_URL
     private var mTermsUrl: String = SampleLocalHost.TERMS_URL
+
     /**
      * Launches the SDK with the paymentId and checkoutUrl
      */
@@ -54,41 +55,50 @@ class SubscriptionActivityPresenterImpl(private var mView: SubscriptionActivityV
      */
     override fun createSubscription() {
         mView?.showLoader(true)
-        APIManager.getInstance().createSubscription(getSubscriptionRequest(), object : HttpResponse<RegisterPaymentResponse>() {
-            override fun onSuccess(response: RegisterPaymentResponse?) {
-                mPaymentId = response?.paymentId
-                mView?.showLoader(false)
-                //start server first
-                SampleLocalHost.getInstance().startServer(SampleHtmlProvider.getCheckoutHtml(mPaymentId))
-                //launch sdk
-                when (SharedPrefs.getInstance().integrationType) {
-                    MainActivity.MERCHANT_HOSTED_PAYMENT_WINDOW -> {
-                        //is merchant hosted payment window - do not send return url
-                        mView?.launchEasySDK(mPaymentId, mCheckoutUrl, null, MainActivity.CANCEL_URL)
-                    }
-                    MainActivity.EASY_HOSTED_PAYMENT_WINDOW -> {
-                        //is easy hosted payment window - send the return url
-                        mView?.launchEasySDK(mPaymentId, response?.hostedPaymentPageUrl, MainActivity.RETURN_URL, MainActivity.CANCEL_URL)
-                    }
-                    else -> {
-                        //to be continued on future integration types
+        APIManager.getInstance().createSubscription(
+            getSubscriptionRequest(),
+            object : HttpResponse<RegisterPaymentResponse>() {
+                override fun onSuccess(response: RegisterPaymentResponse?) {
+                    mPaymentId = response?.paymentId
+                    mView?.showLoader(false)
+                    //start server first
+                    SampleLocalHost.getInstance()
+                        .startServer(SampleHtmlProvider.getCheckoutHtml(mPaymentId))
+                    //launch sdk
+                    when (SharedPrefs.getInstance().integrationType) {
+                        MainActivity.EASY_HOSTED_PAYMENT_WINDOW -> {
+                            //is easy hosted payment window - send the return url
+                            mView?.launchEasySDK(
+                                mPaymentId,
+                                response?.hostedPaymentPageUrl,
+                                MainActivity.RETURN_URL,
+                                MainActivity.CANCEL_URL
+                            )
+                        }
+                        else -> {
+                            //to be continued on future integration types
+                        }
                     }
                 }
-            }
 
-            override fun onError(code: Int, error: HttpError) {
-                mView?.showLoader(false)
-                if (error.errors == null) {
-                    mView?.showAlert("${error.code ?: code}: ${
-                        error.source
-                                ?: getContext().getString(R.string.error_title)
-                    }",
-                            error.message ?: getContext().getString(R.string.error_message))
-                } else {
-                    mView?.showAlert(getContext().getString(R.string.error_title), error.parseErrors())
+                override fun onError(code: Int, error: HttpError) {
+                    mView?.showLoader(false)
+                    if (error.errors == null) {
+                        mView?.showAlert(
+                            "${error.code ?: code}: ${
+                                error.source
+                                    ?: getContext().getString(R.string.error_title)
+                            }",
+                            error.message ?: getContext().getString(R.string.error_message)
+                        )
+                    } else {
+                        mView?.showAlert(
+                            getContext().getString(R.string.error_title),
+                            error.parseErrors()
+                        )
+                    }
                 }
-            }
-        })
+            })
     }
 
     override fun getSubscriptionId() {
@@ -96,7 +106,7 @@ class SubscriptionActivityPresenterImpl(private var mView: SubscriptionActivityV
         mView?.showLoader(true)
 
         APIManager.getInstance().getSubscriptionPayment(mPaymentId
-                ?: "", object : HttpResponse<SubscriptionRegistrationResponse>() {
+            ?: "", object : HttpResponse<SubscriptionRegistrationResponse>() {
             override fun onSuccess(response: SubscriptionRegistrationResponse?) {
                 //determine the payment status
                 mSubscriptionId = response?.payment?.subscription?.id
@@ -104,7 +114,10 @@ class SubscriptionActivityPresenterImpl(private var mView: SubscriptionActivityV
                     Utilities.isStringNullorEmpty(mSubscriptionId) -> {
                         mView?.showLoader(false)
                         //the payment was canceled using the option inside the payment page
-                        mView?.showAlert(getContext().getString(R.string.canceled_title), getContext().getString(R.string.transaction_canceled))
+                        mView?.showAlert(
+                            getContext().getString(R.string.canceled_title),
+                            getContext().getString(R.string.transaction_canceled)
+                        )
                     }
                     else -> {
                         fetchSubscriptionDetails()
@@ -122,24 +135,36 @@ class SubscriptionActivityPresenterImpl(private var mView: SubscriptionActivityV
         mView?.showLoader(true)
         val chargePaymentRequest = getChargeSubscriptionRequest()
         APIManager.getInstance().chargeSubscription(subscriptionId
-                ?: "", chargePaymentRequest, object : HttpResponse<ChargePaymentResponse>() {
+            ?: "", chargePaymentRequest, object : HttpResponse<ChargePaymentResponse>() {
             override fun onSuccess(response: ChargePaymentResponse?) {
                 mView?.showLoader(false)
                 mView?.showAlert(
-                        getContext().getString(R.string.charge_successful),
-                        "${getContext().getString(R.string.charge_successful_details, subscriptionId, response?.paymentId)}")
+                    getContext().getString(R.string.charge_successful),
+                    "${
+                        getContext().getString(
+                            R.string.charge_successful_details,
+                            subscriptionId,
+                            response?.paymentId
+                        )
+                    }"
+                )
             }
 
             override fun onError(code: Int, error: HttpError) {
                 mView?.showLoader(false)
                 if (error.errors == null) {
-                    mView?.showAlert("${error.code ?: code}: ${
-                        error.source
+                    mView?.showAlert(
+                        "${error.code ?: code}: ${
+                            error.source
                                 ?: getContext().getString(R.string.error_title)
-                    }",
-                            error.message ?: getContext().getString(R.string.error_message))
+                        }",
+                        error.message ?: getContext().getString(R.string.error_message)
+                    )
                 } else {
-                    mView?.showAlert(getContext().getString(R.string.error_message), error.parseErrors())
+                    mView?.showAlert(
+                        getContext().getString(R.string.error_message),
+                        error.parseErrors()
+                    )
                 }
             }
         })
@@ -147,26 +172,37 @@ class SubscriptionActivityPresenterImpl(private var mView: SubscriptionActivityV
 
     override fun fetchSubscriptionDetails() {
         APIManager.getInstance().fetchSubscriptionDetails(mSubscriptionId
-                ?: "", object : HttpResponse<SubscriptionDetailsResponse>() {
+            ?: "", object : HttpResponse<SubscriptionDetailsResponse>() {
             override fun onSuccess(response: SubscriptionDetailsResponse?) {
                 Utilities.saveSubscriptionDetails(response)
                 mView?.showLoader(false)
                 mView?.showAlert(
-                        getContext().getString(R.string.subscription_created),
-                        "${getContext().getString(R.string.subscription_created_alert, mSubscriptionId)}")
+                    getContext().getString(R.string.subscription_created),
+                    "${
+                        getContext().getString(
+                            R.string.subscription_created_alert,
+                            mSubscriptionId
+                        )
+                    }"
+                )
                 mView?.updateList(response!!)
             }
 
             override fun onError(code: Int, error: HttpError) {
                 mView?.showLoader(false)
                 if (error.errors == null) {
-                    mView?.showAlert("${error.code ?: code}: ${
-                        error.source
+                    mView?.showAlert(
+                        "${error.code ?: code}: ${
+                            error.source
                                 ?: getContext().getString(R.string.error_title)
-                    }",
-                            error.message ?: getContext().getString(R.string.error_message))
+                        }",
+                        error.message ?: getContext().getString(R.string.error_message)
+                    )
                 } else {
-                    mView?.showAlert(getContext().getString(R.string.error_message), error.parseErrors())
+                    mView?.showAlert(
+                        getContext().getString(R.string.error_message),
+                        error.parseErrors()
+                    )
                 }
             }
         })
@@ -240,19 +276,12 @@ class SubscriptionActivityPresenterImpl(private var mView: SubscriptionActivityV
         registerPaymentRequest.order = order
 
         val consumerType = ConsumerType()
-        consumerType.supportedTypes = ArrayList(Arrays.asList(ConsumerTypeEnum.B2B, ConsumerTypeEnum.B2C))
+        consumerType.supportedTypes =
+            ArrayList(Arrays.asList(ConsumerTypeEnum.B2B, ConsumerTypeEnum.B2C))
         consumerType.default = ConsumerTypeEnum.B2C
 
         //build checkout object based on integration type
         when (SharedPrefs.getInstance().integrationType) {
-            MainActivity.MERCHANT_HOSTED_PAYMENT_WINDOW -> {
-                /**
-                 * Is Merchant Hosted Payment Window
-                 * Set here your checkout page URL
-                 */
-                checkout.url = mCheckoutUrl
-                checkout.integrationType = SharedPrefs.getInstance().integrationType
-            }
             MainActivity.EASY_HOSTED_PAYMENT_WINDOW -> {
                 /**
                  * Is Easy hosted payment window
