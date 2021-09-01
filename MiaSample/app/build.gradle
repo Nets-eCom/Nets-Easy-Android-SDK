@@ -29,6 +29,11 @@ android {
         buildConfigField "String", "PROD_CHECKOUT_KEY", PROD_CHECKOUT_KEY
         buildConfigField "String", "PROD_BASE_URL", PROD_BASE_URL
         buildConfigField "String", "PROD_CHECKOUT_JS", PROD_CHECKOUT_JS
+
+        //pre-prod env
+        buildConfigField "String", "PRE_PROD_SECRET_KEY", PRE_PROD_SECRET_KEY
+        buildConfigField "String", "PRE_PROD_CHECKOUT_KEY", PRE_PROD_CHECKOUT_KEY
+        buildConfigField "String", "PRE_PROD_BASE_URL", PRE_PROD_BASE_URL
     }
 
 
@@ -61,7 +66,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'org.nanohttpd:nanohttpd:2.3.1'
 
-	implementation('eu.nets.mia:mia-sdk:1.4.1@aar') { transitive = true; changing=true; }
+	implementation('eu.nets.mia:mia-sdk:1.5.0@aar') { transitive = true; changing=true; }
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -2,6 +2,7 @@ package eu.nets.miasample.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import eu.nets.miasample.BuildConfig
 import eu.nets.miasample.activity.MainActivity
 
 
@@ -40,7 +41,7 @@ class SharedPrefs {
 
     private val emptyString = ""
     private val currencyKey = "KEY_CURRENCY"
-    private val testModeKey = "TEST_MODE"
+    private val testModeKey = "TEST_MODE_KEY"
     private val chargePaymentKey = "CHARGE_PAYMENT"
     private val integrationTypeKey = "INTEGRATION_TYPE"
     private val firstNameKey = "FIRSTNAME"
@@ -58,7 +59,7 @@ class SharedPrefs {
     private val productionSubscriptionDetailsKey = "PRODUCTION_SUBSCRIPTION_DETAILS"
 
     val subscriptionDataKey: String get() {
-        return if (testMode) testSubscriptionDetailsKey else productionSubscriptionDetailsKey
+        return if (environmentType.equals(MainActivity.TEST)) testSubscriptionDetailsKey else productionSubscriptionDetailsKey
     }
 
     var currency: String
@@ -69,12 +70,12 @@ class SharedPrefs {
             sharedPrefs.edit().putString(currencyKey, value).apply()
         }
 
-    var testMode: Boolean
+    var environmentType: String
         get() {
-            return sharedPrefs.getBoolean(testModeKey, true)
+            return sharedPrefs.getString(testModeKey, MainActivity.TEST)
         }
         set(value) {
-            sharedPrefs.edit().putBoolean(testModeKey, value).apply()
+            sharedPrefs.edit().putString(testModeKey, value).apply()
         }
 
     var chargePayment: Boolean

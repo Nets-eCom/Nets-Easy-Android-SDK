@@ -1,6 +1,7 @@
 package eu.nets.miasample.network
 
 import eu.nets.miasample.BuildConfig
+import eu.nets.miasample.activity.MainActivity
 import eu.nets.miasample.network.callback.HttpResponse
 import eu.nets.miasample.network.interceptor.HeaderInterceptor
 import eu.nets.miasample.network.interceptor.LoggerInterceptor
@@ -37,7 +38,12 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 class APIManager private constructor(
 
-        private var baseUrl: String = if (SharedPrefs.getInstance().testMode) BuildConfig.TEST_BASE_URL else BuildConfig.PROD_BASE_URL,
+        private var baseUrl: String = when (SharedPrefs.getInstance().environmentType) {
+            MainActivity.PROD -> BuildConfig.PROD_BASE_URL
+            MainActivity.PRE_PROD -> BuildConfig.PRE_PROD_BASE_URL
+            MainActivity.TEST -> BuildConfig.TEST_BASE_URL
+            else -> BuildConfig.TEST_BASE_URL
+        },
 
         private val okHttpClient: OkHttpClient = OkHttpClient().newBuilder()
                 .addInterceptor(LoggerInterceptor())
@@ -51,9 +57,10 @@ class APIManager private constructor(
 
     companion object {
         private var instance = APIManager()
-        var secretKey = if (SharedPrefs.getInstance().testMode) KeysProvider.testSecretKey else KeysProvider.prodSecretKey
-        var checkoutKey = if (SharedPrefs.getInstance().testMode) KeysProvider.testCheckoutKey else KeysProvider.prodCheckoutKey
-        var checkoutJS = if (SharedPrefs.getInstance().testMode) BuildConfig.TEST_CHECKOUT_JS else BuildConfig.PROD_CHECKOUT_JS
+
+        var secretKey = getSecretKeyValue()
+        var checkoutKey = getCheckoutKeyValue()
+        var checkoutJS = getCheckoutJSValue()
 
         fun getInstance(): APIManager {
             return instance
@@ -61,10 +68,37 @@ class APIManager private constructor(
 
         fun recreateInstance() {
             instance = APIManager()
-            secretKey = if (SharedPrefs.getInstance().testMode) KeysProvider.testSecretKey else KeysProvider.prodSecretKey
-            checkoutKey = if (SharedPrefs.getInstance().testMode) KeysProvider.testCheckoutKey else KeysProvider.prodCheckoutKey
-            checkoutJS = if (SharedPrefs.getInstance().testMode) BuildConfig.TEST_CHECKOUT_JS else BuildConfig.PROD_CHECKOUT_JS
+            secretKey = getSecretKeyValue()
+            checkoutKey = getCheckoutKeyValue()
+            checkoutJS = getCheckoutJSValue()
         }
+
+        private fun getSecretKeyValue(): String {
+            return when (SharedPrefs.getInstance().environmentType) {
+                MainActivity.PROD -> KeysProvider.prodSecretKey
+                MainActivity.PRE_PROD -> KeysProvider.preProdSecretKey
+                MainActivity.TEST -> KeysProvider.testSecretKey
+                else -> KeysProvider.testSecretKey
+            }
+        }
+
+        private fun getCheckoutKeyValue(): String {
+            return when (SharedPrefs.getInstance().environmentType) {
+                MainActivity.PROD -> KeysProvider.prodCheckoutKey
+                MainActivity.PRE_PROD -> KeysProvider.preProdCheckoutKey
+                MainActivity.TEST -> KeysProvider.testCheckoutKey
+                else -> KeysProvider.testCheckoutKey
+            }
+        }
+
+        private fun getCheckoutJSValue(): String {
+            return when (SharedPrefs.getInstance().environmentType) {
+                MainActivity.PROD -> BuildConfig.PROD_CHECKOUT_JS
+                MainActivity.TEST -> BuildConfig.TEST_CHECKOUT_JS
+                else -> BuildConfig.TEST_CHECKOUT_JS
+            }
+        }
+
     }
 
     fun registerPayment(request: RegisterPaymentRequest, response: HttpResponse<RegisterPaymentResponse>) {
@@ -76,6 +110,7 @@ class APIManager private constructor(
         val call: Call<ChargePaymentResponse> = easyAPIService.chargePayment(paymentId, request)
         call.enqueue(response)
     }
+
     fun cancelPayment(paymentId: String, request: PaymentActionRequest, response: HttpResponse<String>) {
         val call: Call<String> = easyAPIService.cancelPayment(paymentId, request)
         call.enqueue(response)
@@ -85,6 +120,7 @@ class APIManager private constructor(
         val call: Call<PaymentResponse> = easyAPIService.getPayment(paymentId)
         call.enqueue(response)
     }
+
     fun getSubscriptionPayment(paymentId: String, response: HttpResponse<SubscriptionRegistrationResponse>) {
         val call: Call<SubscriptionRegistrationResponse> = easyAPIService.fetchSubscriptionPayment(paymentId)
         call.enqueue(response)

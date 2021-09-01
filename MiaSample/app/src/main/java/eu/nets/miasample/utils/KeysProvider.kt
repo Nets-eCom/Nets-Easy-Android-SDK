@@ -27,6 +27,8 @@ object KeysProvider {
     var testCheckoutKey: String = ""
     var prodSecretKey: String = ""
     var prodCheckoutKey: String = ""
+    var preProdSecretKey: String = ""
+    var preProdCheckoutKey: String = ""
 
     init {
         assignBuildConfigValues()
@@ -37,6 +39,8 @@ object KeysProvider {
         testCheckoutKey = BuildConfig.TEST_CHECKOUT_KEY
         prodSecretKey = BuildConfig.PROD_SECRET_KEY
         prodCheckoutKey = BuildConfig.PROD_CHECKOUT_KEY
+        preProdSecretKey = BuildConfig.PRE_PROD_SECRET_KEY
+        preProdCheckoutKey = BuildConfig.PRE_PROD_CHECKOUT_KEY
     }
 
 

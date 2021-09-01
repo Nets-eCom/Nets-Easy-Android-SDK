@@ -71,6 +71,11 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         //integration types
         const val EASY_HOSTED_PAYMENT_WINDOW = "HostedPaymentPage"
 
+        //Environment types
+        const val TEST = "Test Environment"
+        const val PRE_PROD = "Pre Prod Environment"
+        const val PROD = "Prod Environment"
+
         //end
         //easy hosted payment window helper constants
         val RETURN_URL = String.format("%1\$s://miasdk", BuildConfig.APPLICATION_ID)
@@ -188,6 +193,27 @@ class MainActivity : AppCompatActivity(), MainActivityView {
             }
         }
 
+        //Environment spinner setup for internal use for including Pre-Prod environment
+        
+        //Environment type spinner
+        val environmentTypes: List<String> = ArrayList<String>(Arrays.asList(
+                TEST, PRE_PROD, PROD
+        ))
+        val environmentTypeAdapter = IntegrationTypeAdapter(this, android.R.layout.simple_spinner_item, environmentTypes)
+
+        environmentTypeSpinner.adapter = environmentTypeAdapter
+        environmentTypeSpinner.setSelection(environmentTypeAdapter.getPositionForItem(SharedPrefs.getInstance().environmentType))
+        environmentTypeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                //not required
+            }
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                SharedPrefs.getInstance().environmentType = environmentTypeAdapter.getItem(p2)
+                APIManager.recreateInstance()
+            }
+        }
+
         //integration type spinner
         val integrationTypes: List<String> = ArrayList<String>(Arrays.asList(
                 EASY_HOSTED_PAYMENT_WINDOW
@@ -300,7 +326,6 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         drawerToggle.drawerArrowDrawable.mutate().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN)
 
         //set old user configuration visible
-        switchProdEnv.isChecked = !SharedPrefs.getInstance().testMode
         switchChargePayment.isChecked = SharedPrefs.getInstance().chargePayment
 
         //setup nav drawer items listeners
@@ -309,11 +334,6 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         //apply BOLD span on the version name
         span.setSpan(StyleSpan(Typeface.BOLD), 0, MiASDK.getInstance().getVersionName().length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         fieldVersion.text = span
-
-        switchProdEnv.setOnCheckedChangeListener { _, checked ->
-            SharedPrefs.getInstance().testMode = !checked
-            APIManager.recreateInstance()
-        }
 
         switchChargePayment.setOnCheckedChangeListener { _, checked ->
             SharedPrefs.getInstance().chargePayment = checked
