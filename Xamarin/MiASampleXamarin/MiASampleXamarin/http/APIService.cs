@@ -45,6 +45,14 @@ namespace MiASampleXamarin
         public static String baseUrl = "YOUR_BASE_URL";
         public static String endPoint = "YOUR_API_ENDPOINT";
         public static String returnURL = "YOUR_RETURN_URL";
+
+        // Cancellation URL passed to EASY and the SDK to indentify 
+        // user cancellation by using the "Go back" link rendered 
+        // in the checkout webview. 
+		// Note: Pass the same `cancelURL` for 
+		// payment registration with Easy API and
+		// when presenting Mia SDK following payment registration. 
+        public static String cancelURL = "YOUR_CANCEL_URL";
         #external_code_section_end*/
 
         //#internal_code_section_start
@@ -53,6 +61,7 @@ namespace MiASampleXamarin
         public static String baseUrl = "https://test.api.dibspayment.eu/";
         public static String endPoint = "v1/payments";
         public static String returnURL = "http://localhost/redirect.php";
+        public static String cancelURL = "https://cancellation-identifier-url";
         //#internal_code_section_end
 
         private APIService()

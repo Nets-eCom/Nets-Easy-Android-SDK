@@ -108,6 +108,9 @@ class Checkout {
     @SerializedName("returnURL")
     var returnURL: String? = null
     @Expose
+    @SerializedName("cancelUrl")
+    var cancelUrl: String? = null
+    @Expose
     @SerializedName("merchantHandlesConsumerData")
     var merchantHandlesConsumerData: Boolean = false
     @Expose

@@ -1,7 +1,6 @@
 package eu.nets.miasample.utils
 
 import fi.iki.elonen.NanoHTTPD
-import java.lang.Exception
 
 
 /**

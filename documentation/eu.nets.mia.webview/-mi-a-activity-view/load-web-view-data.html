@@ -1,0 +1,23 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MiAActivityView.loadWebViewData - mia</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">mia</a>&nbsp;/&nbsp;<a href="../index.html">eu.nets.mia.webview</a>&nbsp;/&nbsp;<a href="index.html">MiAActivityView</a>&nbsp;/&nbsp;<a href="./load-web-view-data.html">loadWebViewData</a><br/>
+<br/>
+<h1>loadWebViewData</h1>
+<a name="eu.nets.mia.webview.MiAActivityView$loadWebViewData(kotlin.String, kotlin.String)"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">loadWebViewData</span><span class="symbol">(</span><span class="identifier" id="eu.nets.mia.webview.MiAActivityView$loadWebViewData(kotlin.String, kotlin.String)/paymentId">paymentId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="eu.nets.mia.webview.MiAActivityView$loadWebViewData(kotlin.String, kotlin.String)/checkoutUrl">checkoutUrl</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Validates again the paymentId and checkoutUrl</p>
+<ul><li>if are valid, it will notify the BaseActivity to load the specific URL</li>
+<li>if not valid, cancel the process with error - something went wrong</li>
+</ul>
+<h3>Parameters</h3>
+<p><a name="paymentId"></a>
+<code>paymentId</code> - the ID of the payment provided by merchant app</p>
+<p><a name="checkoutUrl"></a>
+<code>checkoutUrl</code> - the checkout url provided by merchant app</p>
+</BODY>
+</HTML>

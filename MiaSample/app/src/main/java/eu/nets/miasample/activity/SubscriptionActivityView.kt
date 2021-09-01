@@ -35,9 +35,10 @@ interface SubscriptionActivityView {
      * @param paymentId the paymentId received in registerPayment API call
      * @param checkoutUrl the checkout page url sent in the register payment API call
      * @param returnUrl the return url of success case when Integration Type is Easy Hosted Checkout
+     * @param cancelUrl the url that you would want to redirect to in case of cancel.
      */
 
-    fun launchEasySDK(paymentId: String?, checkoutUrl: String?, returnUrl: String?)
+    fun launchEasySDK(paymentId: String?, checkoutUrl: String?, returnUrl: String?, cancelUrl: String?)
 
     /**
      * Show/hide progress view based on the boolean flag

@@ -72,6 +72,14 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         //end
         //easy hosted payment window helper constants
         const val RETURN_URL = "http://localhost/redirect.php"
+
+        // Cancellation URL passed to EASY and the SDK to indentify
+        // user cancellation by using the "Go back" link rendered
+        // in the checkout webview.
+        // Note: Pass the same `cancelURL` for
+        // payment registration with Easy API and
+        // when presenting Mia SDK following payment registration.
+        const val CANCEL_URL = "https://cancellation-identifier-url"
         const val INTEGRATION_TYPE_PARAM = "HostedPaymentPage"
 
         const val CONSUMER_DATA_NONE = "None"
@@ -342,13 +350,14 @@ class MainActivity : AppCompatActivity(), MainActivityView {
      * @param paymentId the paymentId received in registerPayment API call
      * @param checkoutUrl the checkout page url sent in the register payment API call
      * @param returnUrl the return url of success case when Integration Type is Easy Hosted Checkout
+     * @param cancelUrl the url that you would want to redirect to in case of cancel.
      */
-    override fun launchEasySDK(paymentId: String?, checkoutUrl: String?, returnUrl: String?) {
+    override fun launchEasySDK(paymentId: String?, checkoutUrl: String?, returnUrl: String?, cancelUrl: String?) {
         if (paymentId == null || checkoutUrl == null) {
             showAlert(getString(R.string.error_title), getString(R.string.error_message))
             return
         } else if (validateAmount()) {
-            MiASDK.getInstance().startSDK(this, MiAPaymentInfo(paymentId, checkoutUrl, returnUrl))
+            MiASDK.getInstance().startSDK(this, MiAPaymentInfo(paymentId, checkoutUrl, returnUrl, cancelUrl))
         }
     }
 

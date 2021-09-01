@@ -1,0 +1,21 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>BaseWebViewPresenterImpl.handleShouldOverrideUrlLoading - mia</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">mia</a>&nbsp;/&nbsp;<a href="../index.html">eu.nets.mia.webview.base</a>&nbsp;/&nbsp;<a href="index.html">BaseWebViewPresenterImpl</a>&nbsp;/&nbsp;<a href="./handle-should-override-url-loading.html">handleShouldOverrideUrlLoading</a><br/>
+<br/>
+<h1>handleShouldOverrideUrlLoading</h1>
+<a name="eu.nets.mia.webview.base.BaseWebViewPresenterImpl$handleShouldOverrideUrlLoading(kotlin.String)"></a>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">handleShouldOverrideUrlLoading</span><span class="symbol">(</span><span class="identifier" id="eu.nets.mia.webview.base.BaseWebViewPresenterImpl$handleShouldOverrideUrlLoading(kotlin.String)/url">url</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Overrides <a href="../-base-web-view-presenter/handle-should-override-url-loading.html">BaseWebViewPresenter.handleShouldOverrideUrlLoading</a></p>
+<p>In case of Easy Host Payment window integration type, do the following:</p>
+<ul><li>check if the redirect happens to the url provided by the application</li>
+<li>check if the redirect url contains the actual payment id</li>
+<li>if so, stop the SDK process and deliver payment result OK</li>
+</ul>
+<p>In case of other integration types, do nothing!</p>
+</BODY>
+</HTML>

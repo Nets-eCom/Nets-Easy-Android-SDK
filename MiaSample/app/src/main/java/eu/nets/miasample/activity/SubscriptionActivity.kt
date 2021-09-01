@@ -3,8 +3,8 @@ package eu.nets.miasample.activity
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.google.gson.Gson
@@ -19,7 +19,6 @@ import eu.nets.miasample.network.response.SubscriptionDetailsResponse
 import eu.nets.miasample.utils.SampleLocalHost
 import eu.nets.miasample.utils.SharedPrefs
 import kotlinx.android.synthetic.main.activity_subscription.*
-import java.lang.Exception
 
 /**
  *  *****Copyright (c) 2020 Nets Denmark A/S*****
@@ -149,12 +148,12 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionActivityView {
         }
     }
 
-    override fun launchEasySDK(paymentId: String?, checkoutUrl: String?, returnUrl: String?) {
+    override fun launchEasySDK(paymentId: String?, checkoutUrl: String?, returnUrl: String?, cancelUrl: String?) {
         if (paymentId == null || checkoutUrl == null) {
             showAlert(getString(R.string.error_title), getString(R.string.error_message))
             return
         } else {
-            MiASDK.getInstance().startSDK(this, MiAPaymentInfo(paymentId, checkoutUrl, returnUrl))
+            MiASDK.getInstance().startSDK(this, MiAPaymentInfo(paymentId, checkoutUrl, returnUrl, cancelUrl))
         }
     }
 

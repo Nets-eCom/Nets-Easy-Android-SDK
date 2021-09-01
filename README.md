@@ -1,8 +1,10 @@
-# Easy - Android SDK v1.2.1
+# Easy - Android SDK v1.3.0
 ----
 ![Logo](readme-files/NetsLogo.jpg)
 
 MiA Easy Android SDK is a library which facilitates the Embedded DIBS Easy Checkout integration in your Android application
+
+Detailed documentation can be found [here](https://htmlpreview.github.io/?https://github.com/DIBS-Payment-Services/Easy-Android-SDK/blob/master/documentation/Start%20-%20Overview%20of%20MiA%20Android%20SDK.html).
 
 + **Nets Easy** technical documentation can be found [here](https://tech.dibspayment.com/easy)
 + **Nets Easy API documentation** can be found [here](http://tech.dibspayment.com/easy/api)
@@ -18,7 +20,7 @@ MiA Easy Android SDK is a library which facilitates the Embedded DIBS Easy Check
 ----
 In your `build.gradle` application level file, add:
 ```gradle
-implementation('eu.nets.mia:mia-sdk:1.2.1') { transitive = true;}
+implementation('eu.nets.mia:mia-sdk:1.3.0') { transitive = true;}
 ```
     
 **Note:** the library is available through both `jcenter()` and `mavenCentral()` repositories.
