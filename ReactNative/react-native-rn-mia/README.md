@@ -23,8 +23,8 @@ import RNMia from 'react-native-rn-mia';
 
 ### Mia Checkout API
 
-Present Mia checkout after obtaining a payment ID and payment URL from EASY `create payment` REST API.
-See the [example](### Example - Create Payment with EASY) to create payment with order and merchant details.
+Present Mia checkout after obtaining a payment ID and payment URL from Nets Easy `create payment` REST API.
+See the [example](### Example - Create Payment with Nets Easy) to create payment with order and merchant details.
 
 ```js
 // This example presents Mia SDK's checkout WebView and handles 
@@ -40,7 +40,7 @@ RNMia.checkoutWithPaymentID(paymentID, paymentURL, redirectURL,
 ```
 
 Note: A redirect URL is used to identify navigation from Mia SDK back to the application.
-Pass the same `redirectURL` when creating the payment with Easy API and 
+Pass the same `redirectURL` when creating the payment with Nets Easy API and 
 when presenting checkout with Mia SDK as shown above. 
 
 Callbacks:
@@ -48,7 +48,7 @@ Callbacks:
     - Failure: The first callback returns an `error` map object in case of error. User "Error" key to obtain error message. 
     - Cancellation: The second callback is invoked if the user cancelled the process. The callback does not contain any argument. 
 
-### Example (Create Payment with EASY)
+### Example (Create Payment with Nets Easy)
 
 Create the request body:
 
@@ -87,7 +87,7 @@ requestBody = {
 }
 ```
 
-Initiate payment using your merchant secret key to authorize with EASY
+Initiate payment using your merchant secret key to authorize with Nets Easy
 
 ```js 
 // Test env. is used for this demo

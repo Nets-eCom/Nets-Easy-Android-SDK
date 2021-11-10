@@ -1,7 +1,7 @@
 {
   "name": "react-native-rn-mia",
   "title": "React Native Rn Mia",
-  "version": "1.2.0",
+  "version": "1.6.0",
   "description": "A react native module that wraps and bridges Mia iOS and Android SDKs",
   "main": "index.js",
   "scripts": {

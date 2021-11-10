@@ -1,12 +1,15 @@
-# Easy - Android SDK v1.5.0
+# Nets Easy - Android SDK v1.6.0
 ----
 ![Logo](readme-files/NetsLogo.jpg)
 
-MiA Easy Android SDK is a library which facilitates the Embedded DIBS Easy Checkout integration in your Android application
+MiA Nets Easy Android SDK is a library which facilitates the Embedded DIBS Easy Checkout integration in your Android application
+
+Detailed documentation can be found 
+[here](https://htmlpreview.github.io/?https://github.com/Nets-eCom/Nets-Easy-Android-SDK/blob/master/documentation/Start%20-%20Overview%20of%20MiA%20Android%20SDK.html).
 
 + **Nets Easy** technical documentation can be found [here](https://developers.nets.eu/nets-easy/en-EU/docs/web-integration/integrate-easy-checkout-on-your-website-embedded/)
 + **Nets Easy API documentation** can be found [here](https://developers.nets.eu/nets-easy/en-EU/api)
-+ **Easy - iOS SDK** can also be found [here](https://github.com/nets-ecom/Easy-iOS-SDK)
++ **Nets Easy - iOS SDK** can also be found [here](https://github.com/Nets-eCom/Nets-Easy-iOS-SDK)
 
 
 | ![](readme-files/pay_with_saved_card.gif) |  
@@ -17,7 +20,7 @@ MiA Easy Android SDK is a library which facilitates the Embedded DIBS Easy Check
 ----
 In your `build.gradle` application level file, add:
 ```gradle
-implementation('eu.nets.mia:mia-sdk:1.5.0') { transitive = true;}
+implementation('eu.nets.mia:mia-sdk:1.6.0') { transitive = true;}
 ```
     
 **Note:** the library is available through both `jcenter()` and `mavenCentral()` repositories.
@@ -41,14 +44,14 @@ These permissions are handled inside the binary, and your integration won't requ
 ![](readme-files/sample_screenshots.jpg)
 We have provided a [Sample Application](MiaSample/) to help you understand the use cases of the SDK functionalities. All you need to do is checkout the project and run it. Check our [Overview Documentation](documentation/) for best-practices to keep in mind when you build your integration.
 
-# High level architecture of the Easy SDK
+# High level architecture of the Nets Easy SDK
 ---
 The below picture illustrates the SDK and its interactions with the macro components of the integration's environment.
 ![](readme-files/mia_macro_elements.png)
 
 # Usage
 ----
-Assuming you have already created your backend integration towards `Easy Payment APIs`, the SDK can be launched by simply calling:
+Assuming you have already created your backend integration towards `Nets Easy Payment APIs`, the SDK can be launched by simply calling:
 ```kotlin
 /**
     *
