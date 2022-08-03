@@ -7,11 +7,11 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.Typeface
 import android.net.Uri
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 
-import android.support.v7.app.ActionBarDrawerToggle
+import androidx.appcompat.app.ActionBarDrawerToggle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.StyleSpan
@@ -19,6 +19,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
+import androidx.core.view.GravityCompat
 import eu.nets.mia.MiASDK
 import eu.nets.mia.data.MiAPaymentInfo
 import eu.nets.mia.data.MiAResult
@@ -189,7 +190,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
             }
 
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                SharedPrefs.getInstance().currency = spinnerAdapter.getItem(p2)
+                SharedPrefs.getInstance().currency = spinnerAdapter.getItem(p2)!!
             }
         }
 
@@ -209,7 +210,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
             }
 
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                SharedPrefs.getInstance().environmentType = environmentTypeAdapter.getItem(p2)
+                SharedPrefs.getInstance().environmentType = environmentTypeAdapter.getItem(p2)!!
                 APIManager.recreateInstance()
             }
         }
@@ -228,7 +229,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
             }
 
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                SharedPrefs.getInstance().integrationType = integrationTypeAdapter.getItem(p2)
+                SharedPrefs.getInstance().integrationType = integrationTypeAdapter.getItem(p2)!!
             }
         }
 
@@ -247,7 +248,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
             }
 
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                SharedPrefs.getInstance().consumerData = consumerDataAdapter.getItem(p2)
+                SharedPrefs.getInstance().consumerData = consumerDataAdapter.getItem(p2)!!
             }
         }
 
@@ -341,14 +342,14 @@ class MainActivity : AppCompatActivity(), MainActivityView {
 
         changeKeys.setOnClickListener {
             //close drawer first
-            drawerLayout.closeDrawer(Gravity.START)
+            drawerLayout.closeDrawer(GravityCompat.START)
             //make flag true; activity will be launched after the drawer is closed
             launchInputActivity = true
         }
         editProfile.setOnClickListener {
             profileSelected = true
             //close drawer first
-            drawerLayout.closeDrawer(Gravity.START)
+            drawerLayout.closeDrawer(GravityCompat.START)
             //make flag true; activity will be launched after the drawer is closed
             launchInputActivity = true
         }
@@ -439,7 +440,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
     //end
 
     override fun showProfileDataValidationDialog() {
-        val builder = android.support.v7.app.AlertDialog.Builder(this, R.style.AlertDialogTheme)
+        val builder = androidx.appcompat.app.AlertDialog.Builder(this, R.style.AlertDialogTheme)
 
         builder.setTitle(getString(R.string.update_profile_details))
         builder.setCancelable(false)

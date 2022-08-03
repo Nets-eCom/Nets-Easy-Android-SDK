@@ -64,7 +64,7 @@ class SharedPrefs {
 
     var currency: String
         get() {
-            return sharedPrefs.getString(currencyKey, MainActivity.CURRENCY_SEK)
+            return sharedPrefs.getString(currencyKey, MainActivity.CURRENCY_SEK)!!
         }
         set(value) {
             sharedPrefs.edit().putString(currencyKey, value).apply()
@@ -72,7 +72,7 @@ class SharedPrefs {
 
     var environmentType: String
         get() {
-            return sharedPrefs.getString(testModeKey, MainActivity.TEST)
+            return sharedPrefs.getString(testModeKey, MainActivity.TEST)!!
         }
         set(value) {
             sharedPrefs.edit().putString(testModeKey, value).apply()
@@ -88,84 +88,84 @@ class SharedPrefs {
 
     var integrationType: String
         get() {
-            return sharedPrefs.getString(integrationTypeKey, MainActivity.EASY_HOSTED_PAYMENT_WINDOW)
+            return sharedPrefs.getString(integrationTypeKey, MainActivity.EASY_HOSTED_PAYMENT_WINDOW)!!
         }
         set(value) {
             sharedPrefs.edit().putString(integrationTypeKey, value).apply()
         }
     var firstName: String
         get() {
-            return sharedPrefs.getString(firstNameKey, emptyString)
+            return sharedPrefs.getString(firstNameKey, emptyString)!!
         }
         set(value) {
             sharedPrefs.edit().putString(firstNameKey, value).apply()
         }
     var lastName: String
         get() {
-            return sharedPrefs.getString(lastNameKey, emptyString)
+            return sharedPrefs.getString(lastNameKey, emptyString)!!
         }
         set(value) {
             sharedPrefs.edit().putString(lastNameKey, value).apply()
         }
     var email: String
         get() {
-            return sharedPrefs.getString(emailKey, emptyString)
+            return sharedPrefs.getString(emailKey, emptyString)!!
         }
         set(value) {
             sharedPrefs.edit().putString(emailKey, value).apply()
         }
     var prefix: String
         get() {
-            return sharedPrefs.getString(prefixKey, emptyString)
+            return sharedPrefs.getString(prefixKey, emptyString)!!
         }
         set(value) {
             sharedPrefs.edit().putString(prefixKey, value).apply()
         }
     var phoneNumber: String
         get() {
-            return sharedPrefs.getString(phoneNumberKey, emptyString)
+            return sharedPrefs.getString(phoneNumberKey, emptyString)!!
         }
         set(value) {
             sharedPrefs.edit().putString(phoneNumberKey, value).apply()
         }
     var addressLineOne: String
         get() {
-            return sharedPrefs.getString(addressLineOneKey, emptyString)
+            return sharedPrefs.getString(addressLineOneKey, emptyString)!!
         }
         set(value) {
             sharedPrefs.edit().putString(addressLineOneKey, value).apply()
         }
     var addressLineTwo: String
         get() {
-            return sharedPrefs.getString(addressLineTwoKey, emptyString)
+            return sharedPrefs.getString(addressLineTwoKey, emptyString)!!
         }
         set(value) {
             sharedPrefs.edit().putString(addressLineTwoKey, value).apply()
         }
     var postalCode: String
         get() {
-            return sharedPrefs.getString(postalCodeKey, emptyString)
+            return sharedPrefs.getString(postalCodeKey, emptyString)!!
         }
         set(value) {
             sharedPrefs.edit().putString(postalCodeKey, value).apply()
         }
     var city: String
         get() {
-            return sharedPrefs.getString(cityKey, emptyString)
+            return sharedPrefs.getString(cityKey, emptyString)!!
         }
         set(value) {
             sharedPrefs.edit().putString(cityKey, value).apply()
         }
     var countryCode: String
         get() {
-            return sharedPrefs.getString(countryCodeKey, emptyString)
+            return sharedPrefs.getString(countryCodeKey, emptyString)!!
         }
         set(value) {
             sharedPrefs.edit().putString(countryCodeKey, value).apply()
         }
     var consumerData: String
         get() {
-            return sharedPrefs.getString(consumerDataKey, MainActivity.CONSUMER_DATA_NONE)
+            return sharedPrefs.getString(consumerDataKey, MainActivity.CONSUMER_DATA_NONE)!!
         }
         set(value) {
             sharedPrefs.edit().putString(consumerDataKey, value).apply()
@@ -173,7 +173,7 @@ class SharedPrefs {
 
     var subscriptionData: String
         get() {
-            return sharedPrefs.getString(subscriptionDataKey, emptyString)
+            return sharedPrefs.getString(subscriptionDataKey, emptyString)!!
         }
         set(value) {
             sharedPrefs.edit().putString(subscriptionDataKey, value).apply()

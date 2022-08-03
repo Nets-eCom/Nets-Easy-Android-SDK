@@ -1,6 +1,6 @@
 # Nets Easy - Android SDK v1.6.0
 ----
-![Logo](readme-files/NetsLogo.png)
+![Logo](readme-files/NetsLogo.jpg)
 
 MiA Nets Easy Android SDK is a library which facilitates the Embedded DIBS Easy Checkout integration in your Android application
 
@@ -20,7 +20,7 @@ Detailed documentation can be found
 ----
 In your `build.gradle` application level file, add:
 ```gradle
-implementation('eu.nets.mia:mia-sdk:1.6.0') { transitive = true;}
+implementation('eu.nets.mia:mia-sdk:1.6.1') { transitive = true;}
 ```
     
 **Note:** the library is available through both `jcenter()` and `mavenCentral()` repositories.
@@ -111,7 +111,7 @@ private fun addHeader(request: Request): Request {
 
 # Contact
 ----
-If you have any question or feedback, please contact us via email: [in-app-support@nets.eu](mailto:in-app-support@nets.eu)
+If you have any question or feedback, please contact us via email: [mobile-acceptance@nets.eu](mailto:mobile-acceptance@nets.eu)
 
 
 

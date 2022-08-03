@@ -34,7 +34,7 @@ class CurrencyAdapter(context: Context, textViewResId: Int, private var items: L
     /**
      * Configure the spinner preview item
      */
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
 
         var view: View? = convertView
         val viewHolder: ViewHolder

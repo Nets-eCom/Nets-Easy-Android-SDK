@@ -4,8 +4,8 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.View
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -55,7 +55,7 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionActivityView {
         chargeableAmount = intent.getLongExtra("ChargeableAmount", 0)
         createSubscription = intent.getBooleanExtra("CreateSubscription", false)
         if (intent.hasExtra("ChargeableCurrency"))
-            chargeableCurency = intent.getStringExtra("ChargeableCurrency")
+            chargeableCurency = intent.getStringExtra("ChargeableCurrency")!!
         mPresenter = SubscriptionActivityPresenterImpl(this)
         mPresenter.init()
         setupRecycler()
