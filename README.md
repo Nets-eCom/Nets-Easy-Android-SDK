@@ -7,7 +7,7 @@ MiA Nets Easy Android SDK is a library which facilitates the Embedded DIBS Easy 
 Detailed documentation can be found 
 [here](https://htmlpreview.github.io/?https://github.com/Nets-eCom/Nets-Easy-Android-SDK/blob/master/documentation/Start%20-%20Overview%20of%20MiA%20Android%20SDK.html).
 
-+ **Nets Easy** technical documentation can be found [here](https://developers.nets.eu/nets-easy/en-EU/docs/web-integration/integrate-easy-checkout-on-your-website-embedded/)
++ **Nets Easy** technical documentation can be found [here](https://developer.nexigroup.com/nexi-checkout/en-EU/docs/)
 + **Nets Easy API documentation** can be found [here](https://developers.nets.eu/nets-easy/en-EU/api)
 + **Nets Easy - iOS SDK** can also be found [here](https://github.com/Nets-eCom/Nets-Easy-iOS-SDK)
 
