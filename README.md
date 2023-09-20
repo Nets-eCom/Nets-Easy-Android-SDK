@@ -111,7 +111,7 @@ private fun addHeader(request: Request): Request {
 
 # Contact
 ----
-If you have any question or feedback, please contact us via email: [mobile-acceptance@nets.eu](mailto:mobile-acceptance@nets.eu)
+If you have any question or feedback, please contact us via email: [in-app-support@nets.eu](mailto:in-app-support@nets.eu)
 
 
 
