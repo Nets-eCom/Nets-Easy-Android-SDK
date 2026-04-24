@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import eu.nets.miasample.R
-import kotlinx.android.synthetic.main.spinner_preview_item.view.*
-import kotlinx.android.synthetic.main.spinner_dropdown_item.view.*
 
 /**
  *  *****Copyright (c) 2020 Nets Denmark A/S*****
@@ -42,7 +40,7 @@ class CurrencyAdapter(context: Context, textViewResId: Int, private var items: L
         if (view == null) {
             view = LayoutInflater.from(context).inflate(R.layout.spinner_preview_item, null)
             viewHolder = ViewHolder()
-            viewHolder.spinnerItem = view.currencyPreview
+            viewHolder.spinnerItem = view.findViewById(R.id.currencyPreview)
             viewHolder.spinnerItem.gravity = Gravity.START
         } else {
             viewHolder = view.tag as ViewHolder
@@ -65,7 +63,7 @@ class CurrencyAdapter(context: Context, textViewResId: Int, private var items: L
         if (view == null) {
             view = LayoutInflater.from(context).inflate(R.layout.spinner_dropdown_item, null)
             viewHolder = ViewHolder()
-            viewHolder.spinnerItem = view.currencyItem
+            viewHolder.spinnerItem = view.findViewById(R.id.currencyItem)
             viewHolder.spinnerItem.gravity = Gravity.CENTER
         } else {
             viewHolder = view.tag as ViewHolder

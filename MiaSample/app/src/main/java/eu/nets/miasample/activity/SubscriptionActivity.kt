@@ -7,6 +7,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.View
+import android.widget.Button
+import android.widget.ProgressBar
+import android.widget.RelativeLayout
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import eu.nets.mia.MiASDK
@@ -18,7 +23,6 @@ import eu.nets.miasample.adapter.SubscriptionAdapter
 import eu.nets.miasample.network.response.SubscriptionDetailsResponse
 import eu.nets.miasample.utils.SampleLocalHost
 import eu.nets.miasample.utils.SharedPrefs
-import kotlinx.android.synthetic.main.activity_subscription.*
 
 /**
  *  *****Copyright (c) 2020 Nets Denmark A/S*****
@@ -70,18 +74,20 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionActivityView {
         } else {
             try {
                 val modalType = object : TypeToken<List<SubscriptionDetailsResponse>>() {}.type
-                subscriptionDetailsList = Gson().fromJson<MutableList<SubscriptionDetailsResponse>>(subscriptionDetails, modalType)
+                subscriptionDetailsList = Gson().fromJson(subscriptionDetails, modalType)
             } catch (e: Exception) {
                 subscriptionDetailsList = mutableListOf()
             }
         }
-        val isEmptyList = (subscriptionDetailsList.size == 0)
-        recycler_view.visibility = if (isEmptyList) View.GONE else View.VISIBLE
-        tv_no_subs.visibility = if (isEmptyList) View.VISIBLE else View.GONE
-
-        recycler_view.layoutManager = LinearLayoutManager(this)
-        subscriptionAdapter = SubscriptionAdapter(subscriptionDetailsList, this)
-        recycler_view.adapter = subscriptionAdapter
+        findViewById<RecyclerView>(R.id.recycler_view).apply {
+            visibility = if (subscriptionDetailsList.isEmpty()) View.GONE else View.VISIBLE
+            layoutManager = LinearLayoutManager(this@SubscriptionActivity)
+            subscriptionAdapter =
+                SubscriptionAdapter(subscriptionDetailsList, this@SubscriptionActivity)
+            adapter = subscriptionAdapter
+        }
+        findViewById<TextView>(R.id.tv_no_subs).visibility =
+            if (subscriptionDetailsList.isEmpty()) View.VISIBLE else View.GONE
     }
 
     //activity lifecycle
@@ -132,9 +138,17 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionActivityView {
 
                     //user encountered and error and cannot proceed with the payment
                     MiAResultCode.RESULT_PAYMENT_FAILED -> {
-                        showAlert(getString(R.string.error_title), result.miaError?.getErrorMessage()
-                                ?: getString(R.string.error_message))
+                        showAlert(
+                            getString(R.string.error_title), result.miaError?.getErrorMessage()
+                                ?: getString(R.string.error_message)
+                        )
                     }
+
+                    null -> showAlert(
+                        getString(R.string.error_title),
+                        getString(R.string.error_message)
+                    )
+
                 }
             }
             return
@@ -143,23 +157,30 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionActivityView {
     }
 
     override fun initListeners() {
-        add_subscription.setOnClickListener {
+        findViewById<Button>(R.id.add_subscription).setOnClickListener {
             createSubscription()
         }
     }
 
-    override fun launchEasySDK(paymentId: String?, checkoutUrl: String?, returnUrl: String?, cancelUrl: String?) {
+    override fun launchEasySDK(
+        paymentId: String?,
+        checkoutUrl: String?,
+        returnUrl: String?,
+        cancelUrl: String?
+    ) {
         if (paymentId == null || checkoutUrl == null) {
             showAlert(getString(R.string.error_title), getString(R.string.error_message))
             return
         } else {
-            MiASDK.getInstance().startSDK(this, MiAPaymentInfo(paymentId, checkoutUrl, returnUrl, cancelUrl))
+            MiASDK.startSDK(this, MiAPaymentInfo(paymentId, checkoutUrl, returnUrl, cancelUrl))
         }
     }
 
     override fun showLoader(show: Boolean) {
-        rl_progressView.visibility = if (show) View.VISIBLE else View.GONE
-        if (show) rl_progressView.bringToFront()
+        findViewById<RelativeLayout>(R.id.rl_progressView)?.apply {
+            visibility = if (show) View.VISIBLE else View.GONE
+            if (show) bringToFront()
+        }
     }
 
     override fun getAmount(): Long {
@@ -183,8 +204,8 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionActivityView {
     }
 
     override fun updateList(subscriptionDetailsResponse: SubscriptionDetailsResponse) {
-        recycler_view.visibility = View.VISIBLE
-        tv_no_subs.visibility = View.GONE
+        findViewById<RecyclerView>(R.id.recycler_view).visibility = View.VISIBLE
+        findViewById<TextView>(R.id.tv_no_subs).visibility = View.GONE
         subscriptionDetailsList.add(0, subscriptionDetailsResponse)
         subscriptionAdapter.updateList(subscriptionDetailsList)
     }
@@ -197,7 +218,13 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionActivityView {
             if (isChargeable) {
                 builder.setTitle(getString(R.string.charge_subscription))
                 var amount = getAmount().toFloat() / 100
-                builder.setMessage(getString(R.string.charge_subscription_alert, amount, chargeableCurency))
+                builder.setMessage(
+                    getString(
+                        R.string.charge_subscription_alert,
+                        amount,
+                        chargeableCurency
+                    )
+                )
                 builder.setPositiveButton(getString(R.string.action_ok)) { p0, _ ->
                     run {
                         mPresenter.chargeSubscription(subscriptionId)
@@ -222,7 +249,13 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionActivityView {
             val builder = AlertDialog.Builder(this)
             builder.setTitle(getString(R.string.add_subscription))
             var amount = getAmount().toFloat() / 100
-            builder.setMessage(getString(R.string.create_subscription_alert, amount, chargeableCurency))
+            builder.setMessage(
+                getString(
+                    R.string.create_subscription_alert,
+                    amount,
+                    chargeableCurency
+                )
+            )
             builder.setPositiveButton(getString(R.string.add)) { p0, _ ->
                 run {
                     mPresenter.launchSDK()

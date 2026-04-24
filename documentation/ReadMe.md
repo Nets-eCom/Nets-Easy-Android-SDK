@@ -1,13 +1,13 @@
 # Nets Easy - Android SDK v1.6.2
 ----
-![Logo](readme-files/NetsLogo.png)
+![Logo](readme-files/NetsLogo.jpg)
 
 MiA Nets Easy Android SDK is a library which facilitates the Embedded DIBS Easy Checkout integration in your Android application
 
 Detailed documentation can be found 
 [here](https://htmlpreview.github.io/?https://github.com/Nets-eCom/Nets-Easy-Android-SDK/blob/master/documentation/Start%20-%20Overview%20of%20MiA%20Android%20SDK.html).
 
-+ **Nets Easy** technical documentation can be found [here](https://developer.nexigroup.com/nexi-checkout/en-EU/docs/)
++ **Nets Easy** technical documentation can be found [here](https://developers.nets.eu/nets-easy/en-EU/docs/web-integration/integrate-easy-checkout-on-your-website-embedded/)
 + **Nets Easy API documentation** can be found [here](https://developers.nets.eu/nets-easy/en-EU/api)
 + **Nets Easy - iOS SDK** can also be found [here](https://github.com/Nets-eCom/Nets-Easy-iOS-SDK)
 
@@ -20,7 +20,7 @@ Detailed documentation can be found
 ----
 In your `build.gradle` application level file, add:
 ```gradle
-implementation('eu.nets.mia:mia-sdk:1.6.2')
+implementation('eu.nets.mia:mia-sdk:1.6.2)
 ```
 
 # Requirements
@@ -58,7 +58,7 @@ Assuming you have already created your backend integration towards `Nets Easy Pa
     * @param returnUrl the return page url used in Create Payment API call
 */
 fun launchSDK(paymentId: String, checkoutUrl: String, returnUrl: String) {
-    MiASDK.getInstance().startSDK(this, MiAPaymentInfo(paymentId, checkoutUrl, returnUrl))
+    MiASDK.startSDK(this, MiAPaymentInfo(paymentId, checkoutUrl, returnUrl))
 }
 ```
 
@@ -109,7 +109,7 @@ private fun addHeader(request: Request): Request {
 
 # Contact
 ----
-If you have any question or feedback, please contact us via email: [in-app-support@nets.eu](mailto:in-app-support@nets.eu)
+If you have any question or feedback, please contact us via email: [mobile-acceptance@nets.eu](mailto:mobile-acceptance@nets.eu)
 
 
 

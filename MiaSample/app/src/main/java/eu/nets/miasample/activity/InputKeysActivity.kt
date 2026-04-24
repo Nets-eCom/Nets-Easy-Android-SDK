@@ -1,12 +1,16 @@
 package eu.nets.miasample.activity
 
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
+import android.widget.EditText
+import android.widget.ScrollView
+import android.widget.Spinner
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import eu.nets.miasample.R
 import eu.nets.miasample.activity.MainActivity.Companion.SCREEN_PROFILE
 import eu.nets.miasample.activity.MainActivity.Companion.SCREEN_SELECTED
@@ -15,8 +19,6 @@ import eu.nets.miasample.network.APIManager
 import eu.nets.miasample.utils.KeysProvider
 import eu.nets.miasample.utils.SharedPrefs
 import eu.nets.miasample.utils.Utilities
-import kotlinx.android.synthetic.main.activity_input_keys.*
-import kotlinx.android.synthetic.main.secret_keys_confirmation_layout.view.*
 
 /**
  *  *****Copyright (c) 2020 Nets Denmark A/S*****
@@ -65,34 +67,38 @@ class InputKeysActivity : AppCompatActivity(), InputKeysActivityView {
 
     private fun setProfileValues() {
         profileViewSelected = true
-        titleText.setText(R.string.profile)
-        secretKeysView.visibility = View.GONE
-        editProfileView.visibility = View.VISIBLE
-        firstName.setText(SharedPrefs.getInstance().firstName)
-        lastName.setText(SharedPrefs.getInstance().lastName)
-        email.setText(SharedPrefs.getInstance().email)
-        phonePrefix.setText(SharedPrefs.getInstance().prefix)
-        phoneNumber.setText(SharedPrefs.getInstance().phoneNumber)
-        addressLineOne.setText(SharedPrefs.getInstance().addressLineOne)
-        addressLineTwo.setText(SharedPrefs.getInstance().addressLineTwo)
-        postalCode.setText(SharedPrefs.getInstance().postalCode)
-        city.setText(SharedPrefs.getInstance().city)
+        findViewById<TextView>(R.id.titleText).setText(R.string.profile)
+        findViewById<ScrollView>(R.id.secretKeysView).visibility = View.GONE
+        findViewById<ScrollView>(R.id.editProfileView).visibility = View.VISIBLE
+        findViewById<EditText>(R.id.firstName).setText(SharedPrefs.getInstance().firstName)
+        findViewById<EditText>(R.id.lastName).setText(SharedPrefs.getInstance().lastName)
+        findViewById<EditText>(R.id.email).setText(SharedPrefs.getInstance().email)
+        findViewById<EditText>(R.id.phonePrefix).setText(SharedPrefs.getInstance().prefix)
+        findViewById<EditText>(R.id.phoneNumber).setText(SharedPrefs.getInstance().phoneNumber)
+        findViewById<EditText>(R.id.addressLineOne).setText(SharedPrefs.getInstance().addressLineOne)
+        findViewById<EditText>(R.id.addressLineTwo).setText(SharedPrefs.getInstance().addressLineTwo)
+        findViewById<EditText>(R.id.postalCode).setText(SharedPrefs.getInstance().postalCode)
+        findViewById<EditText>(R.id.city).setText(SharedPrefs.getInstance().city)
 
         val countryNameAdapter = CountryNameAdapter(this, Utilities.countryNameAndCodeList())
 
-        countrySpinner.adapter = countryNameAdapter
-        countrySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                //not required
-            }
+        findViewById<Spinner>(R.id.countrySpinner).run {
+            adapter = countryNameAdapter
+            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                    //not required
+                }
 
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                countryCode = Utilities.countryNameAndCodeList().get(p2).code.toString()
+                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                    countryCode = Utilities.countryNameAndCodeList().get(p2).code.toString()
+                }
             }
         }
         for (i in 0 until Utilities.countryNameAndCodeList().size) {
-            if (Utilities.countryNameAndCodeList().get(i).code.equals(SharedPrefs.getInstance().countryCode)) {
-                countrySpinner.setSelection(i)
+            if (Utilities.countryNameAndCodeList()
+                    .get(i).code.equals(SharedPrefs.getInstance().countryCode)
+            ) {
+                findViewById<Spinner>(R.id.countrySpinner).setSelection(i)
                 break
             }
         }
@@ -100,13 +106,21 @@ class InputKeysActivity : AppCompatActivity(), InputKeysActivityView {
 
     private fun setSecretKeyValues() {
         profileViewSelected = false
-        titleText.setText(R.string.secret_keys_title)
-        secretKeysView.visibility = View.VISIBLE
-        editProfileView.visibility = View.GONE
+        findViewById<TextView>(R.id.titleText).setText(R.string.secret_keys_title)
+        findViewById<ScrollView>(R.id.secretKeysView).visibility = View.VISIBLE
+        findViewById<ScrollView>(R.id.editProfileView).visibility = View.GONE
+        //section-start-to-remove-by-script class=finalStep
+        //disable input if not developer mode
+        listOf(R.id.testSecretKey, R.id.testCheckoutKey, R.id.prodSecretKey, R.id.prodCheckoutKey)
+            .forEach {
+                findViewById<EditText>(it).isEnabled = SharedPrefs.getInstance().developerMode
+            }
+        //section-end-to-remove-by-script
     }
 
     override fun validateProfileData(): Boolean {
-        if (!email.text.toString().isEmpty() && !Patterns.EMAIL_ADDRESS.matcher(email.text.toString()).matches()) {
+        val emailText = findViewById<TextView>(R.id.email).text.toString()
+        if (!emailText.isEmpty() && !Patterns.EMAIL_ADDRESS.matcher(emailText).matches()) {
             mPresenter.showValidationDialog(getString(R.string.add_valid_email_address))
             return false
         }
@@ -114,15 +128,19 @@ class InputKeysActivity : AppCompatActivity(), InputKeysActivityView {
     }
 
     override fun saveProfileData() {
-        SharedPrefs.getInstance().firstName = firstName.text.toString()
-        SharedPrefs.getInstance().lastName = lastName.text.toString()
-        SharedPrefs.getInstance().email = email.text.toString()
-        SharedPrefs.getInstance().prefix = phonePrefix.text.toString()
-        SharedPrefs.getInstance().phoneNumber = phoneNumber.text.toString()
-        SharedPrefs.getInstance().addressLineOne = addressLineOne.text.toString()
-        SharedPrefs.getInstance().addressLineTwo = addressLineTwo.text.toString()
-        SharedPrefs.getInstance().postalCode = postalCode.text.toString()
-        SharedPrefs.getInstance().city = city.text.toString()
+        SharedPrefs.getInstance().firstName = findViewById<EditText>(R.id.firstName).text.toString()
+        SharedPrefs.getInstance().lastName = findViewById<EditText>(R.id.lastName).text.toString()
+        SharedPrefs.getInstance().email = findViewById<EditText>(R.id.email).text.toString()
+        SharedPrefs.getInstance().prefix = findViewById<EditText>(R.id.phonePrefix).text.toString()
+        SharedPrefs.getInstance().phoneNumber =
+            findViewById<EditText>(R.id.phoneNumber).text.toString()
+        SharedPrefs.getInstance().addressLineOne =
+            findViewById<EditText>(R.id.addressLineOne).text.toString()
+        SharedPrefs.getInstance().addressLineTwo =
+            findViewById<EditText>(R.id.addressLineTwo).text.toString()
+        SharedPrefs.getInstance().postalCode =
+            findViewById<EditText>(R.id.postalCode).text.toString()
+        SharedPrefs.getInstance().city = findViewById<EditText>(R.id.city).text.toString()
         SharedPrefs.getInstance().countryCode = countryCode
     }
 
@@ -142,7 +160,7 @@ class InputKeysActivity : AppCompatActivity(), InputKeysActivityView {
      * Initialize views and listeners
      */
     override fun initListeners() {
-        actionSave.setOnClickListener {
+        findViewById<TextView>(R.id.actionSave).setOnClickListener {
             if (profileViewSelected) {
                 if (mPresenter?.validateProfileData() ?: false) {
                     mPresenter.saveProfileData()
@@ -153,7 +171,7 @@ class InputKeysActivity : AppCompatActivity(), InputKeysActivityView {
             }
         }
 
-        cancelOption.setOnClickListener {
+        findViewById<TextView>(R.id.cancelOption).setOnClickListener {
             onBackPressed() //push user back
         }
     }
@@ -162,10 +180,10 @@ class InputKeysActivity : AppCompatActivity(), InputKeysActivityView {
      * Fill the user saved  (or default values) into the fields
      */
     override fun showPreviousInput() {
-        testSecretKey.setText(KeysProvider.testSecretKey)
-        testCheckoutKey.setText(KeysProvider.testCheckoutKey)
-        prodSecretKey.setText(KeysProvider.prodSecretKey)
-        prodCheckoutKey.setText(KeysProvider.prodCheckoutKey)
+        findViewById<EditText>(R.id.testSecretKey).setText(KeysProvider.testSecretKey)
+        findViewById<EditText>(R.id.testCheckoutKey).setText(KeysProvider.testCheckoutKey)
+        findViewById<EditText>(R.id.prodSecretKey).setText(KeysProvider.prodSecretKey)
+        findViewById<EditText>(R.id.prodCheckoutKey).setText(KeysProvider.prodCheckoutKey)
     }
 
     override fun closeScreen() {
@@ -198,22 +216,27 @@ class InputKeysActivity : AppCompatActivity(), InputKeysActivityView {
         builder.setTitle(getString(R.string.new_configuration))
         builder.setCancelable(false)
 
-        val rootView = LayoutInflater.from(this).inflate(R.layout.secret_keys_confirmation_layout, null)
+        val rootView =
+            LayoutInflater.from(this).inflate(R.layout.secret_keys_confirmation_layout, null)
 
-        rootView.testSecretKey.text = testSecretKey.text.toString()
-        rootView.testCheckoutKey.text = testCheckoutKey.text.toString()
-        rootView.prodSecretKey.text = prodSecretKey.text.toString()
-        rootView.prodCheckoutKey.text = prodCheckoutKey.text.toString()
+        rootView.findViewById<TextView>(R.id.testSecretKey).text =
+            findViewById<EditText>(R.id.testSecretKey).text.toString()
+        rootView.findViewById<TextView>(R.id.testCheckoutKey).text =
+            findViewById<EditText>(R.id.testCheckoutKey).text.toString()
+        rootView.findViewById<TextView>(R.id.prodSecretKey).text =
+            findViewById<EditText>(R.id.prodSecretKey).text.toString()
+        rootView.findViewById<TextView>(R.id.prodCheckoutKey).text =
+            findViewById<EditText>(R.id.prodCheckoutKey).text.toString()
 
         builder.setView(rootView)
 
         builder.setPositiveButton(getString(R.string.confirm)) { p0, _ ->
             p0.cancel()
             mPresenter.saveKeys(
-                    testSecretKey.text.toString(),
-                    testCheckoutKey.text.toString(),
-                    prodSecretKey.text.toString(),
-                    prodCheckoutKey.text.toString()
+                findViewById<EditText>(R.id.testSecretKey).text.toString(),
+                findViewById<EditText>(R.id.testCheckoutKey).text.toString(),
+                findViewById<EditText>(R.id.prodSecretKey).text.toString(),
+                findViewById<EditText>(R.id.prodCheckoutKey).text.toString()
             )
             APIManager.recreateInstance()
             onBackPressed() //push user back

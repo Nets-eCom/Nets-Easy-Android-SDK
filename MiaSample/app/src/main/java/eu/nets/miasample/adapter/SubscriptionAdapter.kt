@@ -6,12 +6,13 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import eu.nets.miasample.R
 import eu.nets.miasample.activity.SubscriptionActivityView
 import eu.nets.miasample.network.response.SubscriptionDetailsResponse
 import eu.nets.miasample.utils.SharedPrefs
 import androidx.core.text.HtmlCompat
-import kotlinx.android.synthetic.main.subscription_row.view.*
 
 /**
  *  *****Copyright (c) 2020 Nets Denmark A/S*****
@@ -62,11 +63,11 @@ class SubscriptionAdapter(var subscriptionList: MutableList<SubscriptionDetailsR
 
     class SubscriptionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val tvCard_details = itemView.card_details
-        val tvCardExpiry = itemView.card_expiry
-        val tvSubscriptionId = itemView.subscription_id
-        val tvSubscriptionExpiry = itemView.subscription_expiry
-        val btnChargeSubscription = itemView.charge_subscription
+        val tvCard_details = itemView.findViewById<TextView>(R.id.card_details)
+        val tvCardExpiry = itemView.findViewById<TextView>(R.id.card_expiry)
+        val tvSubscriptionId = itemView.findViewById<TextView>(R.id.subscription_id)
+        val tvSubscriptionExpiry = itemView.findViewById<TextView>(R.id.subscription_expiry)
+        val btnChargeSubscription = itemView.findViewById<Button>(R.id.charge_subscription)
 
         fun setupSubscriptionRow(subscriptionData: SubscriptionDetailsResponse, isChargeable: Boolean, mView: SubscriptionActivityView) {
             try {

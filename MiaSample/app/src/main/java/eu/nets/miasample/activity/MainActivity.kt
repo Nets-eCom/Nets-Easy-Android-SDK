@@ -1,5 +1,7 @@
 package eu.nets.miasample.activity
 
+//section-start-to-remove-by-script class=finalStep
+//section-end-to-remove-by-script
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
@@ -7,19 +9,28 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.Typeface
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.provider.Settings
-
-import androidx.appcompat.app.ActionBarDrawerToggle
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
+import android.widget.Button
+import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import android.widget.Spinner
+import android.widget.TextView
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import eu.nets.mia.MiASDK
 import eu.nets.mia.data.MiAPaymentInfo
 import eu.nets.mia.data.MiAResult
@@ -29,12 +40,8 @@ import eu.nets.miasample.R
 import eu.nets.miasample.adapter.CurrencyAdapter
 import eu.nets.miasample.adapter.IntegrationTypeAdapter
 import eu.nets.miasample.network.APIManager
-import eu.nets.miasample.utils.SharedPrefs
-import kotlinx.android.synthetic.main.activity_main.*
-import java.lang.Exception
-import java.util.*
 import eu.nets.miasample.utils.SampleLocalHost
-import kotlinx.android.synthetic.main.profile_data_validation_layout.view.*
+import eu.nets.miasample.utils.SharedPrefs
 
 /**
  *  *****Copyright (c) 2020 Nets Denmark A/S*****
@@ -104,7 +111,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setSupportActionBar(toolbar)
+        setSupportActionBar(findViewById(R.id.toolbar))
 
         mPresenter = MainActivityPresenterImpl(this)
 
@@ -157,9 +164,16 @@ class MainActivity : AppCompatActivity(), MainActivityView {
                     }
                     //user encountered and error and cannot proceed with the payment
                     MiAResultCode.RESULT_PAYMENT_FAILED -> {
-                        showAlert(getString(R.string.error_title), result.miaError?.getErrorMessage()
-                                ?: getString(R.string.error_message))
+                        showAlert(
+                            getString(R.string.error_title), result.miaError?.getErrorMessage()
+                                ?: getString(R.string.error_message)
+                        )
                     }
+
+                    null -> showAlert(
+                        getString(R.string.error_title), getString(R.string.error_message)
+                    )
+
                 }
             }
 
@@ -174,95 +188,104 @@ class MainActivity : AppCompatActivity(), MainActivityView {
      * Initialize the views and listeners
      */
     override fun initListeners() {
-        val currencies: List<String> = ArrayList<String>(Arrays.asList(
-                CURRENCY_SEK,
-                CURRENCY_DKK,
-                CURRENCY_NOK,
-                CURRENCY_EUR
-        ))
+        val currencies: List<String> = ArrayList<String>(
+            listOf(CURRENCY_SEK, CURRENCY_DKK, CURRENCY_NOK, CURRENCY_EUR)
+        )
         val spinnerAdapter = CurrencyAdapter(this, android.R.layout.simple_spinner_item, currencies)
+        findViewById<Spinner>(R.id.currencySpinner).run {
+            adapter = spinnerAdapter
+            setSelection(spinnerAdapter.getPositionForItem(SharedPrefs.getInstance().currency))
+            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                    //not required
+                }
 
-        currencySpinner.adapter = spinnerAdapter
-        currencySpinner.setSelection(spinnerAdapter.getPositionForItem(SharedPrefs.getInstance().currency))
-        currencySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                //not required
+                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                    SharedPrefs.getInstance().currency = spinnerAdapter.getItem(p2)!!
+                }
             }
 
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                SharedPrefs.getInstance().currency = spinnerAdapter.getItem(p2)!!
-            }
+
         }
 
         //Environment spinner setup for internal use for including Pre-Prod environment
-        
+
         //Environment type spinner
-        val environmentTypes: List<String> = ArrayList<String>(Arrays.asList(
-                TEST, PRE_PROD, PROD
-        ))
-        val environmentTypeAdapter = IntegrationTypeAdapter(this, android.R.layout.simple_spinner_item, environmentTypes)
+        val environmentTypes: List<String> = ArrayList(listOf(TEST, PRE_PROD, PROD))
+        val environmentTypeAdapter =
+            IntegrationTypeAdapter(this, android.R.layout.simple_spinner_item, environmentTypes)
+        findViewById<Spinner>(R.id.environmentTypeSpinner).run {
+            adapter = environmentTypeAdapter
+            setSelection(environmentTypeAdapter.getPositionForItem(SharedPrefs.getInstance().environmentType))
+            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                    //not required
+                }
 
-        environmentTypeSpinner.adapter = environmentTypeAdapter
-        environmentTypeSpinner.setSelection(environmentTypeAdapter.getPositionForItem(SharedPrefs.getInstance().environmentType))
-        environmentTypeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                //not required
+                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                    SharedPrefs.getInstance().environmentType = environmentTypeAdapter.getItem(p2)!!
+                    APIManager.recreateInstance()
+                }
             }
 
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                SharedPrefs.getInstance().environmentType = environmentTypeAdapter.getItem(p2)!!
-                APIManager.recreateInstance()
-            }
         }
-
         //integration type spinner
-        val integrationTypes: List<String> = ArrayList<String>(Arrays.asList(
-                EASY_HOSTED_PAYMENT_WINDOW
-        ))
-        val integrationTypeAdapter = IntegrationTypeAdapter(this, android.R.layout.simple_spinner_item, integrationTypes)
+        val integrationTypes: List<String> = ArrayList(listOf(EASY_HOSTED_PAYMENT_WINDOW))
+        val integrationTypeAdapter =
+            IntegrationTypeAdapter(this, android.R.layout.simple_spinner_item, integrationTypes)
+        findViewById<Spinner>(R.id.integrationTypeSpinner).run {
+            adapter = integrationTypeAdapter
+            setSelection(integrationTypeAdapter.getPositionForItem(SharedPrefs.getInstance().integrationType))
+            onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onNothingSelected(p0: AdapterView<*>?) {
+                        //not required
+                    }
 
-        integrationTypeSpinner.adapter = integrationTypeAdapter
-        integrationTypeSpinner.setSelection(integrationTypeAdapter.getPositionForItem(SharedPrefs.getInstance().integrationType))
-        integrationTypeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                //not required
-            }
+                    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                        SharedPrefs.getInstance().integrationType =
+                            integrationTypeAdapter.getItem(p2)!!
+                    }
+                }
 
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                SharedPrefs.getInstance().integrationType = integrationTypeAdapter.getItem(p2)!!
-            }
         }
 
-        val consumerData: List<String> = ArrayList<String>(Arrays.asList(
+        val consumerData: List<String> = ArrayList<String>(
+            listOf(
                 CONSUMER_DATA_NONE,
                 CONSUMER_DATA_MERCHANT_INJECTED,
                 CONSUMER_DATA_NO_SHIPPING_ADDR
-        ))
-        val consumerDataAdapter = IntegrationTypeAdapter(this, android.R.layout.simple_spinner_item, consumerData)
+            )
+        )
+        val consumerDataAdapter =
+            IntegrationTypeAdapter(this, android.R.layout.simple_spinner_item, consumerData)
 
-        consumerDataSpinner.adapter = consumerDataAdapter
-        consumerDataSpinner.setSelection(consumerDataAdapter.getPositionForItem(SharedPrefs.getInstance().integrationType))
-        consumerDataSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                //not required
-            }
+        findViewById<Spinner>(R.id.consumerDataSpinner).run {
+            adapter = consumerDataAdapter
+            setSelection(consumerDataAdapter.getPositionForItem(SharedPrefs.getInstance().integrationType))
+            onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onNothingSelected(p0: AdapterView<*>?) {
+                        //not required
+                    }
 
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                SharedPrefs.getInstance().consumerData = consumerDataAdapter.getItem(p2)!!
-            }
+                    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                        SharedPrefs.getInstance().consumerData = consumerDataAdapter.getItem(p2)!!
+                    }
+                }
         }
 
-        btnBuy.setOnClickListener {
+        findViewById<Button>(R.id.btnBuy).setOnClickListener {
             if (mPresenter.validateProfileData()) {
                 mPresenter.launchSDK()
             }
         }
 
-        btnSubscribe.setOnClickListener {
+        findViewById<Button>(R.id.btnSubscribe).setOnClickListener {
             openSubscriptionsView(true)
         }
 
-        subscriptionView.setOnClickListener {
+        findViewById<LinearLayout>(R.id.subscriptionView).setOnClickListener {
             openSubscriptionsView(false)
         }
 
@@ -272,7 +295,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
             title = ""
         }
 
-        clearCache.setOnClickListener {
+        findViewById<TextView>(R.id.clearCache).setOnClickListener {
             try {
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle(getString(R.string.clear_cache_cookies))
@@ -280,7 +303,10 @@ class MainActivity : AppCompatActivity(), MainActivityView {
                 builder.setPositiveButton(getString(R.string.action_settings)) { p0, _ ->
                     p0?.dismiss()
                     //redirect the user to app settings
-                    val myAppSettings = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:$packageName"))
+                    val myAppSettings = Intent(
+                        Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                        Uri.parse("package:$packageName")
+                    )
                     myAppSettings.addCategory(Intent.CATEGORY_DEFAULT)
                     startActivity(myAppSettings)
                 }
@@ -290,12 +316,21 @@ class MainActivity : AppCompatActivity(), MainActivityView {
                 e.printStackTrace()
             }
         }
+        val drawerLayout = findViewById<DrawerLayout>(R.id.drawerLayout)
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
 
-        drawerToggle = object : ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.action_open, R.string.action_close) {
+        drawerToggle = object : ActionBarDrawerToggle(
+            this,
+            drawerLayout,
+            toolbar,
+            R.string.action_open,
+            R.string.action_close
+        ) {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 super.onDrawerSlide(drawerView, slideOffset)
                 //push root view to the right when drawer is opening
-                rootView.translationX = slideOffset * drawerView.width
+                findViewById<RelativeLayout>(R.id.rootView).translationX =
+                    slideOffset * drawerView.width
                 drawerLayout.bringChildToFront(drawerView)
                 drawerLayout.requestLayout()
                 //remove the drawer shadow
@@ -324,29 +359,38 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         drawerLayout.addDrawerListener(drawerToggle)
         drawerToggle.isDrawerIndicatorEnabled = true
         drawerToggle.syncState()
-        drawerToggle.drawerArrowDrawable.mutate().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN)
+        drawerToggle.drawerArrowDrawable.mutate()
+            .setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN)
 
         //set old user configuration visible
+        val switchChargePayment = findViewById<SwitchCompat>(R.id.switchChargePayment)
         switchChargePayment.isChecked = SharedPrefs.getInstance().chargePayment
 
         //setup nav drawer items listeners
-        val versionText = "${MiASDK.getInstance().getVersionName()} (${MiASDK.getInstance().getTechnicalVersion()})"
+        val versionText = "${MiASDK.getVersionName()} (${
+            MiASDK.getTechnicalVersion()
+        })"
         val span = SpannableString(versionText)
         //apply BOLD span on the version name
-        span.setSpan(StyleSpan(Typeface.BOLD), 0, MiASDK.getInstance().getVersionName().length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        fieldVersion.text = span
+        span.setSpan(
+            StyleSpan(Typeface.BOLD),
+            0,
+            MiASDK.getVersionName().length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        findViewById<TextView>(R.id.fieldVersion).text = span
 
         switchChargePayment.setOnCheckedChangeListener { _, checked ->
             SharedPrefs.getInstance().chargePayment = checked
         }
 
-        changeKeys.setOnClickListener {
+        findViewById<TextView>(R.id.changeKeys).setOnClickListener {
             //close drawer first
             drawerLayout.closeDrawer(GravityCompat.START)
             //make flag true; activity will be launched after the drawer is closed
             launchInputActivity = true
         }
-        editProfile.setOnClickListener {
+        findViewById<TextView>(R.id.editProfile).setOnClickListener {
             profileSelected = true
             //close drawer first
             drawerLayout.closeDrawer(GravityCompat.START)
@@ -382,12 +426,17 @@ class MainActivity : AppCompatActivity(), MainActivityView {
      * @param returnUrl the return url of success case when Integration Type is Easy Hosted Checkout
      * @param cancelUrl the url that you would want to redirect to in case of cancel.
      */
-    override fun launchEasySDK(paymentId: String?, checkoutUrl: String?, returnUrl: String?, cancelUrl: String?) {
+    override fun launchEasySDK(
+        paymentId: String?,
+        checkoutUrl: String?,
+        returnUrl: String?,
+        cancelUrl: String?
+    ) {
         if (paymentId == null || checkoutUrl == null) {
             showAlert(getString(R.string.error_title), getString(R.string.error_message))
             return
         } else if (validateAmount()) {
-            MiASDK.getInstance().startSDK(this, MiAPaymentInfo(paymentId, checkoutUrl, returnUrl, cancelUrl))
+            MiASDK.startSDK(this, MiAPaymentInfo(paymentId, checkoutUrl, returnUrl, cancelUrl))
         }
     }
 
@@ -397,8 +446,10 @@ class MainActivity : AppCompatActivity(), MainActivityView {
      * @param show boolean flag to show loader or to hide it
      */
     override fun showLoader(show: Boolean) {
-        progressView.visibility = if (show) View.VISIBLE else View.GONE
-        if (show) progressView.bringToFront()
+        findViewById<RelativeLayout>(R.id.progressView).run {
+            visibility = if (show) View.VISIBLE else View.GONE
+            if (show) bringToFront()
+        }
     }
 
     /**
@@ -407,7 +458,8 @@ class MainActivity : AppCompatActivity(), MainActivityView {
      * @return amount of the order
      */
     override fun getAmount(): Long {
-        val amountString: String = if (amountEditText.text.isEmpty()) "0" else amountEditText.text.toString()
+        val amountString: String =
+            findViewById<EditText>(R.id.amountEditText).text.ifEmpty { "0" }.toString()
         return (amountString.toDouble() * 100).toLong()
     }
 
@@ -445,44 +497,63 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         builder.setTitle(getString(R.string.update_profile_details))
         builder.setCancelable(false)
 
-        val rootView = LayoutInflater.from(this).inflate(R.layout.profile_data_validation_layout, null)
+        val rootView =
+            LayoutInflater.from(this).inflate(R.layout.profile_data_validation_layout, null)
 
         if (SharedPrefs.getInstance().consumerData.equals(CONSUMER_DATA_MERCHANT_INJECTED)) {
-            mPresenter.setTextView(SharedPrefs.getInstance().firstName,
-                    rootView.profileFirstNameLabel,
-                    getString(R.string.asterisk) + " " + getString(R.string.first_name))
+            mPresenter.setTextView(
+                SharedPrefs.getInstance().firstName,
+                rootView.findViewById(R.id.profileFirstNameLabel),
+                getString(R.string.asterisk) + " " + getString(R.string.first_name)
+            )
 
-            mPresenter.setTextView(SharedPrefs.getInstance().lastName,
-                    rootView.profileLastNameLabel,
-                    getString(R.string.asterisk) + " " + getString(R.string.last_name))
+            mPresenter.setTextView(
+                SharedPrefs.getInstance().lastName,
+                rootView.findViewById(R.id.profileLastNameLabel),
+                getString(R.string.asterisk) + " " + getString(R.string.last_name)
+            )
 
-            mPresenter.setTextView(SharedPrefs.getInstance().prefix,
-                    rootView.profilePrefixLabel,
-                    getString(R.string.asterisk) + " " + getString(R.string.prefix))
+            mPresenter.setTextView(
+                SharedPrefs.getInstance().prefix,
+                rootView.findViewById(R.id.profilePrefixLabel),
+                getString(R.string.asterisk) + " " + getString(R.string.prefix)
+            )
 
-            mPresenter.setTextView(SharedPrefs.getInstance().phoneNumber,
-                    rootView.profileMobileNumberLabel,
-                    getString(R.string.asterisk) + " " + getString(R.string.mobile_number))
+            mPresenter.setTextView(
+                SharedPrefs.getInstance().phoneNumber,
+                rootView.findViewById(R.id.profileMobileNumberLabel),
+                getString(R.string.asterisk) + " " + getString(R.string.mobile_number)
+            )
 
-            mPresenter.setTextView(SharedPrefs.getInstance().addressLineOne,
-                    rootView.profileAddressLabel,
-                    getString(R.string.asterisk) + " " + getString(R.string.address_line_1))
+            mPresenter.setTextView(
+                SharedPrefs.getInstance().addressLineOne,
+                rootView.findViewById(R.id.profileAddressLabel),
+                getString(R.string.asterisk) + " " + getString(R.string.address_line_1)
+            )
 
-            mPresenter.setTextView(SharedPrefs.getInstance().city,
-                    rootView.profileCityLabel,
-                    getString(R.string.asterisk) + " " + getString(R.string.city))
+            mPresenter.setTextView(
+                SharedPrefs.getInstance().city,
+                rootView.findViewById(R.id.profileCityLabel),
+                getString(R.string.asterisk) + " " + getString(R.string.city)
+            )
 
-            mPresenter.setTextView(SharedPrefs.getInstance().countryCode,
-                    rootView.profileCountryLabel,
-                    getString(R.string.asterisk) + " " + getString(R.string.country))
+            mPresenter.setTextView(
+                SharedPrefs.getInstance().countryCode,
+                rootView.findViewById(R.id.profileCountryLabel),
+                getString(R.string.asterisk) + " " + getString(R.string.country)
+            )
         }
-        mPresenter.setTextView(SharedPrefs.getInstance().postalCode,
-                rootView.profilePostalCodeLabel,
-                getString(R.string.asterisk) + " " + getString(R.string.postal_code))
+        mPresenter.setTextView(
+            SharedPrefs.getInstance().postalCode,
+            rootView.findViewById(R.id.profilePostalCodeLabel),
+            getString(R.string.asterisk) + " " + getString(R.string.postal_code)
+        )
 
-        mPresenter.setTextView(SharedPrefs.getInstance().email,
-                rootView.profileEmailLabel,
-                getString(R.string.asterisk) + " " + getString(R.string.email))
+        mPresenter.setTextView(
+            SharedPrefs.getInstance().email,
+            rootView.findViewById(R.id.profileEmailLabel),
+            getString(R.string.asterisk) + " " + getString(R.string.email)
+        )
 
         builder.setView(rootView)
 

@@ -1,0 +1,76 @@
+
+@startuml
+skinparam backgroundColor transparent
+actor "User"
+skinparam BoxPadding 30
+box "Mobile device" #LightCyan
+activate "3rd party app" #gold
+activate "Nets Easy SDK" #cyan
+end box
+box "Merchant backend" #LightCyan
+activate "Merchant mobile backend" #gold
+activate "Webshop" #cyan
+end box
+box "Payment service provider" #LightCyan
+activate "Nets Easy checkout" #gold
+activate "Nets Easy backend" #cyan
+end box
+activate "3DS" #gold
+
+group Transaction initialization
+"User" -> "3rd party app": Add item to cart
+"3rd party app"->"Merchant mobile backend": Generate **paymentId**
+"Merchant mobile backend"->"Webshop": Call **/registerPayment** to generate **paymentId**
+"Webshop"->"Nets Easy checkout": Call **/payment** to generate **paymentId**
+"Nets Easy backend"->"Nets Easy checkout": Return **paymentId**
+"Webshop"->"Merchant mobile backend": Return and store **checkoutUrl** of HTML \npage and **paymentId**
+"Merchant mobile backend"->"3rd party app": Return **paymentId** and **checkoutUrl** \nof checkout HTML page
+end
+
+group Start payment
+"User" -> "3rd party app": Click Buy button
+"3rd party app"->"Nets Easy SDK": Launch SDK with **paymentId** and **checkoutUrl**
+"Nets Easy SDK"->"Webshop": Load **checkoutUrl** in WebView
+"Webshop"->"Nets Easy checkout": Load Nets Easy checkout in iframe
+...
+"User"->"Nets Easy checkout": Select payment \nmethod & fills required data
+"User"->"Nets Easy checkout": Click Pay
+
+group Option: 
+"Nets Easy checkout"-->"Webshop": "Pay-initialized" Javascript event to the Merchant
+"Webshop"-->"Nets Easy checkout": Send "payment-order-finalized" Javascript event with **true** or **false**
+note over "Webshop": true: the payment will continue,\nfalse: an error message is shown to the consumer
+end
+
+"Nets Easy checkout"->"3DS": Redirect 3DS 
+...
+"User"->"Nets Easy checkout": Handle 3DS process  
+"Nets Easy checkout"->"3DS": Complete 3DS process
+"3DS"->"Webshop": Redirect back to merchant store
+end
+
+group Process payment
+"Webshop"->"Webshop": Reload **checkoutUrl** page
+"Webshop"->"Nets Easy checkout": Load Nets Easy checkout in iframe
+"Nets Easy checkout"-->"Webshop": Send "payment-completed" Javascript event
+"Webshop"->"Nets Easy SDK": Payment processing is done
+"Nets Easy SDK"->"3rd party app": Return payment result
+end
+
+group Complete payment
+"3rd party app"->"Merchant mobile backend": Charge payment
+"Merchant mobile backend"->"Webshop": Charge payment
+"Webshop"->"Nets Easy checkout": **/charge** API call with **paymentId**
+"Nets Easy backend"->"Webshop": Result OK
+"Webshop"->"Merchant mobile backend": Transaction OK
+"Merchant mobile backend"->"3rd party app": Transaction OK
+"3rd party app"->"User": Transaction approved
+note over "3rd party app": Show payment details, receipt, and payment confirmation
+end
+
+deactivate "Nets Easy backend"
+deactivate "Webshop"
+deactivate "Merchant mobile backend"
+deactivate "Nets Easy SDK"
+deactivate "3rd party app"
+@enduml

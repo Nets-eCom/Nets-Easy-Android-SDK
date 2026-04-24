@@ -179,6 +179,9 @@ class SharedPrefs {
             sharedPrefs.edit().putString(subscriptionDataKey, value).apply()
         }
 
+    //section-start-to-remove-by-script class=finalStep
+    var developerMode: Boolean = true
+    //section-end-to-remove-by-script
 
 
 }
