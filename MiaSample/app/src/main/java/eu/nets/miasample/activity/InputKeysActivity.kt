@@ -109,13 +109,6 @@ class InputKeysActivity : AppCompatActivity(), InputKeysActivityView {
         findViewById<TextView>(R.id.titleText).setText(R.string.secret_keys_title)
         findViewById<ScrollView>(R.id.secretKeysView).visibility = View.VISIBLE
         findViewById<ScrollView>(R.id.editProfileView).visibility = View.GONE
-        //section-start-to-remove-by-script class=finalStep
-        //disable input if not developer mode
-        listOf(R.id.testSecretKey, R.id.testCheckoutKey, R.id.prodSecretKey, R.id.prodCheckoutKey)
-            .forEach {
-                findViewById<EditText>(it).isEnabled = SharedPrefs.getInstance().developerMode
-            }
-        //section-end-to-remove-by-script
     }
 
     override fun validateProfileData(): Boolean {

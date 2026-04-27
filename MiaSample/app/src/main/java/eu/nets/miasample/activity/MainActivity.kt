@@ -1,7 +1,5 @@
 package eu.nets.miasample.activity
 
-//section-start-to-remove-by-script class=finalStep
-//section-end-to-remove-by-script
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
@@ -10,11 +8,9 @@ import android.graphics.PorterDuff
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
 import android.provider.Settings
 import android.text.Spannable
 import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
