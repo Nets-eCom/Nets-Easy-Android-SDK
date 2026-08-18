@@ -12,7 +12,6 @@ Detailed documentation can be found
 + **Nets Easy - iOS SDK** can also be found [here](https://github.com/Nets-eCom/Nets-Easy-iOS-SDK)
 
 
-| ![](readme-files/pay_with_saved_card.gif) |  
 | --- |
 
 
