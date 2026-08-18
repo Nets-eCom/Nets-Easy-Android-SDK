@@ -39,8 +39,7 @@ These permissions are handled inside the binary, and your integration won't requ
 
 # Examples
 ----
-![](readme-files/sample_screenshots.jpg)
-We have provided a [Sample Application](MiaSample/) to help you understand the use cases of the SDK functionalities. All you need to do is checkout the project and run it. Check our [Overview Documentation](documentation/) for best-practices to keep in mind when you build your integration.
+Check our [Overview Documentation](documentation/) for best-practices to keep in mind when you build your integration.
 
 # High level architecture of the Nets Easy SDK
 ---

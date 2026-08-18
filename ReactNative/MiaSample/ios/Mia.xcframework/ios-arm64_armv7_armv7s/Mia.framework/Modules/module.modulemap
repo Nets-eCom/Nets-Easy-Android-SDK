@@ -1,6 +1,0 @@
-framework module Mia {
-  umbrella header "Mia.h"
-
-  export *
-  module * { export * }
-}

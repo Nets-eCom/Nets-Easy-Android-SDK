@@ -290,7 +290,6 @@ Apart from the standard checkout, <strong>Nets Easy</strong> supports prefilling
 	<span class="hljs-variable"><span class="hljs-keyword">val</span> hostedPaymentPageUrl</span>: String 
 }	
 	
-<span class="hljs-comment">// E.g. subscription creation request. See MiaSample app for more</span>	
 <span class="hljs-keyword">@POST(<span class="hljs-string">"v1/payments"</span>)</span>
 <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">createSubscription</span><span class="hljs-params">(</span></span>
 	<span class="hljs-keyword">@Body(<span class="hljs-variable">body: RegisterPaymentRequest</span></span> 
@@ -324,7 +323,6 @@ For recurring payments chargeable at any given time (with no regular interval), 
 	<span class="hljs-variable"><span class="hljs-keyword">val</span> id</span>: String 
 }		
 	
-<span class="hljs-comment">// E.g. payment (for subscription) request. See MiaSample app for more</span>	
 <span class="hljs-keyword">@POST(<span class="hljs-string">"v1/payments/{PAYMENT_ID}"</span>)</span>
 <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">fetchSubscriptionPayment</span><span class="hljs-params">(</span></span>
 	<span class="hljs-keyword">@Path(<span class="hljs-string">"PAYMENT_ID"</span>) <span class="hljs-variable">paymentId: String</span></span> 
@@ -343,7 +341,6 @@ For recurring payments chargeable at any given time (with no regular interval), 
 	<span class="hljs-variable"><span class="hljs-keyword">val</span> paymentDetails</span>: PaymentDetails 
 }	
 
-<span class="hljs-comment">//  E.g. subscription details fetch request. See MiaSample app for more</span>	
 <span class="hljs-keyword">@POST(<span class="hljs-string">"v1/subscriptions/{SUBSCRIPTIONID}"</span>)</span>
 <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">fetchSubscriptionDetails</span><span class="hljs-params">(</span></span>
 	<span class="hljs-keyword">@Path(<span class="hljs-string">"SUBSCRIPTIONID"</span>) <span class="hljs-variable">subscriptionId: String</span></span> 
@@ -367,7 +364,6 @@ For recurring payments chargeable at any given time (with no regular interval), 
 	<span class="hljs-variable"><span class="hljs-keyword">val</span> paymentId</span>: String 
 }	
 	
-<span class="hljs-comment">// E.g. charge request. See MiaSample app for more</span>	
 <span class="hljs-keyword">@POST(<span class="hljs-string">"v1/subscriptions/{SUBSCRIPTIONID}/charges"</span>)</span>
 <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">chargeSubscription</span><span class="hljs-params">(</span></span>
 	<span class="hljs-keyword">@Path(<span class="hljs-string">"SUBSCRIPTIONID"</span>) <span class="hljs-variable">subscriptionId: String</span></span> 
@@ -393,7 +389,6 @@ For recurring payments chargeable at any given time (with no regular interval), 
 
 <p>After creating a subscription, merchant is responsible for storing and managing the subscription.</p>
 
-<p>(Note that the MiaSample app stores subscriptions in the device for demo purposes but we recommend your app backend for storage)</p>
 
 <h1><a id="error-codes-handling"></a>Error codes handling</h1>
 <hr>
